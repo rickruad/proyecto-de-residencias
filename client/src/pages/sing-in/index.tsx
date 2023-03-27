@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import { useLoginAuthenticationOutsidePage, useLogin } from '@/hooks/Server';
 
-import Axios from 'axios';
+import axios from 'axios';
 import classNames from 'classnames';
 
 import Head from '@/components/Head';
-import UserStatus from '@/hooks/UserStatus'
 
 import styles from '@/styles/login.module.css';
 
@@ -14,50 +14,43 @@ export default function Home() {
   const [error, setError] = useState('');
   const [display, setDisplay] = useState(false);
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
   };
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
   };
 
-  UserStatus.OutsidePage();
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  useLoginAuthenticationOutsidePage();
+  
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (email.length <= 0 || password.length <= 0) {
       setDisplay(!display);
       setError('No se han rellenado todos los datos')
     } else {
-      Axios.post('http://localhost:3001/api/sing-in', { email: email, password: password }).then((response) => {
+      axios.post('http://localhost:3001/api/sing-in', { email: email, password: password }).then((response) => {
         if (response.data.message) {
-          setError(response.data.message);
           setDisplay(!display);
+          setError(response.data.message);
         } else {
-          window.location.href = '../';
+          window.location.href = './';
         }
-      });
+      })
     }
   }
 
-  function register() {
+  const register = () => {
     window.location.href = './sing-up/';
   }
 
-  function hideMessage() {
+  const hideMessage = () => {
     setDisplay(!display);
   }
 
   return <>
-    <Head
-      title='Login'
-      description=''
-      ogUrl=''
-      ogTitle=''
-      ogDescription=''
-      ogImage=''
-    />
+    <Head title='Login' />
 
     <div className={styles.backgroundLogin} />
 

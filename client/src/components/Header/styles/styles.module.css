@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 
     margin: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -10,7 +10,6 @@
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
     background-color: #FFFFFF;
     border-radius: 8px;
-    gap: 1rem;
 
     position: relative;
     z-index: 2;
@@ -27,7 +26,28 @@
     transition: all .3s;
 }
 
-.container .button {
+.container div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.container div a .image {
+    position: relative;
+    z-index: 2;
+    width: 2rem;
+    height: 2rem;
+    
+    transition: all .3s;
+}
+
+.container div a .list {
+    width: 1.65rem;
+}
+
+.container div .button {
     position: absolute;
     top: 0.55rem;
     right: 0.9rem;
@@ -41,7 +61,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.container .user {
+.container div .user {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,7 +78,7 @@
     font-weight: 700;
 }
 
-.container .backgroundClosedMenu {
+.container div .backgroundClosedMenu {
     position: fixed;
     top: 0rem;
     right: 0rem;
@@ -70,12 +90,12 @@
     z-index: 1;
 }
 
-.container .backgroundOpenMenu {
+.container div .backgroundOpenMenu {
     display: block;
     z-index: 3;
 }
 
-.container .closedMenu {
+.container div .closedMenu {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -94,7 +114,7 @@
     transition: all 0.2s;
 }
 
-.container .closedMenu h3 {
+.container div .closedMenu h3 {
     font-family: Louis George Cafe;
     font-style: normal;
     font-weight: 700;
@@ -105,13 +125,13 @@
     display: none;
 }
 
-.container .closedMenu div {
+.container div .closedMenu div {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.container .closedMenu div button {
+.container div .closedMenu div button {
     font-family: Louis George Cafe;
     padding: 0.5rem;
     font-style: normal;
@@ -130,12 +150,12 @@
     white-space: nowrap;
 }
 
-.container .closedMenu div button:hover {
+.container div .closedMenu div button:hover {
     border-color: rgba(0, 0, 0, 1);
     color: rgba(255, 255, 255, 1);
 }
 
-.container .openMenu {
+.container div .openMenu {
     top: 4.3rem;
     right: 0rem;
     opacity: 1;
@@ -144,16 +164,16 @@
     z-index: 7;
 }
 
-.container .openMenu h3 {
+.container div .openMenu h3 {
     display: block;
 }
 
-.container .openMenu div button {
+.container div .openMenu div button {
     display: block;
 }
 
 @media (min-width: 80rem) {
-    .container .closedMenu {
+    .container div .closedMenu {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -172,7 +192,7 @@
         transition: all 0.2s;
     }
 
-    .container .closedMenu h3 {
+    .container div .closedMenu h3 {
         font-size: 1.2rem;
         font-family: Louis George Cafe;
         font-style: normal;
@@ -183,13 +203,13 @@
         display: none;
     }
 
-    .container .closedMenu div {
+    .container div .closedMenu div {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
     }
 
-    .container .closedMenu div button {
+    .container div .closedMenu div button {
         font-family: Louis George Cafe;
         padding: 0.3rem;
         font-style: normal;
@@ -210,7 +230,7 @@
         cursor: pointer;
     }
 
-    .container .openMenu {
+    .container div .openMenu {
         top: 4rem;
         right: 0rem;
         opacity: 1;
@@ -219,11 +239,11 @@
         z-index: 7;
     }
 
-    .container .openMenu h3 {
+    .container div .openMenu h3 {
         display: block;
     }
 
-    .container .openMenu div button {
+    .container div .openMenu div button {
         display: block;
     }
 }

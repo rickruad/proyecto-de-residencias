@@ -1,23 +1,16 @@
 import { useState } from 'react';
 import { ToAcronym, ToCapitalLetter } from '@/hooks/AuxiliarFunctions';
 
-import axios from 'axios';
+import Server from '@/hooks/Server';
+
 import Image from 'next/image';
 import classNames from 'classnames';
 
 import styles from './styles/styles.module.css';
 
 export default function Header() {
+  const { username } = Server.useUserInformation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [username, setUsername] = useState('')
-
-  axios.post('http://localhost:3001/api/user').then((response) => {
-    if (response.data.message == 'USER ERROR') {
-      setUsername(response.data.message);
-    } else {
-      setUsername(response.data[0].username);
-    }
-  })
 
   function openMenu() {
     setIsMenuOpen(!isMenuOpen);
@@ -25,11 +18,6 @@ export default function Header() {
 
   function accountInformation() {
     window.location.href = './account-information/'
-  }
-
-  function logout() {
-    axios.post('http://localhost:3001/api/sing-out');
-    window.location.href = './sing-in/';
   }
 
   return <header className={styles.container}>
@@ -66,7 +54,7 @@ export default function Header() {
         <h3>{ToCapitalLetter({ username })}</h3>
         <div>
           <button onClick={accountInformation}>Información de la cuenta</button>
-          <button onClick={logout}>Cerrar sesión</button>
+          <button onClick={Server.logout}>Cerrar sesión</button>
         </div>
       </nav>
     </div>

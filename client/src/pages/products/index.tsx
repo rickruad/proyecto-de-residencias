@@ -1,11 +1,11 @@
-import Server from '@/API/Server';
+import Server from '@/hooks/Server';
 
 import Head from '@/components/Head';
 import Header from '@/components/Header';
 
 export default function Home() {
 
-  Server.LoginAuthenticationInsidePage();
+  Server.useLoginAuthenticationInsidePage();
 
   return <>
     <Head title='Productos' />

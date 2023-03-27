@@ -77,6 +77,7 @@ app.post('/api/sing-out', (req, res) => {
             console.log(err);
           } else {
             console.log(updateResult);
+            res.send({ message: 'Success' });
           }
         });
       } else {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Server from '@/API/Server';
+import Server from '@/hooks/Server';
 
 import WindowDimensions from '@/hooks/WindowDimensions'
 
@@ -22,7 +22,7 @@ const CarouselContainer = styled.div<{ position: number }>`
 `;
 
 export default function Home() {
-  const serverStatus = Server.IsOnline();
+  const serverStatus = Server.useIsOnline();
 
   const [position, setPosition] = useState(0);
   const [lessLength, setLessLength] = useState(0);
@@ -32,7 +32,7 @@ export default function Home() {
 
   const cardsHTML = [];
 
-  Server.LoginAuthenticationInsidePage();
+  Server.useLoginAuthenticationInsidePage();
 
   useEffect(() => {
     setLessLength(windowWidth >= 1280 ? 1 : 0)

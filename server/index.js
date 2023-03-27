@@ -20,19 +20,21 @@ const db = mysql.createConnection({
 db.connect();
 
 app.post('/api/sing-up', (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
   const username = req.body.username;
   const birthdate = req.body.birthdate;
+  const email = req.body.email;
+  const password = req.body.password;
 
   const insertData = (idToTry) => {
-    db.query("INSERT INTO users (id, email, password, username, birthdate) VALUES (?,?,?,?,?)", [idToTry, email, password, username, birthdate], (err, result) => {
+    db.query("INSERT INTO users (id, username, birthdate, email, password) VALUES (?,?,?,?,?)", [idToTry, username, birthdate, email, password], (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
           insertData(parseInt(idToTry) + 1);
         } else {
           console.log(err);
         }
+      } else {
+        res.send({ message: 'Cuenta registrada con éxito' });
       }
     });
   }
@@ -60,7 +62,7 @@ app.post('/api/sing-in', (req, res) => {
         console.log(result);
       } else {
         res.send({ message: "Email o contraseña incorrecta" });
-        console.log(result);
+        console.log('Email o contraseña incorrecta');
       }
     }
   });

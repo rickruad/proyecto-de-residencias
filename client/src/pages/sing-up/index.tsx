@@ -1,7 +1,8 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { useLoginAuthenticationOutsidePage, register } from '@/hooks/Server';
 
 import classNames from 'classnames';
+
+import Server from '@/hooks/Server';
 
 import Head from '@/components/Head';
 
@@ -14,7 +15,7 @@ export default function Home() {
   const [birthdate, setBirthdate] = useState('');
   const [display, setDisplay] = useState(false);
 
-  useLoginAuthenticationOutsidePage();
+  Server.useLoginAuthenticationOutsidePage();
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -37,7 +38,7 @@ export default function Home() {
     if (email.length <= 0 || password.length <= 0 || username.length <= 0 || birthdate.length <= 0) {
       setDisplay(!display);
     } else {
-      register({ username: username, birthdate: birthdate, email: email, password: password });
+      Server.register({ username: username, birthdate: birthdate, email: email, password: password });
       window.location.href = './sing-in/';
     }
   };

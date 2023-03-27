@@ -1,8 +1,9 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { useLoginAuthenticationOutsidePage, useLogin } from '@/hooks/Server';
 
 import axios from 'axios';
 import classNames from 'classnames';
+
+import Server from '@/hooks/Server';
 
 import Head from '@/components/Head';
 
@@ -22,7 +23,7 @@ export default function Home() {
     setPassword(event.target.value)
   };
 
-  useLoginAuthenticationOutsidePage();
+  Server.useLoginAuthenticationOutsidePage();
   
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import UserStatus from '@/hooks/UserStatus';
-import ServerStatus from '@/hooks/ServerStatus';
+import Server from '@/API/Server';
+
 import WindowDimensions from '@/hooks/WindowDimensions'
 
 import Image from 'next/image'
@@ -22,7 +22,7 @@ const CarouselContainer = styled.div<{ position: number }>`
 `;
 
 export default function Home() {
-  const serverStatus = ServerStatus.ItsOnline();
+  const serverStatus = Server.IsOnline();
 
   const [position, setPosition] = useState(0);
   const [lessLength, setLessLength] = useState(0);
@@ -32,7 +32,7 @@ export default function Home() {
 
   const cardsHTML = [];
 
-  UserStatus.InsidePage();
+  Server.LoginAuthenticationInsidePage();
 
   useEffect(() => {
     setLessLength(windowWidth >= 1280 ? 1 : 0)
@@ -65,7 +65,7 @@ export default function Home() {
 
   const productsPage = () => {
     if (typeof window !== 'undefined') {
-      window.location.href = '#';
+      window.location.href = './products';
     }
   }
 

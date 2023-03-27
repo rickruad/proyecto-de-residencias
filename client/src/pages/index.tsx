@@ -1,46 +1,38 @@
-import ServerStatus from '@/hooks/ServerStatus';
-import UserStatus from '@/hooks/UserStatus';
-
-import styled from 'styled-components';
-
 import { useState, useEffect } from 'react';
 
-import Image from 'next/image'
-
+import UserStatus from '@/hooks/UserStatus';
+import ServerStatus from '@/hooks/ServerStatus';
 import WindowDimensions from '@/hooks/WindowDimensions'
 
-import Header from '@/components/Header'
+import Image from 'next/image'
+import classNames from 'classnames';
+import styled from 'styled-components';
 
 import Head from '@/components/Head';
+import Header from '@/components/Header'
 
 import styles from '@/styles/home.module.css';
-
-const images = ['cinepolis.jpg', 'cinemex.jpg', 'cfe-internet.jpg', 'omnibus-mexico.png'];
 
 const ServerStatusSection = styled.section<{ display: string }>`
   display: ${props => props.display};
 `
 
-const CardContainerMove = styled.div<{ position: number }>`
+const CarouselContainer = styled.div<{ position: number }>`
   transform: translateX(${props => props.position}%);
 `;
 
 export default function Home() {
   const serverStatus = ServerStatus.ItsOnline();
-  const windowWidth = WindowDimensions.useWindowWidth();
-  const webSectionHTML = [];
+
   const [position, setPosition] = useState(0);
-  const [newPosition, setNewPosition] = useState(0);
   const [lessLength, setLessLength] = useState(0);
+  const [newPosition, setNewPosition] = useState(0);
+  const windowWidth = WindowDimensions.useWindowWidth();
+  const images = ['cinepolis.jpg', 'cinemex.jpg', 'cfe-internet.jpg', 'omnibus-mexico.png'];
+
   const cardsHTML = [];
 
   UserStatus.InsidePage();
-
-  for (let i = 0; i < 2; i++) {
-    webSectionHTML.push(
-      <div className={styles.card} key={i}></div>
-    )
-  }
 
   useEffect(() => {
     setLessLength(windowWidth >= 1280 ? 1 : 0)
@@ -53,7 +45,7 @@ export default function Home() {
 
     return () => clearInterval(interval);
 
-  }, [position, lessLength, windowWidth]);
+  }, [position, lessLength, windowWidth, images.length]);
 
   for (let i = 0; i < images.length; i++) {
     cardsHTML.push(
@@ -71,6 +63,18 @@ export default function Home() {
     )
   }
 
+  const productsPage = () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '#';
+    }
+  }
+
+  const servicesPage = () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '#';
+    }
+  }
+
   return <>
     <Head title='Proyecto de Residencias' />
 
@@ -82,10 +86,19 @@ export default function Home() {
 
     <section className={styles.carouselSection}>
       <div>
-        <CardContainerMove position={newPosition} className={styles.cardContainerStyle}>{cardsHTML}</CardContainerMove>
+        <CarouselContainer position={newPosition} className={styles.carouselContainer}>{cardsHTML}</CarouselContainer>
       </div>
     </section>
 
-    <section className={styles.webSections}>{webSectionHTML}</section>
+    <section className={styles.webSections}>
+      <div>
+        <h3>Productos</h3>
+        <div onClick={productsPage} className={classNames(styles.card, styles.products)}></div>
+      </div>
+      <div>
+        <h3>Servicios</h3>
+        <div onClick={servicesPage} className={classNames(styles.card, styles.services)}></div>
+      </div>
+    </section>
   </>
 }

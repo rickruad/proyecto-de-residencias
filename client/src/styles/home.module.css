@@ -32,7 +32,7 @@
     width: 400%;
 }
 
-.cardContainerStyle {
+.carouselContainer {
     width: auto;
 
     display: flex;
@@ -42,7 +42,7 @@
     transition: all 1s;
 }
 
-.cardContainerStyle .card .image {
+.carouselContainer .card .image {
     border-radius: 8px;
     width: 100%;
     height: auto;
@@ -58,12 +58,51 @@
     padding: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
-.webSections .card {
-    height: 10rem;
+.webSections div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.webSections div h3 {
+    background-color: #FFFFFF;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+    text-align: center;
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.webSections div .card {
+    height: 12rem;
     width: 100%;
     background-color: #FFFFFF;
     border-radius: 8px;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.webSections div .card:hover {
+    transform: scale(1.015);
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.5);
+}
+
+.webSections div .products {
+    background-image: url(/img/products.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.webSections div .services {
+    background-image: url(/img/services.jpg);
+    background-position: center;
+    background-size: cover;
 }
 
 @media (min-width: 80rem) {
@@ -90,7 +129,7 @@
         padding: 1rem;
     }
     
-    .cardContainerStyle {
+    .carouselContainer {
         width: auto;
     
         box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0)!important;
@@ -107,14 +146,14 @@
         transition: all 1s;
     }
 
-    .cardContainerStyle .card {
+    .carouselContainer .card {
         box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0)!important;
         padding: 0rem!important;
         background-color: transparent!important;
         border-radius: 0px!important;
     }
     
-    .cardContainerStyle .card .image {
+    .carouselContainer .card .image {
         border-radius: 8px;
         width: 100%;
         height: auto;
@@ -132,8 +171,24 @@
         flex-wrap: wrap;
     }
 
-    .webSections .card {
-        width: 46%;
+    .webSections div {
+        width: 49%;
+    }
+
+    .webSections div h3 {
+        background-color: #FFFFFF;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+        padding: 0.5rem;
+        text-align: center;
+        font-family: Louis George Cafe;
+        font-style: normal;
+        font-weight: 700;
+    }
+
+    .webSections div .card {
+        width: 100%;
         height: 15rem;
     }
 }

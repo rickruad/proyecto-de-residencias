@@ -1,0 +1,26 @@
+/* light */
+@font-face {
+	font-family: Louis George Cafe;
+	font-style: normal;
+	font-weight: 300;
+	src: local("Louis George Cafe Light"), local("Louis-George-Cafe-Light"), url(louis-george-cafe-light.woff2) format("woff2");
+	font-display: swap;
+}
+
+/* regular */
+@font-face {
+	font-family: Louis George Cafe;
+	font-style: normal;
+	font-weight: 400;
+	src: local("Louis George Cafe Regular"), local("Louis-George-Cafe-Regular"), url(louis-george-cafe.woff2) format("woff2");
+	font-display: swap;
+}
+
+/* bold */
+@font-face {
+	font-family: Louis George Cafe;
+	font-style: normal;
+	font-weight: 700;
+	src: local("Louis George Cafe Bold"), local("Louis-George-Cafe-Bold"), url(louis-george-cafe-bold.woff2) format("woff2");
+	font-display: swap;
+}

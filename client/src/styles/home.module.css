@@ -1,0 +1,139 @@
+.serverStatusStyles {
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8333C;
+    margin: 0rem 0.5rem 0.5rem 0.5rem;
+    max-width: 100%;
+    padding: 0.7rem 1rem;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.serverStatusStyles h2{
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.carouselSection {
+    display: flex;
+    margin: 0rem 0.5rem 0.5rem 0.5rem;
+}
+
+.carouselSection div {
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    width: 400%;
+}
+
+.cardContainerStyle {
+    width: auto;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+
+    transition: all 1s;
+}
+
+.cardContainerStyle .card .image {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+}
+
+.webSections {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    width: 100%;
+    height: auto;
+    padding: 0rem 0.5rem 0.5rem 0.5rem;
+}
+
+.webSections .card {
+    height: 10rem;
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 80rem) {
+    .carouselSection {
+        margin: 0rem 0.5rem 0.5rem 0.5rem;
+    
+        display: flex;
+    
+        padding: 1rem;
+    
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    
+        background-color: #FFFFFF;
+        border-radius: 8px;
+    }
+    
+    .carouselSection div {
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    
+        overflow: hidden;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        width: 200%;
+        padding: 1rem;
+    }
+    
+    .cardContainerStyle {
+        width: auto;
+    
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0)!important;
+        padding: 0rem!important;
+        background-color: transparent!important;
+        border-radius: 0px!important;
+    
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+    
+        gap: 1rem;
+    
+        transition: all 1s;
+    }
+
+    .cardContainerStyle .card {
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0)!important;
+        padding: 0rem!important;
+        background-color: transparent!important;
+        border-radius: 0px!important;
+    }
+    
+    .cardContainerStyle .card .image {
+        border-radius: 8px;
+        width: 100%;
+        height: auto;
+    }
+
+    .webSections {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.5rem;
+    
+        height: auto;
+        padding: 0.5rem;
+
+        flex-wrap: wrap;
+    }
+
+    .webSections .card {
+        width: 46%;
+        height: 15rem;
+    }
+}

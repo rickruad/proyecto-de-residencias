@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    margin: auto;
+
+    max-width: 80rem;
+
+    background-color: #DEDEDE;
+
+    transition: background-color 0.3s;
+}

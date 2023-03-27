@@ -1,0 +1,157 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 80rem;
+    height: 100vh;
+}
+
+.container section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    margin: 0.5rem;
+    width: 100%;
+}
+
+.container section h2 {
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+}
+
+.container section form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.container section form div h4 {
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+
+}
+
+.container section form div input {
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+    padding: 0.2rem;
+    font-weight: 400;
+    border-radius: 6px;
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
+}
+
+.container section button {
+    margin-top: 1rem;
+
+    font-family: Louis George Cafe;
+    padding: 0.3rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #191919;
+    background: #191919;
+    width: 100%;
+  
+    cursor: pointer;
+  
+    transition: all .5s;
+}
+
+.container section button:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.container .background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.8)
+}
+
+.container .backgroundDisplay {
+    display: block;
+}
+
+.container .errorMessage {
+    display: none;
+    position: absolute;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    margin: 0.5rem;
+}
+
+.container .errorMessage h3 {
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+}
+
+.container .errorMessage button {
+    margin-top: 1rem;
+    font-family: Louis George Cafe;
+    padding: 0.3rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #191919;
+    background: #191919;
+    width: 100%;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.container .errorMessage button:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.container .errorMessageDisplay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 40rem) {
+    .container section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        background: #FFFFFF;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        margin: 0.5rem;
+        width: 40rem;
+    }
+}

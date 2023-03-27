@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ToAcronym, ToCapitalLetter } from '@/hooks/AuxiliarFunctions';
 
-import Server from '@/hooks/Server';
-
 import Image from 'next/image';
 import classNames from 'classnames';
+
+import Server from '@/hooks/Server';
 
 import styles from './styles/styles.module.css';
 
@@ -12,11 +12,11 @@ export default function Header() {
   const { username } = Server.useUserInformation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  function openMenu() {
+  const openMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  function accountInformation() {
+  const accountInformation = () => {
     window.location.href = './account-information/'
   }
 

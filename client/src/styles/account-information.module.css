@@ -229,34 +229,6 @@
     text-align: center;
 }
 
-.container .userAdministration .loadAccounts {
-    font-family: Louis George Cafe;
-    padding: 0.5rem;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #191919;
-    background: #191919;
-    cursor: pointer;
-    transition: all .5s;
-}
-
-.container .userAdministration .loadAccounts:hover {
-    color: rgba(255, 255, 255, 1);
-}
-
-.container .userAdministration .hideLoadAccounts {
-    display: none;
-}
-
-.container .userAdministration .showLoadAccounts {
-    display: block;
-}
-
 .container .userAdministration div {
     display: block;
     background-color: #071013;

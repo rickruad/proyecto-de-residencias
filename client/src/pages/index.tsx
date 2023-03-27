@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 
-import Server from '@/hooks/Server';
-
-import WindowDimensions from '@/hooks/WindowDimensions'
-
 import Image from 'next/image'
 import classNames from 'classnames';
 import styled from 'styled-components';
+
+import Server from '@/hooks/Server';
+import WindowDimensions from '@/hooks/WindowDimensions'
 
 import Head from '@/components/Head';
 import Header from '@/components/Header'

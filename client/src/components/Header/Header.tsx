@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ToAcronym, ToCapitalLetter } from '@/hooks/AuxiliarFunctions';
+import AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
 import Image from 'next/image';
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ import Server from '@/hooks/Server';
 import styles from './styles/styles.module.css';
 
 export default function Header() {
-  const { username } = Server.useUserInformation();
+  const { username } = Server.useActualUserInformation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const openMenu = () => {
@@ -48,10 +48,10 @@ export default function Header() {
       </a>
 
       <button className={styles.button} onClick={openMenu} />
-      <h2 className={styles.user}>{ToAcronym({ username })}</h2>
+      <h2 className={styles.user}>{AuxiliarFunctions.ToAcronym({ username })}</h2>
       <div className={classNames(styles.backgroundClosedMenu, isMenuOpen ? styles.backgroundOpenMenu : null)} onClick={openMenu} />
       <nav className={classNames(styles.closedMenu, isMenuOpen ? styles.openMenu : null)}>
-        <h3>{ToCapitalLetter({ username })}</h3>
+        <h3>{AuxiliarFunctions.ToCapitalLetter({ username })}</h3>
         <div>
           <button onClick={accountInformation}>Información de la cuenta</button>
           <button onClick={Server.logout}>Cerrar sesión</button>

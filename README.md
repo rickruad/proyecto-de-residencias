@@ -15,7 +15,7 @@ $ git clone https://github.com/rickruad/proyecto-de-residencias
 ```bash
 $ cd ./proyecto-de-residencias/
 ```
-4. En este directorio, se va a instalar los módulos del servidor, haga
+4. En este directorio vamos a instalar los módulos del servidor, ejecute el siguiente comando
 ```bash
 $ npm install
 ```

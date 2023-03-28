@@ -1,5 +1,5 @@
 import AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 import Server from '@/hooks/Server';
 
@@ -9,19 +9,47 @@ import classNames from 'classnames';
 import styles from '@/styles/account-information.module.css'
 
 export default function Home() {
-  const { username, email, birthdate, admin } = Server.useActualUserInformation();
+  const { username, password, email, birthdate, admin } = Server.useActualUserInformation();
   const { length, usernames, emails, admins } = Server.useAllUsersInformation();
+  const [newUsername, setNewUsername] = useState(username);
+  const [newEmail, setNewEmail] = useState(email);
+  const [newPassword, setNewPassword] = useState(password);
+  const [newBirthdate, setNewBirthdate] = useState(birthdate);
   const [display, setDisplay] = useState(false);
   const accountsHTML = [];
 
   Server.useLoginAuthenticationInsidePage();
 
-  const editUsername = () => {
+  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewUsername(event.target.value);
+  }
+
+  const handleBirthdateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewBirthdate(event.target.value);
+  };
+
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(event.target.value);
+  };
+
+  const editInfo = () => {
     setDisplay(!display);
   };
 
   const saveUsername = () => {
-    setDisplay(!display);
+    if (newUsername == '') {
+      Server.updateUser({ email: email, password: password, username: username, birthdate: birthdate, actualEmail: email })
+    } else {
+      Server.updateUser({ email: email, password: password, username: newUsername, birthdate: birthdate, actualEmail: email })
+    }
+
+    if (typeof window !== 'undefined') {
+      window.location.href = './account-information/';
+    }
   }
 
   for (let i = 1; i < length; i++) {
@@ -38,7 +66,7 @@ export default function Home() {
     accountsHTML.push(
       <div key={i} className={styles.account}>
         <div className={styles.userInfoAccount}>
-          <h4>{`${ AuxiliarFunctions.ToCapitalLetter({ username: usernames[i] }) } (${emails[i]})`}</h4>
+          <h4>{`${AuxiliarFunctions.ToCapitalLetter({ username: usernames[i] })} (${emails[i]})`}</h4>
         </div>
         <div className={styles.userInfoActions}>
           <h4 onClick={promoteUser} className={classNames(admins[i] == 1 ? styles.hideh4 : null)}>Promover</h4>
@@ -56,12 +84,33 @@ export default function Home() {
         <div>
           <h2>{AuxiliarFunctions.ToAcronym({ username })}</h2>
           <h1 className={classNames(styles.username, display ? styles.hideUsername : styles.showUsername)}>{AuxiliarFunctions.ToCapitalLetter({ username })}</h1>
-          <input className={classNames(styles.input, display ? styles.showInput : styles.hideInput)} type="text" />
         </div>
+      </section>
+
+      <div className={classNames(styles.background, display ? styles.showBackground : styles.hideBackground)}></div>
+      <section className={classNames(styles.editInfo, display ? styles.showEditInfo : styles.hideEditInfo)}>
+        <h3>Cambia tu información</h3>
         <div>
-          <button onClick={editUsername} className={classNames(styles.button, display ? styles.hideButton : styles.showButton)}>Editar nombre</button>
-          <button onClick={editUsername} className={classNames(styles.button, display ? styles.showButton : styles.hideButton)}>Cancelar</button>
-          <button onClick={saveUsername} className={classNames(styles.button, display ? styles.showButton : styles.hideButton)}>Guardar</button>
+          <div>
+            <h4>Nombre completo</h4>
+            <input type="text" value={newUsername} onChange={handleUsernameChange} />
+          </div>
+          <div>
+            <h4>Fecha de nacimiento</h4>
+            <input type="date" value={newBirthdate} onChange={handleBirthdateChange} />
+          </div>
+          <div>
+            <h4>Email</h4>
+            <input type="email" value={newEmail} onChange={handleEmailChange} />
+          </div>
+          <div>
+            <h4>Contraseña</h4>
+            <input type="text" value={newPassword} onChange={handlePasswordChange} />
+          </div>
+          <div className={styles.buttons}>
+            <button onClick={editInfo}>Cancelar</button>
+            <button>Guardar</button>
+          </div>
         </div>
       </section>
 
@@ -69,7 +118,7 @@ export default function Home() {
         <div className={styles.userInfo}>
           <div className={styles.userInfoEdit}>
             <h2>Información del usuario</h2>
-            <button>Editar información</button>
+            <button onClick={editInfo}>Editar información</button>
           </div>
           <div>
             <h3>{`E-Mail: ${email}`}</h3>
@@ -84,6 +133,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section className={classNames(styles.userAdministration, admin == 0 ? styles.hideUserAdministration : null)}>
         <h2>Administración de cuentas</h2>
         <div>{accountsHTML}</div>

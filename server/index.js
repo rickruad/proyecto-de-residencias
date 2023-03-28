@@ -104,20 +104,6 @@ app.post('/api/user', (req, res) => {
   });
 });
 
-app.post('/api/user-status', (req, res) => {
-  db.query("SELECT * FROM users WHERE status = '1'", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      if (result.length > 0) {
-        res.send({ message: 1 });
-      } else {
-        res.send({ message: 0 });
-      }
-    }
-  });
-});
-
 app.post('/api/users', (req, res) => {
   db.query("SELECT * FROM users", (err, result) => {
     if (err) {
@@ -131,6 +117,20 @@ app.post('/api/users', (req, res) => {
     }
   })
 })
+
+app.post('/api/user-status', (req, res) => {
+  db.query("SELECT * FROM users WHERE status = '1'", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (result.length > 0) {
+        res.send({ message: 1 });
+      } else {
+        res.send({ message: 0 });
+      }
+    }
+  });
+});
 
 app.post('/api/delete-user', (req, res) => {
   const username = req.body.username;
@@ -148,6 +148,22 @@ app.post('/api/promote-user', (req, res) => {
   db.query("UPDATE users SET admin = '1' WHERE username = ? ", [username], (err, result) => {
     if (err) {
       console.log(err);
+    }
+  })
+})
+
+app.post('/api/update-user', (req, res) => {
+  const actualEmail = req.body.actualEmail;
+  const email = req.body.email;
+  const password = req.body.password;
+  const username = req.body.username;
+  const birthdate = req.body.birthdate;
+
+  db.query("UPDATE users SET email = ?, password = ?, username = ?, birthdate = ? WHERE email = ?", [email, password, username, birthdate, actualEmail], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ message: 'Actualizado los valores correctamente' });
     }
   })
 })

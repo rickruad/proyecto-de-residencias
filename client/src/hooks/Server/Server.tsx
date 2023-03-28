@@ -2,6 +2,14 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
+interface updateUserProps {
+  email: string,
+  password: string,
+  username: string,
+  birthdate: string,
+  actualEmail: string
+};
+
 export const useIsOnline = () => {
   const [serverStatus, setServerStatus] = useState(null)
 
@@ -162,6 +170,10 @@ export const promoteUser = ({ username }: { username: string }) => {
   return axios.post('http://localhost:3001/api/promote-user', { username: username });
 }
 
+export const updateUser = ({ email, password, username, birthdate, actualEmail }: updateUserProps) => {
+  return axios.post('http://localhost:3001/api/update-user', { email: email, password: password, username: username, birthdate: birthdate, actualEmail: actualEmail })
+}
+
 const Server = {
   useIsOnline,
   register,
@@ -172,7 +184,8 @@ const Server = {
   useActualUserInformation,
   useAllUsersInformation,
   deleteUser,
-  promoteUser
+  promoteUser,
+  updateUser
 };
 
 export default Server;

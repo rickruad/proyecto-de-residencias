@@ -151,59 +151,6 @@
     font-weight: 700;
 }
 
-.container .usernameSection div .showUsername {
-    display: block;
-}
-
-.container .usernameSection div .hideUsername {
-    display: none;
-}
-
-.container .usernameSection div .input {
-    padding: 0.5rem;
-    border-radius: 8px;
-    font-family: Louis George Cafe;
-    font-weight: 700;
-    font-size: 1rem;
-    font-style: normal;
-}
-
-.container .usernameSection div .showInput {
-    display: block;
-}
-
-.container .usernameSection div .hideInput {
-    display: none;
-}
-
-.container .usernameSection div .button {
-    font-family: Louis George Cafe;
-    padding: 0.5rem;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #191919;
-    background: #191919;
-    cursor: pointer;
-    transition: all .5s;
-}
-
-.container .usernameSection div .button:hover {
-    color: rgba(255, 255, 255, 1);
-}
-
-.container .usernameSection div .showButton {
-    display: block;
-}
-
-.container .usernameSection div .hideButton {
-    display: none;
-}
-
 .container .informationSection {
     display: flex;
     flex-direction: row;

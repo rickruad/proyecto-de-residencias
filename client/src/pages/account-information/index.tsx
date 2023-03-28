@@ -83,7 +83,7 @@ export default function Home() {
       <section className={styles.usernameSection}>
         <div>
           <h2>{AuxiliarFunctions.ToAcronym({ username })}</h2>
-          <h1 className={classNames(styles.username, display ? styles.hideUsername : styles.showUsername)}>{AuxiliarFunctions.ToCapitalLetter({ username })}</h1>
+          <h1 className={styles.username}>{AuxiliarFunctions.ToCapitalLetter({ username })}</h1>
         </div>
       </section>
 

@@ -11,7 +11,5 @@ export default function Home() {
     <Head title='Productos' />
 
     <Header />
-
-    <h1>Hola Mundo</h1>
   </>
 }

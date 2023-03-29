@@ -4,6 +4,7 @@ Este es un proyecto realizado en React con NextJS y TypeScript
 - Tener instalado git.
 - Tener instalado MySQL Workbench con MySQL Server.
 > En la instalación de MySQL Workbench, al momento de llegar a la configuración del MySQL Server, en el apartado de métodos de autenticación, seleccione la opción "Use Legacy Authentication Method", puesto que el módulo MySQL para React no soporta aún el nuevo método de autenticación.
+- Tener instalado Node.js
 - Tener instalado Visual Studio Code o algún otro editor de código.
 ## Cómo ejecutar este proyecto
 > Aclaración, antes de realizar todos estos pasos, deberá crear un schema en MySQL Workbench y dentro del schema crear una tabla llamada "users". Recomiendo nombrar al schema como "proyecto-de-residencias".

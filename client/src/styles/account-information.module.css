@@ -16,6 +16,8 @@
 }
 
 .editInfo {
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     padding: 2rem;
     background-color: #FFFFFF;
@@ -30,12 +32,20 @@
     font-style: normal;
     font-weight: 700;
     text-align: center;
+}
+
+.editInfo h4 {
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
     margin-bottom: 0.5rem;
 }
 
 .editInfo div {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 0.5rem;
 }
 
@@ -50,6 +60,7 @@
     font-style: normal;
     font-weight: 700;
     text-align: start;
+    color: #000000;
 }
 
 .editInfo div div input {
@@ -95,10 +106,59 @@
 }
 
 .showEditInfo {
-    display: block;
+    display: flex;
 }
 
 .hideEditInfo {
+    display: none;
+}
+
+.errorMessage {
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 0.5rem;
+    z-index: 5;
+}
+
+.errorMessage h2 {
+    font-family: Louis George Cafe;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+}
+
+.errorMessage button {
+    font-family: Louis George Cafe;
+    padding: 0.3rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #191919;
+    background: #191919;
+    width: 100%;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.errorMessage button:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.showErrorMessage {
+    display: flex;
+}
+
+.hideErrorMessage {
     display: none;
 }
 

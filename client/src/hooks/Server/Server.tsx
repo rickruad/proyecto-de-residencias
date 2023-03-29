@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-interface updateUserProps {
+interface useUpdateUserProps {
+  id: number,
   email: string,
   password: string,
   username: string,
-  birthdate: string,
-  actualEmail: string
+  birthdate: string
 };
 
 export const useIsOnline = () => {
@@ -86,6 +86,7 @@ export const useLoginAuthenticationOutsidePage = () => {
 }
 
 export const useActualUserInformation = () => {
+  const [id, setId] = useState(0);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -101,6 +102,7 @@ export const useActualUserInformation = () => {
         setPassword(response.data.message);
         setBirthdate(response.data.message);
       } else {
+        setId(response.data[0].id);
         setUsername(response.data[0].username);
         setEmail(response.data[0].email);
         setPassword(response.data[0].password);
@@ -112,6 +114,7 @@ export const useActualUserInformation = () => {
   }, []);
 
   return {
+    id,
     username,
     email,
     password,
@@ -123,9 +126,10 @@ export const useActualUserInformation = () => {
 
 export const useAllUsersInformation = () => {
   const [length, setLength] = useState(0);
-  const [usernames, setUsernames] = useState<string[]>(['']);
+  const [ids, setIds] = useState<number[]>([0]);
   const [emails, setEmails] = useState<string[]>(['']);
   const [passwords, setPasswords] = useState<string[]>(['']);
+  const [usernames, setUsernames] = useState<string[]>(['']);
   const [birthdates, setBirthdates] = useState<string[]>(['']);
   const [statuses, setStatuses] = useState<number[]>([0]);
   const [admins, setAdmins] = useState<number[]>([0]);
@@ -140,9 +144,10 @@ export const useAllUsersInformation = () => {
       } else {
         setLength(response.data.length + 1);
         for (let i = 0; i < response.data.length; i++) {
-          setUsernames(prevUsernames => [...prevUsernames, response.data[i].username]);
+          setIds(prevIds => [...prevIds, response.data[i].id]);
           setEmails(prevEmails => [...prevEmails, response.data[i].email]);
           setPasswords(prevPasswords => [...prevPasswords, response.data[i].password]);
+          setUsernames(prevUsernames => [...prevUsernames, response.data[i].username]);
           setBirthdates(prevBirthdates => [...prevBirthdates, response.data[i].birthdate]);
           setStatuses(prevStatuses => [...prevStatuses, response.data[i].status]);
           setAdmins(prevAdmins => [...prevAdmins, response.data[i].admin])
@@ -152,10 +157,11 @@ export const useAllUsersInformation = () => {
   }, [])
 
   return {
+    ids,
     length,
-    usernames,
     emails,
     passwords,
+    usernames,
     birthdates,
     statuses,
     admins
@@ -170,8 +176,14 @@ export const promoteUser = ({ username }: { username: string }) => {
   return axios.post('http://localhost:3001/api/promote-user', { username: username });
 }
 
-export const updateUser = ({ email, password, username, birthdate, actualEmail }: updateUserProps) => {
-  return axios.post('http://localhost:3001/api/update-user', { email: email, password: password, username: username, birthdate: birthdate, actualEmail: actualEmail })
+export const useUpdateUser = ({ email, password, username, birthdate, id }: useUpdateUserProps) => {
+  const [message, setMessage] = useState('');
+
+  axios.post('http://localhost:3001/api/update-user', { email: email, password: password, username: username, birthdate: birthdate, id: id }).then((response) => {
+    setMessage(response.data.message);
+  })
+
+  return message;
 }
 
 const Server = {
@@ -185,7 +197,7 @@ const Server = {
   useAllUsersInformation,
   deleteUser,
   promoteUser,
-  updateUser
+  useUpdateUser
 };
 
 export default Server;

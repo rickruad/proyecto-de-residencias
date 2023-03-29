@@ -153,17 +153,18 @@ app.post('/api/promote-user', (req, res) => {
 })
 
 app.post('/api/update-user', (req, res) => {
-  const actualEmail = req.body.actualEmail;
+  const id = req.body.id;
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
   const birthdate = req.body.birthdate;
 
-  db.query("UPDATE users SET email = ?, password = ?, username = ?, birthdate = ? WHERE email = ?", [email, password, username, birthdate, actualEmail], (err, result) => {
+  db.query("UPDATE users SET email = ?, password = ?, username = ?, birthdate = ? WHERE id = ?", [email, password, username, birthdate, id], (err, result) => {
     if (err) {
       console.log(err);
+      res.send({ message: sqlMessage })
     } else {
-      res.json({ message: 'Actualizado los valores correctamente' });
+      res.send({ message: 'Actualizado los valores correctamente' });
     }
   })
 })

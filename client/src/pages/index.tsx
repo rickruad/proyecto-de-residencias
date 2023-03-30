@@ -64,7 +64,7 @@ export default function Home() {
 
   const productsPage = () => {
     if (typeof window !== 'undefined') {
-      window.location.href = './products';
+      window.location.href = './categories/';
     }
   }
 

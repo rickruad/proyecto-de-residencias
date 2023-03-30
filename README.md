@@ -7,7 +7,7 @@ Este es un proyecto realizado en React con NextJS y TypeScript
 - Tener instalado Node.js
 - Tener instalado Visual Studio Code o algún otro editor de código.
 ## Cómo ejecutar este proyecto
-> Aclaración, antes de realizar todos estos pasos, deberá crear un schema en MySQL Workbench y dentro del schema crear una tabla llamada "users". Recomiendo nombrar al schema como "proyecto-de-residencias".
+> Aclaración, antes de realizar todos estos pasos, deberá crear un schema en MySQL Workbench y dentro del schema crear una tabla llamada "users" y otra llamada "products". Recomiendo nombrar al schema como "proyecto-de-residencias".
 1. Primero, ubique el directorio al cual desee clonar el repositorio
 2. Luego, abra la terminal y clone el proyecto con
 ```bash
@@ -29,7 +29,9 @@ $ cd ./client/
 ```bash
 $ npm install
 ```
-7. En MySQL Workbench, modifique la tabla "users" creada previamente y añada las siguientes columnas
+7. En MySQL Workbench, modifique la tabla "users" y "products" creadas previamente y añada las siguientes columnas
+
+- Users
 
 | Column Name | Datatype    | PK  | NN  | UQ  | B   | UN  | ZF  | AI  | G   | Default/Expression |
 | ----------- | ----------- | --- | --- | --- | --- | --- | --- | --- | --- | ------------------ |
@@ -39,12 +41,24 @@ $ npm install
 | username    | VARCHAR(45) | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
 | birthdate   | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
 | status      | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
-| admin       | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                | 
+| admin       | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
+
+- Products
+
+| Column Name | Datatype     | PK  | NN  | UQ  | B   | UN  | ZF  | AI  | G   | Default/Expression |
+| ----------- | ------------ | --- | --- | --- | --- | --- | --- | --- | --- | ------------------ |
+| id          | VARCHAR(100) | Yes | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
+| product     | VARCHAR(256) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| image       | VARCHAR(256) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| description | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| price       | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
+| category    | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| type        | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              | 
 
 > Para ver la tabla, seleccione el schema creado (según lo recomendado, debería llamarse proyecto-de-residencias), cree un nuevo SQL File y escriba "SELECT * FROM users", luego le da al botón "Execute the statement under the keyboard cursor" y con eso debería de mostrarse la tabla
-
-8. Ahora abra con Visual Studio Code el proyecto y diríjase al archivo index.js ubicado en ./proyecto-de-residencias/server/index.js
-9. Dentro del archivo, revise las siguientes líneas
+> En Products, la columna "type" tendría los tipos "gift-card" y "product" por ahora.
+1. Ahora abra con Visual Studio Code el proyecto y diríjase al archivo index.js ubicado en ./proyecto-de-residencias/server/index.js
+2. Dentro del archivo, revise las siguientes líneas
 ```js
 const db = mysql.createConnection({
   user: 'root',

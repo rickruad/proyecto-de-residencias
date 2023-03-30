@@ -125,8 +125,8 @@ export const useActualUserInformation = () => {
 };
 
 export const useAllUsersInformation = () => {
-  const [length, setLength] = useState(0);
-  const [ids, setIds] = useState<number[]>([0]);
+  const [length, setLength] = useState(1);
+  const [ids, setIds] = useState<number[]>([1]);
   const [emails, setEmails] = useState<string[]>(['']);
   const [passwords, setPasswords] = useState<string[]>(['']);
   const [usernames, setUsernames] = useState<string[]>(['']);
@@ -186,6 +186,46 @@ export const useUpdateUser = ({ email, password, username, birthdate, id }: useU
   return message;
 }
 
+export const useAllProducts = () => {
+  const [length, setLength] = useState(1);
+  const [ids, setIds] = useState<number[]>([1]);
+  const [products, setProducts] = useState<string[]>(['']);
+  const [images, setImages] = useState<string[]>(['']);
+  const [descriptions, setDescriptions] = useState<string[]>(['']);
+  const [prices, setPrices] = useState<string[]>(['']);
+  const [types, setTypes] = useState<string[]>(['']);
+
+  useEffect(() => {
+    axios.post('http://localhost:3001/api/get-products').then((response) => {
+      if (response.data.message) {
+        setProducts(response.data.message);
+        setDescriptions(response.data.message);
+        setTypes(response.data.message);
+      } else {
+        setLength(response.data.length + 1);
+        for (let i = 0; i < response.data.length; i++) {
+          setIds(prevIds => [...prevIds, response.data[i].id]);
+          setProducts(prevProducts => [...prevProducts, response.data[i].product]);
+          setImages(prevImages => [...prevImages, response.data[i].image]);
+          setDescriptions(prevDescriptions => [...prevDescriptions, response.data[i].description]);
+          setPrices(prevPrices => [...prevPrices, response.data[i].price])
+          setTypes(prevTypes => [...prevTypes, response.data[i].type]);
+        }
+      }
+    })
+  }, []);
+
+  return {
+    length,
+    ids,
+    products,
+    images,
+    descriptions,
+    prices,
+    types
+  }
+}
+
 const Server = {
   useIsOnline,
   register,
@@ -197,7 +237,8 @@ const Server = {
   useAllUsersInformation,
   deleteUser,
   promoteUser,
-  useUpdateUser
+  useUpdateUser,
+  useAllProducts
 };
 
 export default Server;

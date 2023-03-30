@@ -173,6 +173,20 @@ app.post("/api/server-status", (req, res) => {
   res.json({ message: "El servidor está en linea" });
 });
 
+app.post("/api/get-products", (req, res) => {
+  db.query("SELECT * FROM products", (err, result) => {
+    if(err) {
+      console.log(err);
+    } else {
+      if(result.length > 0) {
+        res.send(result);
+      } else {
+        res.json({ message: 'PRODUCT ERROR' });
+      }
+    }
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}/`);
 });

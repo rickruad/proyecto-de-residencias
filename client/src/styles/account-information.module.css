@@ -1,401 +1,401 @@
 .background {
-    position: fixed;
-    top: 0rem;
-    right: 0rem;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8)
+  position: fixed;
+  top: 0rem;
+  right: 0rem;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8)
 }
 
 .showBackground {
-    display: block;
+  display: block;
 }
 
 .hideBackground {
-    display: none;
+  display: none;
 }
 
 .editInfo {
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    padding: 2rem;
-    background-color: #FFFFFF;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    margin: 0.5rem;
-    z-index: 3;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  margin: 0.5rem;
+  z-index: 3;
 }
 
 .editInfo h3 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    text-align: center;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
 }
 
 .editInfo h4 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 0.8);
-    margin-bottom: 0.5rem;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0.5rem;
 }
 
 .editInfo div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 .editInfo div div {
-    display: flex;
-    flex-direction: column;
-    gap: 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
 }
 
 .editInfo div div h4 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    text-align: start;
-    color: #000000;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  text-align: start;
+  color: #000000;
 }
 
 .editInfo div div input {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 400;
-    border-radius: 6px;
-    border-width: 2px;
-    padding: 0.5rem;
-    border-style: solid;
-    border-color: #000000;
-    border-width: 1px;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 400;
+  border-radius: 6px;
+  border-width: 2px;
+  padding: 0.5rem;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
 }
 
 .editInfo div .buttons {
-    margin-top: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    gap: 0.2rem;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.2rem;
 }
 
 .editInfo div .buttons button {
-    font-family: Louis George Cafe;
-    padding: 0.3rem;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #191919;
-    background: #191919;
-    width: 100%;
-    cursor: pointer;
-    transition: all .5s;
+  font-family: Louis George Cafe;
+  padding: 0.3rem;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #191919;
+  background: #191919;
+  width: 100%;
+  cursor: pointer;
+  transition: all .5s;
 }
 
 .editInfo div .buttons button:hover {
-    color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .showEditInfo {
-    display: flex;
+  display: flex;
 }
 
 .hideEditInfo {
-    display: none;
+  display: none;
 }
 
 .errorMessage {
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    gap: 1rem;
-    padding: 2rem;
-    background-color: #FFFFFF;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    margin: 0.5rem;
-    z-index: 5;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  margin: 0.5rem;
+  z-index: 5;
 }
 
 .errorMessage h2 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    text-align: center;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
 }
 
 .errorMessage button {
-    font-family: Louis George Cafe;
-    padding: 0.3rem;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #191919;
-    background: #191919;
-    width: 100%;
-    cursor: pointer;
-    transition: all .5s;
+  font-family: Louis George Cafe;
+  padding: 0.3rem;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #191919;
+  background: #191919;
+  width: 100%;
+  cursor: pointer;
+  transition: all .5s;
 }
 
 .errorMessage button:hover {
-    color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .showErrorMessage {
-    display: flex;
+  display: flex;
 }
 
 .hideErrorMessage {
-    display: none;
+  display: none;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
 }
 
 .container .usernameSection {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: #FFFFFF;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    padding: 1rem 1rem;
-    margin-inline: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  padding: 1rem 1rem;
+  margin-inline: 0.5rem;
 }
 
 .container .usernameSection div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }
 
 .container .usernameSection div h2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 4rem;
-    height: 4rem;
-    background-color: #70B77E;
-    border-radius: 10rem;
-    color: #FFFFFF;
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  background-color: #70B77E;
+  border-radius: 10rem;
+  color: #FFFFFF;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .container .usernameSection div .username {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .container .informationSection {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    flex-wrap: wrap;
-    margin-inline: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-inline: 0.5rem;
 }
 
 .container .informationSection .userInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    width: 49%;
-    height: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  width: 49%;
+  height: 15rem;
 }
 
 .container .informationSection .userInfo .userInfoEdit {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .container .informationSection .userInfo .userInfoEdit h2 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .container .informationSection .userInfo .userInfoEdit button {
-    font-family: Louis George Cafe;
-    padding: 0.5rem;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #191919;
-    background: #191919;
-    cursor: pointer;
-    transition: all .5s;
+  font-family: Louis George Cafe;
+  padding: 0.5rem;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #191919;
+  background: #191919;
+  cursor: pointer;
+  transition: all .5s;
 }
 
 .container .informationSection .userInfo .userInfoEdit button:hover {
-    color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .container .informationSection .userInfo div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .container .informationSection .userInfo div h3 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .container .informationSection .purchaseHistory {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 2rem;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    width: 49%;
-    height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  width: 49%;
+  height: 15rem;
 }
 
 .container .informationSection .purchaseHistory h2 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    text-align: center;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
 }
 
 .container .informationSection .purchaseHistory div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #071013;
-    height: 100%;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #071013;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
 .container .informationSection .purchaseHistory div h3 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    color: #FFFFFF;
-    text-align: center;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-align: center;
 }
 
 .container .userAdministration {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    padding: 2rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  width: 100%;
 }
 
 .container .hideUserAdministration {
-    display: none;
+  display: none;
 }
 
 .container .userAdministration h2 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    text-align: center;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
 }
 
 .container .userAdministration div {
-    display: block;
-    background-color: #071013;
-    width: 100%;
-    border-radius: 8px;
-    padding: 1rem;
-    height: 22rem;
-    overflow-y: auto;
+  display: block;
+  background-color: #071013;
+  width: 100%;
+  border-radius: 8px;
+  padding: 1rem;
+  height: 22rem;
+  overflow-y: auto;
 }
 
 .container .userAdministration div .account {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: solid;
-    border-width: 1px;
-    color: #FFFFFF;
-    padding: 0.3rem 1rem;
-    height: 2.8rem;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: solid;
+  border-width: 1px;
+  color: #FFFFFF;
+  padding: 0.3rem 1rem;
+  height: 2.8rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
 }
 
 .container .userAdministration div .account .userInfoAccount,
 .container .userAdministration div .account .userInfoActions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0rem;
 }
 
 .container .userAdministration div .account .userInfoActions {
-    justify-content: flex-end;
-    gap: 1rem;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
 .container .userAdministration div .account .userInfoAccount h4,
 .container .userAdministration div .account .userInfoActions h4 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    color: #FFFFFF;
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .container .userAdministration div .account .userInfoActions h4 {
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    cursor: pointer;
-    transition: all 0.3s;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .container .userAdministration div .account .userInfoActions .hideh4 {
-    display: none;
+  display: none;
 }
 
 .container .userAdministration div .account .userInfoActions h4:hover {
-    text-decoration-color: #FFFFFF;
-    cursor: pointer;
+  text-decoration-color: #FFFFFF;
+  cursor: pointer;
 }

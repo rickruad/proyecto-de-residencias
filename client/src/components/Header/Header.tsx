@@ -27,6 +27,7 @@ export default function Header() {
         alt='home'
         width='100'
         height='100'
+        priority={true}
       />
     </a>
     <div>

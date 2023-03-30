@@ -29,7 +29,7 @@ $ cd ./client/
 ```bash
 $ npm install
 ```
-7. En MySQL Workbench, modifique la tabla "users" y "products" creadas previamente y añada las siguientes columnas
+7. En MySQL Workbench, modifique las tablas "users" y "products" creadas previamente y añada las siguientes columnas
 
 - Users
 

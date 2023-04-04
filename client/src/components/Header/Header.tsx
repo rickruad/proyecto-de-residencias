@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
 
@@ -9,8 +10,16 @@ import Server from '@/hooks/Server';
 import styles from './styles/styles.module.css';
 
 export default function Header() {
-  const { username } = Server.useActualUserInformation();
+  const { username, profilePicture } = Server.useActualUserInformation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [profilePictureExists, setProfilePictureExists] = useState(false);
+
+
+  useEffect(() => {
+    if (profilePicture) {
+      setProfilePictureExists(true);
+    }
+  }, [profilePicture]);
 
   const openMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,7 +30,7 @@ export default function Header() {
   }
 
   return <header className={styles.container}>
-    <a href="./">
+    <Link href="../">
       <Image className={styles.image}
         src='/img/home.png'
         alt='home'
@@ -29,27 +38,34 @@ export default function Header() {
         height='100'
         priority={true}
       />
-    </a>
+    </Link>
     <div>
-      <a href='#'>
+      <Link href='#'>
         <Image className={classNames(styles.image, styles.list)}
           src='/img/list.png'
           alt='list'
           width='100'
           height='100'
         />
-      </a>
-      <a href="#">
+      </Link>
+      <Link href="#">
         <Image className={styles.image}
           src='/img/cart.png'
           alt='cart'
           width='100'
           height='100'
         />
-      </a>
+      </Link>
 
       <button className={styles.button} onClick={openMenu} />
-      <h2 className={styles.user}>{AuxiliarFunctions.ToAcronym({ username })}</h2>
+      <h2 className={classNames(styles.user, profilePictureExists ? styles.hideUser : styles.showUser)}>{AuxiliarFunctions.ToAcronym({ username })}</h2>
+      <Image 
+        className={classNames(styles.profilePicture, profilePictureExists ? styles.showProfilePicture : styles.hideProfilePicture)}
+        src={profilePicture ? profilePicture : '/img/no-image-available.png'}
+        alt={`${username} picture`}
+        width='100'
+        height='100'
+      />
       <div className={classNames(styles.backgroundClosedMenu, isMenuOpen ? styles.backgroundOpenMenu : null)} onClick={openMenu} />
       <nav className={classNames(styles.closedMenu, isMenuOpen ? styles.openMenu : null)}>
         <h3>{AuxiliarFunctions.ToCapitalLetter({ username })}</h3>

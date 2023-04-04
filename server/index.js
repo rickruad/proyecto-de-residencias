@@ -1,13 +1,16 @@
 const PORT = process.env.PORT || 3001;
 
+const path = require('path');
 const cors = require('cors');
-const mysql = require('mysql')
+const mysql = require('mysql');
+const multer = require('multer');
 const express = require('express');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
   user: 'root',
@@ -19,14 +22,32 @@ const db = mysql.createConnection({
 
 db.connect();
 
-app.post('/api/sing-up', (req, res) => {
+const storageAvatars = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./client/public/img/profile-pictures/");
+  },
+  filename: (req, file, cb) => {
+    const originalName = file.originalname;
+    const extension = originalName.split(".").pop();
+    const timestamp = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+    const fileName = `${originalName.split(".")[0]}-${timestamp}.${extension}`;
+    cb(null, fileName);
+  },
+});
+
+const uploadAvatars = multer({ storage: storageAvatars });
+
+app.post('/api/sing-up', uploadAvatars.single("image"), (req, res) => {
   const username = req.body.username;
   const birthdate = req.body.birthdate;
   const email = req.body.email;
   const password = req.body.password;
 
+  const imageUrl = `/img/profile-pictures/${req.file.filename}`;
+  const query = 'INSERT INTO users (id, username, birthdate, email, password, profilePicture) VALUES (?,?,?,?,?,?)'
+
   const insertData = (idToTry) => {
-    db.query("INSERT INTO users (id, username, birthdate, email, password) VALUES (?,?,?,?,?)", [idToTry, username, birthdate, email, password], (err, result) => {
+    db.query(query, [idToTry, username, birthdate, email, password, imageUrl], (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
           insertData(parseInt(idToTry) + 1);
@@ -152,14 +173,19 @@ app.post('/api/promote-user', (req, res) => {
   })
 })
 
-app.post('/api/update-user', (req, res) => {
+app.post('/api/update-user', uploadAvatars.single("image"), (req, res) => {
   const id = req.body.id;
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
   const birthdate = req.body.birthdate;
+  const oldProfilePicture = req.body.profilePicture;
+  const profilePicture = `/img/profile-pictures/${req.file.filename}`;
 
-  db.query("UPDATE users SET email = ?, password = ?, username = ?, birthdate = ? WHERE id = ?", [email, password, username, birthdate, id], (err, result) => {
+  const query = 'UPDATE users SET email = ?, password = ?, username = ?, birthdate = ?, profilePicture = ? WHERE id = ?';
+  const values = [email, password, username, birthdate, profilePicture ? profilePicture : oldProfilePicture, id];
+
+  db.query(query, values, (err, result) => {
     if (err) {
       console.log(err);
       res.send({ message: sqlMessage })

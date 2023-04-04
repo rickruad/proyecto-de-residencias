@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
 
+import axios from 'axios';
+
 import Server from '@/hooks/Server';
 
 import Head from '@/components/Head';
@@ -14,7 +16,8 @@ export default function Home() {
   const { length, ids, products, images, descriptions, prices, types } = Server.useAllProducts();
   let j = 0;
   let i = 1;
-
+  let index = 0;
+  var array = [['']];
 
   const [select, setSelect] = useState(false);
 
@@ -23,23 +26,22 @@ export default function Home() {
   const productsHTML = [];
   const predefinedPriceHTML = [];
 
-  const setPrice = () => {
-
-  };
-
   Server.useLoginAuthenticationInsidePage();
 
-  useEffect(() => {
+  for (let l = 1; l < length; l++) {
+    var splitTest = prices[l].split(', ');
+    array[l] = [`${splitTest[0]}`, `${splitTest[1]}`, `${splitTest[2]}`];
+  }
 
-  }, [])
-
-
-
-  for (i; i < length; i++) {
+  for (let i = 1; i < length; i++) {
     var splitPrices = prices[i].split(', ');
+    const setPrice = () => {
+      setSelect(true);
+    };
     for (j; j < 3; j++) {
+      console.log(array[i][j]);
       predefinedPriceHTML.push(
-        <button key={j} onClick={setPrice} className={classNames(styles.predefinedPrice)}>{`MX$${splitPrices[j]}`}</button>
+        <button key={j} onClick={setPrice} className={classNames(styles.predefinedPrice, select ? styles.selectPredefinedPrice : null)}>{`MX$${array[i][j]}`}</button>
       )
     }
     productsHTML.push(
@@ -77,4 +79,5 @@ export default function Home() {
 
     <section className={styles.container}>{productsHTML}</section>
   </>
+
 }

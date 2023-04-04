@@ -33,15 +33,16 @@ $ npm install
 
 - Users
 
-| Column Name | Datatype    | PK  | NN  | UQ  | B   | UN  | ZF  | AI  | G   | Default/Expression |
-| ----------- | ----------- | --- | --- | --- | --- | --- | --- | --- | --- | ------------------ |
-| id          | INT         | Yes | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| email       | VARCHAR(45) | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
-| password    | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| username    | VARCHAR(45) | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
-| birthdate   | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| status      | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
-| admin       | VARCHAR(45) | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
+| Column Name    | Datatype     | PK  | NN  | UQ  | B   | UN  | ZF  | AI  | G   | Default/Expression |
+| -------------- | ------------ | --- | --- | --- | --- | --- | --- | --- | --- | ------------------ |
+| id             | INT          | Yes | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| email          | VARCHAR(45)  | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
+| password       | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| username       | VARCHAR(45)  | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
+| birthdate      | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
+| profilePicture | VARCHAR(256) | No  | No  | No  | No  | No  | No  | No  | No  | Empty                   |
+| status         | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
+| admin          | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
 
 - Products
 

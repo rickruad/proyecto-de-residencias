@@ -1,4 +1,4 @@
-.background {
+.container .background {
   position: fixed;
   top: 0rem;
   right: 0rem;
@@ -7,15 +7,15 @@
   background: rgba(0, 0, 0, 0.8)
 }
 
-.showBackground {
+.container .showBackground {
   display: block;
 }
 
-.hideBackground {
+.container .hideBackground {
   display: none;
 }
 
-.editInfo {
+.container .editInfo {
   flex-direction: column;
   align-items: center;
   position: fixed;
@@ -27,14 +27,14 @@
   z-index: 3;
 }
 
-.editInfo h3 {
+.container .editInfo h3 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
   text-align: center;
 }
 
-.editInfo h4 {
+.container > .editInfo > h4 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -42,20 +42,20 @@
   margin-bottom: 0.5rem;
 }
 
-.editInfo div {
+.container > .editInfo > div {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
 }
 
-.editInfo div div {
+.container > .editInfo > div > div {
   display: flex;
   flex-direction: column;
   gap: 0rem;
 }
 
-.editInfo div div h4 {
+.container .editInfo div div h4 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -63,7 +63,7 @@
   color: #000000;
 }
 
-.editInfo div div input {
+.container .editInfo div div input {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 400;
@@ -75,7 +75,7 @@
   border-width: 1px;
 }
 
-.editInfo div .buttons {
+.container .editInfo div .buttons {
   margin-top: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -84,7 +84,7 @@
   gap: 0.2rem;
 }
 
-.editInfo div .buttons button {
+.container .editInfo div .buttons button {
   font-family: Louis George Cafe;
   padding: 0.3rem;
   font-style: normal;
@@ -101,9 +101,24 @@
   transition: all .5s;
 }
 
-.editInfo div .buttons button:hover {
+.container .editInfo div .buttons button:hover {
   color: rgba(255, 255, 255, 1);
 }
+
+.container > .editInfo > div > .uploadImage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+.container .editInfo div .uploadImage .imagePreview {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 10rem;
+}
+
 
 .showEditInfo {
   display: flex;
@@ -190,11 +205,7 @@
   gap: 1rem;
 }
 
-.container .usernameSection div h2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.container .usernameSection div .previewWithoutImage {
   width: 4rem;
   height: 4rem;
   background-color: #70B77E;
@@ -203,6 +214,31 @@
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
+}
+
+.container .usernameSection div .showPreviewWithoutImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .usernameSection div .hidePreviewWithoutImage {
+  display: none;
+}
+
+.container .usernameSection div .profilePicture {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 10rem;
+}
+
+.container .usernameSection div .showProfilePicture {
+  display: block;
+}
+
+.container .usernameSection div .hideProfilePicture {
+  display: none;
 }
 
 .container .usernameSection div .username {
@@ -384,18 +420,17 @@
   color: #FFFFFF;
 }
 
-.container .userAdministration div .account .userInfoActions h4 {
+.container .userAdministration div .account .userInfoActions h4:not(.onlineAccount) {
   text-decoration: underline;
   text-decoration-color: transparent;
-  cursor: pointer;
   transition: all 0.3s;
-}
-
-.container .userAdministration div .account .userInfoActions .hideh4 {
-  display: none;
-}
-
-.container .userAdministration div .account .userInfoActions h4:hover {
-  text-decoration-color: #FFFFFF;
   cursor: pointer;
+}
+
+.container .userAdministration div .account .userInfoActions h4:not(.onlineAccount):hover {
+  text-decoration-color: #FFFFFF;
+}
+
+.container .userAdministration div .account .userInfoActions .hideText {
+  display: none;
 }

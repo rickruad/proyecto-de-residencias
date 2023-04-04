@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image'
 import classNames from 'classnames';
 import styled from 'styled-components';
+import ImageUploader from '@/hooks/imageUpload';
 
 import Server from '@/hooks/Server';
 import WindowDimensions from '@/hooks/WindowDimensions'
@@ -14,6 +15,8 @@ import styles from '@/styles/home.module.css';
 
 const ServerStatusSection = styled.section<{ display: string }>`
   display: ${props => props.display};
+  flex-direction: column;
+  align-items: center;
 `
 
 const CarouselContainer = styled.div<{ position: number }>`
@@ -22,6 +25,7 @@ const CarouselContainer = styled.div<{ position: number }>`
 
 export default function Home() {
   const serverStatus = Server.useIsOnline();
+  const [displayStatus, setDisplayStatus] = useState('');
 
   const [position, setPosition] = useState(0);
   const [lessLength, setLessLength] = useState(0);
@@ -32,6 +36,10 @@ export default function Home() {
   const cardsHTML = [];
 
   Server.useLoginAuthenticationInsidePage();
+
+  useEffect(() => {
+    setDisplayStatus(serverStatus ? 'none' : 'flex');
+  }, [serverStatus]);
 
   useEffect(() => {
     setLessLength(windowWidth >= 1280 ? 1 : 0)
@@ -79,7 +87,7 @@ export default function Home() {
 
     <Header />
 
-    <ServerStatusSection display={serverStatus ? 'none' : 'flex'} className={styles.serverStatusStyles}>
+    <ServerStatusSection display={displayStatus} className={styles.serverStatusStyles}>
       <h2>{serverStatus ? serverStatus : 'El servidor no está en linea'}</h2>
     </ServerStatusSection>
 

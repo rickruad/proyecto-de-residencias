@@ -34,6 +34,20 @@
   width: 100%;
 }
 
+.container section form .uploadImage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+.container section form .uploadImage .imagePreview {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 10rem;
+}
+
 .container section form div h4 {
   font-family: Louis George Cafe;
   font-style: normal;

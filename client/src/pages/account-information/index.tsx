@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 
 import AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
@@ -6,6 +6,7 @@ import Server, { useUpdateUser } from '@/hooks/Server';
 
 import Head from '@/components/Head';
 import classNames from 'classnames';
+import Image from 'next/image';
 
 import styles from '@/styles/account-information.module.css'
 
@@ -15,13 +16,15 @@ interface updateUserInfoProps {
   password: string,
   username: string,
   birthdate: string,
+  profilePicture: string,
   newEmail: string,
   newPassword: string,
   newUsername: string,
   newBirthdate: string
+  newProfilePicture: File | null,
 }
 
-const useUpdateUserInfo = ({ id, email, password, username, birthdate, newEmail, newPassword, newUsername, newBirthdate }: updateUserInfoProps) => {
+const useUpdateUserInfo = ({ id, email, password, username, birthdate, profilePicture, newEmail, newPassword, newUsername, newBirthdate, newProfilePicture }: updateUserInfoProps) => {
   if (newEmail.length == 0) {
     newEmail = email;
   }
@@ -35,23 +38,45 @@ const useUpdateUserInfo = ({ id, email, password, username, birthdate, newEmail,
     newBirthdate = birthdate;
   }
 
-  return useUpdateUser({ email: newEmail, password: newPassword, username: newUsername, birthdate: newBirthdate, id: id });
+  const formData = new FormData();
+
+  if (newProfilePicture) {
+    formData.append("id", id.toString());
+    formData.append("email", newEmail);
+    formData.append("password", newPassword);
+    formData.append("username", newUsername);
+    formData.append("birthdate", newBirthdate);
+    formData.append("image", newProfilePicture);
+    formData.append("profilePicture", profilePicture);
+  } else {
+    formData.append("id", id.toString());
+    formData.append("email", newEmail);
+    formData.append("password", newPassword);
+    formData.append("username", newUsername);
+    formData.append("birthdate", newBirthdate);
+    formData.append("profilePicture", profilePicture);
+  }
+
+  return useUpdateUser({ formData });
 }
 
 export default function Home() {
-  const { id, email, password, username, birthdate, admin } = Server.useActualUserInformation();
-  const { length, ids, emails, passwords, usernames, birthdates, admins } = Server.useAllUsersInformation();
+  const { id, email, password, username, birthdate, profilePicture, admin } = Server.useActualUserInformation();
+  const { length, ids, emails, passwords, usernames, birthdates, profilePictures, statuses, admins } = Server.useAllUsersInformation();
 
   const [newId, setNewId] = useState(0);
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newUsername, setNewUsername] = useState('');
+  const [newProfilePicture, setNewProfilePicture] = useState('');
   const [newBirthdate, setNewBirthdate] = useState('');
 
   const [handleEmail, setHandleEmail] = useState(email);
   const [handlePassword, setHandlePassword] = useState(password);
   const [handleUsername, setHandleUsername] = useState(username);
   const [handleBirthdate, setHandleBirthdate] = useState(birthdate);
+  const [handleProfilePicture, setHandleProfilePicture] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState('');
 
   const [isEditUserInfoShow, setIsEditUserInfoShow] = useState(false);
   const [isErrorMessageShow, setIsErrorMessageShow] = useState(false);
@@ -61,6 +86,10 @@ export default function Home() {
   const [message, setMessage] = useState('');
 
   const accountsHTML = [];
+
+  useEffect(() => {
+    setImagePreview(profilePicture ? profilePicture : '')
+  }, [profilePicture])
 
   Server.useLoginAuthenticationInsidePage();
 
@@ -80,6 +109,22 @@ export default function Home() {
     setHandleBirthdate(event.target.value);
   };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setHandleProfilePicture(event.target.files[0]);
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
   const editInfo = () => {
     setIsEditUserInfoShow(!isEditUserInfoShow);
     setTitleEditUserInfo('Cambia tu información');
@@ -88,6 +133,7 @@ export default function Home() {
     setNewPassword(password);
     setNewUsername(username);
     setNewBirthdate(birthdate);
+    setNewProfilePicture(profilePicture);
   };
 
   const useSaveNewUserInformation = () => {
@@ -110,18 +156,20 @@ export default function Home() {
       password: newPassword,
       username: newUsername,
       birthdate: newBirthdate,
+      profilePicture: newProfilePicture,
       newEmail: handleEmail,
       newPassword: handlePassword,
       newUsername: handleUsername,
-      newBirthdate: handleBirthdate
+      newBirthdate: handleBirthdate,
+      newProfilePicture: handleProfilePicture
     }))
 
     if (message !== 'Actualizado los valores correctamente') {
       setIsErrorMessageShow(!isErrorMessageShow);
-    }
-
-    if (typeof window !== 'undefined') {
-      window.location.href = './account-information/';
+    } else {
+      if (typeof window !== 'undefined') {
+        window.location.href = './account-information/';
+      }
     }
   };
 
@@ -129,11 +177,13 @@ export default function Home() {
     const editUserInfo = () => {
       setIsEditUserInfoShow(!isEditUserInfoShow);
       setTitleEditUserInfo(`Cambiando la información de ${AuxiliarFunctions.ToCapitalLetter({ username: usernames[i] })}`);
+      setImagePreview(profilePictures[i] ? profilePictures[i] : '')
       setNewId(ids[i]);
       setNewEmail(emails[i]);
       setNewPassword(passwords[i]);
       setNewUsername(usernames[i]);
       setNewBirthdate(birthdates[i]);
+      setNewProfilePicture(profilePictures[i]);
     }
 
     const promoteUser = () => {
@@ -152,9 +202,10 @@ export default function Home() {
           <h4>{`${AuxiliarFunctions.ToCapitalLetter({ username: usernames[i] })} (${emails[i]})`}</h4>
         </div>
         <div className={styles.userInfoActions}>
-          <h4 onClick={editUserInfo}>Editar</h4>
-          <h4 onClick={promoteUser} className={classNames(admins[i] == 1 ? styles.hideh4 : null)}>Promover</h4>
-          <h4 onClick={deleteUser}>Eliminar</h4>
+          <h4 className={classNames(styles.onlineAccount, statuses[i] == 1 ? null : styles.hideText)}>Esta cuenta</h4>
+          <h4 onClick={editUserInfo} className={classNames(statuses[i] == 1 ? styles.hideText : null)}>Editar</h4>
+          <h4 onClick={promoteUser} className={classNames(admins[i] == 1 ? styles.hideText : null)}>Promover</h4>
+          <h4 onClick={deleteUser} className={classNames(admins[i] == 1 ? styles.hideText : null)}>Eliminar</h4>
         </div>
       </div>
     )
@@ -166,7 +217,14 @@ export default function Home() {
     <main className={styles.container}>
       <section className={styles.usernameSection}>
         <div>
-          <h2>{AuxiliarFunctions.ToAcronym({ username })}</h2>
+          <h2 className={classNames(styles.previewWithoutImage, profilePicture ? styles.hidePreviewWithoutImage : styles.showPreviewWithoutImage)}>{AuxiliarFunctions.ToAcronym({ username })}</h2>
+          <Image
+            className={classNames(styles.profilePicture, profilePicture ? styles.showProfilePicture : styles.hideProfilePicture)}
+            src={profilePicture ? profilePicture : '/img/no-image-available.png'}
+            alt={`${username} profile picture`}
+            width='100'
+            height='100'
+          />
           <h1 className={styles.username}>{AuxiliarFunctions.ToCapitalLetter({ username })}</h1>
         </div>
       </section>
@@ -191,6 +249,19 @@ export default function Home() {
           <div>
             <h4>Contraseña</h4>
             <input type="text" value={handlePassword} onChange={handlePasswordChange} />
+          </div>
+          <div className={styles.uploadImage}>
+            <Image
+              className={styles.imagePreview}
+              src={imagePreview ? imagePreview : '/img/no-image-available.png'}
+              alt='test'
+              width='100'
+              height='100'
+            />
+            <div>
+              <h4>Carga tu imagen de usuario</h4>
+              <input type="file" onChange={handleFileChange} />
+            </div>
           </div>
           <div className={styles.buttons}>
             <button onClick={editInfo}>Cancelar</button>

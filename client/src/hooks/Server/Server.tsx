@@ -2,14 +2,6 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-interface useUpdateUserProps {
-  id: number,
-  email: string,
-  password: string,
-  username: string,
-  birthdate: string
-};
-
 export const useIsOnline = () => {
   const [serverStatus, setServerStatus] = useState(null)
 
@@ -31,8 +23,8 @@ export const useIsOnline = () => {
   return serverStatus
 }
 
-export const register = ({ username, birthdate, email, password }: { username: string, birthdate: string, email: string, password: string }) => {
-  return axios.post('http://localhost:3001/api/sing-up', { username: username, birthdate: birthdate, email: email, password: password });
+export const register = ({ formData }: { formData:FormData }) => {
+  return axios.post('http://localhost:3001/api/sing-up', formData);
 }
 
 export const useLogin = ({ email, password }: { email: string, password: string }) => {
@@ -91,6 +83,7 @@ export const useActualUserInformation = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
   const [status, setStatus] = useState(0);
   const [admin, setAdmin] = useState(0);
 
@@ -107,6 +100,7 @@ export const useActualUserInformation = () => {
         setEmail(response.data[0].email);
         setPassword(response.data[0].password);
         setBirthdate(response.data[0].birthdate);
+        setProfilePicture(response.data[0].profilePicture)
         setStatus(response.data[0].status);
         setAdmin(response.data[0].admin);
       }
@@ -119,6 +113,7 @@ export const useActualUserInformation = () => {
     email,
     password,
     birthdate,
+    profilePicture,
     status,
     admin
   }
@@ -131,6 +126,7 @@ export const useAllUsersInformation = () => {
   const [passwords, setPasswords] = useState<string[]>(['']);
   const [usernames, setUsernames] = useState<string[]>(['']);
   const [birthdates, setBirthdates] = useState<string[]>(['']);
+  const [profilePictures, setProfilePictures] = useState<string[]>(['']);
   const [statuses, setStatuses] = useState<number[]>([0]);
   const [admins, setAdmins] = useState<number[]>([0]);
 
@@ -149,6 +145,7 @@ export const useAllUsersInformation = () => {
           setPasswords(prevPasswords => [...prevPasswords, response.data[i].password]);
           setUsernames(prevUsernames => [...prevUsernames, response.data[i].username]);
           setBirthdates(prevBirthdates => [...prevBirthdates, response.data[i].birthdate]);
+          setProfilePictures(prevProfilePictures => [...prevProfilePictures, response.data[i].profilePicture]);
           setStatuses(prevStatuses => [...prevStatuses, response.data[i].status]);
           setAdmins(prevAdmins => [...prevAdmins, response.data[i].admin])
         }
@@ -163,6 +160,7 @@ export const useAllUsersInformation = () => {
     passwords,
     usernames,
     birthdates,
+    profilePictures,
     statuses,
     admins
   }
@@ -176,10 +174,10 @@ export const promoteUser = ({ username }: { username: string }) => {
   return axios.post('http://localhost:3001/api/promote-user', { username: username });
 }
 
-export const useUpdateUser = ({ email, password, username, birthdate, id }: useUpdateUserProps) => {
+export const useUpdateUser = ({ formData }: { formData:FormData }) => {
   const [message, setMessage] = useState('');
 
-  axios.post('http://localhost:3001/api/update-user', { email: email, password: password, username: username, birthdate: birthdate, id: id }).then((response) => {
+  axios.post('http://localhost:3001/api/update-user', formData).then((response) => {
     setMessage(response.data.message);
   })
 
@@ -208,12 +206,14 @@ export const useAllProducts = () => {
           setProducts(prevProducts => [...prevProducts, response.data[i].product]);
           setImages(prevImages => [...prevImages, response.data[i].image]);
           setDescriptions(prevDescriptions => [...prevDescriptions, response.data[i].description]);
-          setPrices(prevPrices => [...prevPrices, response.data[i].price])
+          setPrices(prevPrices => [...prevPrices, response.data[i].price]);
           setTypes(prevTypes => [...prevTypes, response.data[i].type]);
         }
       }
     })
   }, []);
+
+
 
   return {
     length,

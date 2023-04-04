@@ -62,11 +62,7 @@
 }
 
 .container div .user {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+
     width: 2rem;
     height: 2rem;
     background-color: #70B77E;
@@ -76,6 +72,32 @@
     font-style: normal;
     font-size: 0.9rem;
     font-weight: 700;
+}
+
+.container div .showUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.container div .hideUser {
+  display: none;
+}
+
+.container div .profilePicture {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10rem;
+}
+
+.container div .showProfilePicture {
+  display: block;
+}
+
+.container div .hideProfilePicture {
+  display: none;
 }
 
 .container div .backgroundClosedMenu {

@@ -23,7 +23,7 @@ export const useIsOnline = () => {
   return serverStatus
 }
 
-export const register = ({ formData }: { formData:FormData }) => {
+export const register = ({ formData }: { formData: FormData }) => {
   return axios.post('http://localhost:3001/api/sing-up', formData);
 }
 
@@ -46,7 +46,7 @@ export const logout = () => {
     axios.post('http://localhost:3001/api/sing-out').then((response) => {
       if (response.data.message == 'Success') {
         if (typeof window !== 'undefined') {
-          window.location.href = './sing-in/';
+          window.location.href = '../sing-in/';
         }
       }
     })
@@ -58,7 +58,7 @@ export const useLoginAuthenticationInsidePage = () => {
     axios.post('http://localhost:3001/api/user-status').then((response) => {
       if (typeof window !== 'undefined') {
         if (response.data.message == 0) {
-          window.location.href = './sing-in/';
+          window.location.href = '../sing-in/';
         };
       }
     })
@@ -174,7 +174,7 @@ export const promoteUser = ({ username }: { username: string }) => {
   return axios.post('http://localhost:3001/api/promote-user', { username: username });
 }
 
-export const useUpdateUser = ({ formData }: { formData:FormData }) => {
+export const useUpdateUser = ({ formData }: { formData: FormData }) => {
   const [message, setMessage] = useState('');
 
   axios.post('http://localhost:3001/api/update-user', formData).then((response) => {
@@ -213,8 +213,6 @@ export const useAllProducts = () => {
     })
   }, []);
 
-
-
   return {
     length,
     ids,
@@ -224,6 +222,10 @@ export const useAllProducts = () => {
     prices,
     types
   }
+}
+
+export const addProduct = ({ formData }: { formData: FormData }) => {
+  return axios.post('http://localhost:3001/api/add-product', formData);
 }
 
 const Server = {
@@ -238,7 +240,8 @@ const Server = {
   deleteUser,
   promoteUser,
   useUpdateUser,
-  useAllProducts
+  useAllProducts,
+  addProduct
 };
 
 export default Server;

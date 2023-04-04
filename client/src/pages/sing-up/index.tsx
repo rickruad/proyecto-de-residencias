@@ -131,6 +131,7 @@ export default function Home() {
             />
             <div>
               <h4>Carga tu imagen de usuario</h4>
+              <h5>(La relación de aspecto de la imágen tiene que ser de 1:1)</h5>
               <input type="file" onChange={handleFileChange} />
             </div>
           </div>

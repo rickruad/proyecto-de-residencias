@@ -1,9 +1,14 @@
+import Server from '@/hooks/Server';
+
 import Head from '@/components/Head';
 import Header from '@/components/Header';
 
 import styles from '@/styles/categories.module.css';
 
 export default function Home() {
+
+  Server.useLoginAuthenticationInsidePage();
+
   const goToCinemex = () => {
     if (typeof window !== 'undefined') {
       window.location.href = './categories/cinemex/';

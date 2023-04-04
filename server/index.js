@@ -213,6 +213,49 @@ app.post("/api/get-products", (req, res) => {
   })
 })
 
+const storageProduct = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./client/public/img/products-pictures/");
+  },
+  filename: (req, file, cb) => {
+    const originalName = file.originalname;
+    const extension = originalName.split(".").pop();
+    const timestamp = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+    const fileName = `${originalName.split(".")[0]}-${timestamp}.${extension}`;
+    cb(null, fileName);
+  },
+});
+
+const uploadProduct = multer({ storage: storageProduct });
+
+app.post("/api/add-product", uploadProduct.single("image"), (req, res) => {
+  const name = req.body.productName;
+  const description = req.body.productDescription;
+  const price = req.body.productPrice;
+  const category = req.body.productCategory;
+  const type = req.body.productType;
+
+  const imageUrl = `/img/products-pictures/${req.file.filename}`;
+
+  const query = 'INSERT INTO products (id, product, image, description, price, category, type) VALUE (?, ?, ?, ?, ?, ?, ?)';
+
+  const insertData = (idToTry) => {
+    db.query(query, [idToTry, name, imageUrl, description, price, category, type], (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          insertData(parseInt(idToTry) + 1);
+        } else {
+          console.log(err);
+        }
+      } else {
+        res.send({ message: 'Producto agregado con exito' });
+      }
+    })
+  }
+
+  insertData(1);
+})
+
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}/`);
 });

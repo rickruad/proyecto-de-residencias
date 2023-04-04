@@ -220,7 +220,7 @@ export default function Home() {
           <h2 className={classNames(styles.previewWithoutImage, profilePicture ? styles.hidePreviewWithoutImage : styles.showPreviewWithoutImage)}>{AuxiliarFunctions.ToAcronym({ username })}</h2>
           <Image
             className={classNames(styles.profilePicture, profilePicture ? styles.showProfilePicture : styles.hideProfilePicture)}
-            src={profilePicture ? profilePicture : '/img/no-image-available.png'}
+            src={profilePicture ? profilePicture : '/img/no-image-available(512x512).png'}
             alt={`${username} profile picture`}
             width='100'
             height='100'
@@ -253,7 +253,7 @@ export default function Home() {
           <div className={styles.uploadImage}>
             <Image
               className={styles.imagePreview}
-              src={imagePreview ? imagePreview : '/img/no-image-available.png'}
+              src={imagePreview ? imagePreview : '/img/no-image-available(512x512).png'}
               alt='test'
               width='100'
               height='100'

@@ -48,6 +48,14 @@
   border-radius: 10rem;
 }
 
+.container > section > form > .uploadImage > div > h5 {
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
+  opacity: 0.8;
+  margin-bottom: 0.2rem;
+}
+
 .container section form div h4 {
   font-family: Louis George Cafe;
   font-style: normal;

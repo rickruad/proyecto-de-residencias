@@ -26,7 +26,7 @@ export default function Header() {
   }
 
   const accountInformation = () => {
-    window.location.href = './account-information/'
+    window.location.href = '../account-information/'
   }
 
   return <header className={styles.container}>
@@ -61,7 +61,7 @@ export default function Header() {
       <h2 className={classNames(styles.user, profilePictureExists ? styles.hideUser : styles.showUser)}>{AuxiliarFunctions.ToAcronym({ username })}</h2>
       <Image 
         className={classNames(styles.profilePicture, profilePictureExists ? styles.showProfilePicture : styles.hideProfilePicture)}
-        src={profilePicture ? profilePicture : '/img/no-image-available.png'}
+        src={profilePicture ? profilePicture : '/img/no-image-available(512x512).png'}
         alt={`${username} picture`}
         width='100'
         height='100'

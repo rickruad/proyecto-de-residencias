@@ -59,8 +59,8 @@ $ npm install
 > Para ver la tabla, seleccione el schema creado (según lo recomendado, debería llamarse proyecto-de-residencias), cree un nuevo SQL File y escriba "SELECT * FROM users", luego le da al botón "Execute the statement under the keyboard cursor" y con eso debería de mostrarse la tabla
 
 > En Products, la columna "type" tendría los tipos "gift-card" y "product" por ahora.
-1. Ahora abra con Visual Studio Code el proyecto y diríjase al archivo index.js ubicado en ./proyecto-de-residencias/server/index.js
-2. Dentro del archivo, revise las siguientes líneas
+8. Ahora abra con Visual Studio Code el proyecto y diríjase al archivo index.js ubicado en ./proyecto-de-residencias/server/index.js
+9. Dentro del archivo, revise las siguientes líneas
 ```js
 const db = mysql.createConnection({
   user: 'root',

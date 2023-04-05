@@ -14,7 +14,7 @@ export const useIsOnline = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      axios.post(`api/server-status`)
+      axios.post(`${baseURL}api/server-status`)
         .then((response) => {
           setServerStatus(response.data.message);
         });

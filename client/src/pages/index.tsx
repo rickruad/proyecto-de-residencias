@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
+import Link from 'next/link';
 import Image from 'next/image'
 import classNames from 'classnames';
 import styled from 'styled-components';
-import ImageUploader from '@/hooks/imageUpload';
 
 import Server from '@/hooks/Server';
 import WindowDimensions from '@/hooks/WindowDimensions'
@@ -70,18 +70,6 @@ export default function Home() {
     )
   }
 
-  const productsPage = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = './categories/';
-    }
-  }
-
-  const servicesPage = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = '#';
-    }
-  }
-
   return <>
     <Head title='Proyecto de Residencias' />
 
@@ -100,11 +88,11 @@ export default function Home() {
     <section className={styles.webSections}>
       <div>
         <h3>Productos</h3>
-        <div onClick={productsPage} className={classNames(styles.card, styles.products)}></div>
+        <Link href='../categories/' className={classNames(styles.card, styles.products)}></Link>
       </div>
       <div>
         <h3>Servicios</h3>
-        <div onClick={servicesPage} className={classNames(styles.card, styles.services)}></div>
+        <Link href='#' className={classNames(styles.card, styles.services)}></Link>
       </div>
     </section>
   </>

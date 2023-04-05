@@ -61,6 +61,10 @@
   gap: 0.5rem;
 }
 
+.container > .card > .endSectionCard > .hidePrices {
+  display: none;
+}
+
 .container .card .endSectionCard div .predefinedPrice {
   font-family: Louis George Cafe;
   font-style: normal;
@@ -148,7 +152,7 @@
   color: rgba(255, 255, 255, 1);
 }
 
-.section {
+.buttonAddProductSection {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -159,7 +163,11 @@
   height: 6rem;
 }
 
-.section .buttonAddProduct {
+.hideButtonAddProductSection {
+  display: block;
+}
+
+.buttonAddProductSection .buttonAddProduct {
   position: absolute;
   padding: 1rem 1rem;
   border-radius: 8px;
@@ -169,7 +177,7 @@
   cursor: pointer;
 }
 
-.section .buttonAddProduct > .image {
+.buttonAddProductSection .buttonAddProduct > .image {
   filter: invert();
   opacity: 0.5;
   width: 3rem;
@@ -177,7 +185,7 @@
   transition: all 0.3s;
 }
 
-.section .buttonAddProduct:hover > .image {
+.buttonAddProductSection .buttonAddProduct:hover > .image {
   opacity: 1;
 }
 
@@ -208,55 +216,59 @@
   opacity: 0.5;
 }
 
-.addProduct > form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.addProduct > .addProductCartel {
   width: 40rem;
-  gap: 1rem;
-  z-index: 3;
   padding: 2rem;
   background-color: #FFFFFF;
   border-radius: 8px;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+  z-index: 3;
 }
 
-.addProduct > form > h2 {
+.addProduct > .addProductCartel > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.addProduct > .addProductCartel > form > h2 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
   text-align: center;
 }
 
-.addProduct > form > .image {
+.addProduct > .addProductCartel > form > .image {
   width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-.addProduct > form > div {
+.addProduct > .addProductCartel > form > div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
 }
 
-.addProduct > form > div > h5,
-.addProduct > form > div > label {
+.addProduct > .addProductCartel > form > div > h5,
+.addProduct > .addProductCartel > form > div > label {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
   text-align: start;
 }
 
-.addProduct > form > div > h5 {
+.addProduct > .addProductCartel > form > div > h5 {
   margin-bottom: 0.2rem;
   opacity: 0.8;
 }
 
-.addProduct > form > div > input,
-.addProduct > form > div > select,
-.addProduct > form > div > div > input {
+.addProduct > .addProductCartel > form > div > input,
+.addProduct > .addProductCartel > form > div > select,
+.addProduct > .addProductCartel > form > div > div > input {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -268,20 +280,21 @@
   outline: none;
 }
 
-.addProduct > form > div > select {
+.addProduct > .addProductCartel > form > div > select {
   cursor: pointer;
 }
 
-.addProduct > form > div > div,
-.addProduct > form > .submitButtons {
+.addProduct > .addProductCartel > form > div > div,
+.addProduct > .addProductCartel > form > .submitButtons {
   display: flex;
   flex-direction: row;
   width: 100%;
   gap: 1rem;
 }
 
-.addProduct > form > button, 
-.addProduct > .button {
+.addProduct > .addProductCartel > form > button, 
+.addProduct > .addProductCartel >.button,
+.errorMessage > div:not(.errorMessageBackground) > button {
   font-family: Louis George Cafe;
   padding: 0.3rem;
   font-style: normal;
@@ -298,16 +311,61 @@
   transition: all .5s;
 }
 
-.addProduct > form > button:hover, 
-.addProduct > .button:hover {
+.addProduct > .addProductCartel > form > button:hover, 
+.addProduct > .addProductCartel >.button:hover,
+.errorMessage > div:not(.errorMessageBackground) > button:hover {
   color: rgba(255, 255, 255, 1);
 }
 
-.addProduct > .button {
-  width: 36rem;
+.addProduct > .addProductCartel >.button {
+  width: 100%;
   z-index: 3;
 }
 
-.addProduct > form > .hidePrice {
+.addProduct > .addProductCartel > form > .hidePrice {
   display: none;
+}
+
+.errorMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hideErrorMessage {
+  display: none;
+}
+
+.errorMessage > .errorMessageBackground {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.5;
+  z-index: 4;
+}
+
+.errorMessage > div:not(.errorMessageBackground) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.errorMessage > div:not(.errorMessageBackground) > h1 {
+  font-family: Louis George Cafe;
+  font-style: normal;
+  font-weight: 700;
 }

@@ -1,70 +1,50 @@
+import { useEffect, useState } from 'react';
+
 import Server from '@/hooks/Server';
+import AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
 import Head from '@/components/Head';
 import Header from '@/components/Header';
 
+import Link from 'next/link';
+import styled from 'styled-components';
+
 import styles from '@/styles/categories.module.css';
 
+const Background = styled.div<{ image: string }>`
+  background-image: url(${props => props.image});
+`;
+
 export default function Home() {
+  const [categoriesInHTML, setCategoriesInHTML] = useState<JSX.Element[]>([<></>]);
 
   Server.useLoginAuthenticationInsidePage();
 
-  const goToCinemex = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = './categories/cinemex/';
+  useEffect(() => {
+    const categoriesHTML = [...categoriesInHTML];
+    const categories = ['cinemex', 'cinepolis', 'entertainment', 'food', 'games'];
+    const categoriesInSpanish = ['cinemex', 'cinepolis', 'entretenimiento', 'comida', 'juegos'];
+    
+    for (let i = 0; i < categories.length; i++) {
+      var image = `/img/${categories[i]}.png`;
+      var category = categories[i];
+      var categoryInSpanish = categoriesInSpanish[i];
+      categoriesHTML.push(
+        <Link key={i} href={{ pathname: '../categories/products', query: { category } }} className={styles.category}>
+          <Background image={image} className={styles.image}></Background>
+          <h3 className={styles.title}>{AuxiliarFunctions.ToCapitalLetter({ username: categoryInSpanish })}</h3>
+        </Link>
+      )
     }
-  }
 
-  const goToCinepolis = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = './categories/cinepolis/';
-    }
-  }
-
-  const goToEntertainment = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = './categories/entertainment/';
-    }
-  }
-
-  const goToFood = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = './categories/food/';
-    }
-  }
-
-  const goToGames = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = './categories/games/';
-    }
-  }
+    setCategoriesInHTML(categoriesHTML);
+  }, [])
 
   return <>
     <Head title='Categorías' />
 
     <Header />
 
-    <section className={styles.categories}>
-      <div onClick={goToCinemex} className={styles.category}>
-        <div className={styles.image1}></div>
-        <h3 className={styles.title}>Cinemex</h3>
-      </div>
-      <div onClick={goToCinepolis} className={styles.category}>
-        <div className={styles.image2}></div>
-        <h3 className={styles.title}>Cinepolis</h3>
-      </div>
-      <div onClick={goToEntertainment} className={styles.category}>
-        <div className={styles.image3}></div>
-        <h3 className={styles.title}>Entretenimiento</h3>
-      </div>
-      <div onClick={goToFood} className={styles.category}>
-        <div className={styles.image4}></div>
-        <h3 className={styles.title}>Cómida</h3>
-      </div>
-      <div onClick={goToGames} className={styles.category}>
-        <div className={styles.image5}></div>
-        <h3 className={styles.title}>Juegos</h3>
-      </div>
-    </section>
+    <section className={styles.categories}>{categoriesInHTML}</section>
   </>
 }

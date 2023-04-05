@@ -191,6 +191,7 @@ export const useAllProducts = () => {
   const [images, setImages] = useState<string[]>(['']);
   const [descriptions, setDescriptions] = useState<string[]>(['']);
   const [prices, setPrices] = useState<string[]>(['']);
+  const [categories, setCategories] = useState<string[]>(['']);
   const [types, setTypes] = useState<string[]>(['']);
 
   useEffect(() => {
@@ -198,6 +199,7 @@ export const useAllProducts = () => {
       if (response.data.message) {
         setProducts(response.data.message);
         setDescriptions(response.data.message);
+        setCategories(response.data.message);
         setTypes(response.data.message);
       } else {
         setLength(response.data.length + 1);
@@ -207,6 +209,7 @@ export const useAllProducts = () => {
           setImages(prevImages => [...prevImages, response.data[i].image]);
           setDescriptions(prevDescriptions => [...prevDescriptions, response.data[i].description]);
           setPrices(prevPrices => [...prevPrices, response.data[i].price]);
+          setCategories(prevCategories => [...prevCategories, response.data[i].category]);
           setTypes(prevTypes => [...prevTypes, response.data[i].type]);
         }
       }
@@ -220,6 +223,7 @@ export const useAllProducts = () => {
     images,
     descriptions,
     prices,
+    categories,
     types
   }
 }

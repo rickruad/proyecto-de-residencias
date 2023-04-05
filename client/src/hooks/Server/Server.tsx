@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
+const baseURL = 'http://localhost:3001/';
+
 export const useIsOnline = () => {
   const [serverStatus, setServerStatus] = useState(null)
 
-  axios.post('http://localhost:3001/api/server-status')
+  axios.post(`${baseURL}api/server-status`)
     .then((response) => {
       setServerStatus(response.data.message);
     });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      axios.post('http://localhost:3001/api/server-status')
+      axios.post(`api/server-status`)
         .then((response) => {
           setServerStatus(response.data.message);
         });
@@ -24,13 +26,13 @@ export const useIsOnline = () => {
 }
 
 export const register = ({ formData }: { formData: FormData }) => {
-  return axios.post('http://localhost:3001/api/sing-up', formData);
+  return axios.post(`${baseURL}api/sing-up`, formData);
 }
 
 export const useLogin = ({ email, password }: { email: string, password: string }) => {
   const [status, setStatus] = useState('');
 
-  axios.post('http://localhost:3001/api/sing-in', { email: email, password: password }).then((response) => {
+  axios.post(`api/sing-in`, { email: email, password: password }).then((response) => {
     if (response.data.message) {
       setStatus(response.data.message);
     } else {
@@ -43,7 +45,7 @@ export const useLogin = ({ email, password }: { email: string, password: string 
 
 export const logout = () => {
   return (
-    axios.post('http://localhost:3001/api/sing-out').then((response) => {
+    axios.post(`${baseURL}api/sing-out`).then((response) => {
       if (response.data.message == 'Success') {
         if (typeof window !== 'undefined') {
           window.location.href = '../sing-in/';
@@ -55,7 +57,7 @@ export const logout = () => {
 
 export const useLoginAuthenticationInsidePage = () => {
   return (
-    axios.post('http://localhost:3001/api/user-status').then((response) => {
+    axios.post(`${baseURL}api/user-status`).then((response) => {
       if (typeof window !== 'undefined') {
         if (response.data.message == 0) {
           window.location.href = '../sing-in/';
@@ -67,7 +69,7 @@ export const useLoginAuthenticationInsidePage = () => {
 
 export const useLoginAuthenticationOutsidePage = () => {
   return (
-    axios.post('http://localhost:3001/api/user-status').then((response) => {
+    axios.post(`${baseURL}api/user-status`).then((response) => {
       if (typeof window !== 'undefined') {
         if (response.data.message == 1) {
           window.location.href = './';
@@ -88,7 +90,7 @@ export const useActualUserInformation = () => {
   const [admin, setAdmin] = useState(0);
 
   useEffect(() => {
-    axios.post('http://localhost:3001/api/user').then((response) => {
+    axios.post(`${baseURL}api/user`).then((response) => {
       if (response.data.message == 'USER ERROR') {
         setUsername(response.data.message);
         setEmail(response.data.message);
@@ -131,7 +133,7 @@ export const useAllUsersInformation = () => {
   const [admins, setAdmins] = useState<number[]>([0]);
 
   useEffect(() => {
-    axios.post('http://localhost:3001/api/users').then((response) => {
+    axios.post(`${baseURL}api/users`).then((response) => {
       if (response.data.message) {
         setUsernames(response.data.message);
         setEmails(response.data.message);
@@ -167,17 +169,17 @@ export const useAllUsersInformation = () => {
 }
 
 export const deleteUser = ({ username }: { username: string }) => {
-  return axios.post('http://localhost:3001/api/delete-user', { username: username });
+  return axios.post(`${baseURL}api/delete-user`, { username: username });
 }
 
 export const promoteUser = ({ username }: { username: string }) => {
-  return axios.post('http://localhost:3001/api/promote-user', { username: username });
+  return axios.post(`${baseURL}api/promote-user`, { username: username });
 }
 
 export const useUpdateUser = ({ formData }: { formData: FormData }) => {
   const [message, setMessage] = useState('');
 
-  axios.post('http://localhost:3001/api/update-user', formData).then((response) => {
+  axios.post(`${baseURL}api/update-user`, formData).then((response) => {
     setMessage(response.data.message);
   })
 
@@ -195,7 +197,7 @@ export const useAllProducts = () => {
   const [types, setTypes] = useState<string[]>(['']);
 
   useEffect(() => {
-    axios.post('http://localhost:3001/api/get-products').then((response) => {
+    axios.post(`${baseURL}api/get-products`).then((response) => {
       if (response.data.message) {
         setProducts(response.data.message);
         setDescriptions(response.data.message);
@@ -229,7 +231,7 @@ export const useAllProducts = () => {
 }
 
 export const addProduct = ({ formData }: { formData: FormData }) => {
-  return axios.post('http://localhost:3001/api/add-product', formData);
+  return axios.post(`${baseURL}api/add-product`, formData);
 }
 
 const Server = {

@@ -188,13 +188,13 @@ export const useUpdateUser = ({ formData }: { formData: FormData }) => {
 
 export const useAllProducts = () => {
   const [length, setLength] = useState(1);
-  const [ids, setIds] = useState<number[]>([1]);
-  const [products, setProducts] = useState<string[]>(['']);
-  const [images, setImages] = useState<string[]>(['']);
-  const [descriptions, setDescriptions] = useState<string[]>(['']);
-  const [prices, setPrices] = useState<string[]>(['']);
-  const [categories, setCategories] = useState<string[]>(['']);
-  const [types, setTypes] = useState<string[]>(['']);
+  const [ids, setIds] = useState<number[]>([]);
+  const [products, setProducts] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>([]);
+  const [descriptions, setDescriptions] = useState<string[]>([]);
+  const [prices, setPrices] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [types, setTypes] = useState<string[]>([]);
 
   useEffect(() => {
     axios.post(`${baseURL}api/get-products`).then((response) => {

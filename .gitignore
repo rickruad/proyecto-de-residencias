@@ -37,5 +37,5 @@
 /client/next-env.d.ts
 
 # User
-/client/product-pictures/*
-/client/profile-pictures/*
+/client/public/img/product-pictures/*
+/client/public/img/profile-pictures/*

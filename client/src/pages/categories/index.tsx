@@ -12,39 +12,46 @@ import styled from 'styled-components';
 import styles from '@/styles/categories.module.css';
 
 const Background = styled.div<{ image: string }>`
-  background-image: url(${props => props.image});
+  background-image: url(/img/${props => props.image}.png);
 `;
 
 export default function Home() {
-  const [categoriesInHTML, setCategoriesInHTML] = useState<JSX.Element[]>([<></>]);
-
   Server.useLoginAuthenticationInsidePage();
 
-  useEffect(() => {
-    const categoriesHTML = [...categoriesInHTML];
-    const categories = ['cinemex', 'cinepolis', 'entertainment', 'food', 'games'];
-    const categoriesInSpanish = ['cinemex', 'cinepolis', 'entretenimiento', 'comida', 'juegos'];
-    
-    for (let i = 0; i < categories.length; i++) {
-      var image = `/img/${categories[i]}.png`;
-      var category = categories[i];
-      var categoryInSpanish = categoriesInSpanish[i];
-      categoriesHTML.push(
-        <Link key={i} href={{ pathname: '../categories/products', query: { category } }} className={styles.category}>
-          <Background image={image} className={styles.image}></Background>
-          <h3 className={styles.title}>{AuxiliarFunctions.ToCapitalLetter({ username: categoryInSpanish })}</h3>
-        </Link>
-      )
-    }
+  const [categoriesEN, setCategoriesEN] = useState<string[]>([]);
+  const [categoriesES, setCategoriesES] = useState<string[]>([]);
 
-    setCategoriesInHTML(categoriesHTML);
+  useEffect(() => {
+    const categoriesEN = ['cinemex', 'cinepolis', 'entertainment', 'food', 'games'];
+    const categoriesES = ['cinemex', 'cinepolis', 'entretenimiento', 'comida', 'juegos'];
+
+    setCategoriesEN(categoriesEN);
+    setCategoriesES(categoriesES);
   }, [])
+
+  const categoriesToMap = categoriesEN.map((category, index) => {
+    return {
+      categoryEN: category,
+      categoryES: categoriesES[index],
+      image: category
+    }
+  })
+
+  const allCategories = categoriesToMap.map((currentCategory) => {
+    const category = currentCategory.categoryEN;
+    return (
+      <Link key={currentCategory.categoryEN} href={{ pathname: '../categories/products', query: { category } }} className={styles.category}>
+        <Background image={currentCategory.image} className={styles.image} />
+        <h3 className={styles.title}>{AuxiliarFunctions.ToCapitalLetter({ username: currentCategory.categoryES })}</h3>
+      </Link>
+    )
+  })
 
   return <>
     <Head title='Categorías' />
 
     <Header />
 
-    <section className={styles.categories}>{categoriesInHTML}</section>
+    <section className={styles.categories}>{allCategories}</section>
   </>
 }

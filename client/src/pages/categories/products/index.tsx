@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 
 import Image from 'next/image';
 import classNames from 'classnames';
@@ -12,30 +12,55 @@ import AddNewProduct from '@/components/AddNewProduct';
 
 import styles from '@/styles/products.module.css';
 
-const Button = ({ price }: { price: string }) => {
-  const [select, setSelect] = useState(false);
-
-  const setPrice = () => {
-    setSelect(true);
-  };
-
-  return <button onClick={setPrice} className={classNames(styles.predefinedPrice, select ? styles.selectPredefinedPrice : null)}>{`MX$${price}`}</button>
-}
-
 export default function Home() {
-  const router = useRouter();
-  const inRouter = router.query.category;
-  const [category, setCategory] = useState('');
-
-  useEffect(() => {
-    if (inRouter !== undefined) {
-      setCategory(inRouter.toString());
-    }
-  }, [inRouter]);
-
+  Server.useLoginAuthenticationInsidePage();
   const { products, images, descriptions, prices, categories, types } = Server.useAllProducts();
 
-  Server.useLoginAuthenticationInsidePage();
+  const router = useRouter();
+  const selectedCategory = router.query.category !== undefined ? router.query.category : 'NULL';
+  const [selectedPrice, setSelectedPrice] = useState<string>();
+  const [selectQuantity, setSelectQuantity] = useState<number>(1);
+
+  const Buttons = ({ price }: { price: string[] }) => {
+    const [select1, setSelect1] = useState(false);
+    const [select2, setSelect2] = useState(false);
+    const [select3, setSelect3] = useState(false);
+
+    const setPrice1 = () => {
+      setSelect1(!select1);
+      setSelect2(false);
+      setSelect3(false);
+      setSelectedPrice(price[0]);
+    };
+
+    const setPrice2 = () => {
+      setSelect1(false);
+      setSelect2(!select2);
+      setSelect3(false);
+      setSelectedPrice(price[1]);
+    };
+
+    const setPrice3 = () => {
+      setSelect1(false);
+      setSelect2(false);
+      setSelect3(!select3);
+      setSelectedPrice(price[2]);
+    }
+
+    return <>
+      <button onClick={setPrice1} className={classNames(styles.predefinedPrice, select1 ? styles.selectPredefinedPrice : null)}>{`MX$${price[0]}`}</button>
+      <button onClick={setPrice2} className={classNames(styles.predefinedPrice, select2 ? styles.selectPredefinedPrice : null)}>{`MX$${price[1]}`}</button>
+      <button onClick={setPrice3} className={classNames(styles.predefinedPrice, select3 ? styles.selectPredefinedPrice : null)}>{`MX$${price[2]}`}</button>
+    </>
+  }
+
+  const handleSelectQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectQuantity(Number(event.target.value));
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  }
 
   const filterProducts = products.map((product, index) => {
     return {
@@ -48,46 +73,46 @@ export default function Home() {
     }
   }).filter((product, index, self) => {
     return index === self.findIndex((a) => {
-      return a.product === product.product && a.category === category;
+      return a.product === product.product && a.category === selectedCategory;
     });
   });
 
   const allSelectedProducts = filterProducts.map((selectedProduct) => {
     return (
-      <div className={styles.card} key={selectedProduct.product}>
-        <div className={styles.startSectionCard}>
-          <Image
-            className={styles.image}
-            src={selectedProduct.image}
-            alt={selectedProduct.product}
-            width={1000}
-            height={1000}
-            priority={true}
-          />
-          <h2>{selectedProduct.product}</h2>
-          <h4>{selectedProduct.description}</h4>
-        </div>
-        <div className={styles.endSectionCard}>
-          {selectedProduct.type === 'gift-card' ?
-            <div>
-              <h4>Precio:</h4>
-              <Button price={selectedProduct.price[0]} />
-              <Button price={selectedProduct.price[1]} />
-              <Button price={selectedProduct.price[2]} />
-            </div>
-            :
-            <div>
-              <h4>Precio:</h4>
-              <h4>{`MX$${selectedProduct.price}`}</h4>
-            </div>
-          }
-          <div className={styles.quantity}>
-            <h4>Cantidad:</h4>
-            <input type="number" placeholder='1' min='1' />
+      <form onSubmit={handleSubmit} key={selectedProduct.product}>
+        <div className={styles.card}>
+          <div className={styles.startSectionCard}>
+            <Image
+              className={styles.image}
+              src={selectedProduct.image}
+              alt={selectedProduct.product}
+              width={1000}
+              height={1000}
+              priority={true}
+            />
+            <h2>{selectedProduct.product}</h2>
+            <h4>{selectedProduct.description}</h4>
           </div>
-          <button className={styles.addToCart}>Agregar al carrito</button>
+          <div className={styles.endSectionCard}>
+            {selectedProduct.type === 'gift-card' ?
+              <div>
+                <h4>Precio:</h4>
+                <Buttons price={selectedProduct.price} />
+              </div>
+              :
+              <div>
+                <h4>Precio:</h4>
+                <h4>{`MX$${selectedProduct.price}`}</h4>
+              </div>
+            }
+            <div className={styles.quantity}>
+              <h4>Cantidad:</h4>
+              <input type="number" placeholder='1' min='1' value={selectQuantity} onChange={handleSelectQuantityChange}/>
+            </div>
+            <button type='submit' className={styles.addToCart}>Agregar al carrito</button>
+          </div>
         </div>
-      </div>
+      </form>
     )
   })
 
@@ -98,7 +123,7 @@ export default function Home() {
 
     <section className={styles.container}>{allSelectedProducts}</section>
 
-    <AddNewProduct category={category}/>
+    <AddNewProduct category={selectedCategory.toString()} />
   </>
 
 }

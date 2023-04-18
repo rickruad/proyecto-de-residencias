@@ -7,11 +7,15 @@
   gap: 1rem;
 }
 
-.container .card {
+.container>form {
+  width: 32.48%;
+}
+
+.container>form>.card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 32.48%;
+  width: 100%;
   gap: 1rem;
   height: auto;
   padding: 1rem;
@@ -20,26 +24,26 @@
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
 }
 
-.container .card .startSectionCard {
+.container>form>.card>.startSectionCard {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
 }
 
-.container .card .startSectionCard .image {
+.container>form>.card>.startSectionCard>.image {
   width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-.container .card .startSectionCard h2 {
+.container>form>.card>.startSectionCard>h2 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
 }
 
-.container .card .startSectionCard h4 {
+.container>form>.card>.startSectionCard>h4 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -47,25 +51,25 @@
   opacity: 0.8;
 }
 
-.container .card .endSectionCard {
+.container>form>.card>.endSectionCard {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
 }
 
-.container .card .endSectionCard div {
+.container>form>.card>.endSectionCard>div {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
 }
 
-.container > .card > .endSectionCard > .hidePrices {
+.container>form>.card>.endSectionCard>.hidePrices {
   display: none;
 }
 
-.container .card .endSectionCard div .predefinedPrice {
+.container>form>.card>.endSectionCard>div>.predefinedPrice {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -80,23 +84,21 @@
   height: 2rem;
   padding: 0.5rem;
   width: 100%;
+  cursor: pointer;
 }
 
-.container .card .endSectionCard div .predefinedPrice:hover {
+.container>form>.card>.endSectionCard>div>.predefinedPrice:hover,
+.container>form>.card>.endSectionCard>div>.selectPredefinedPrice {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.container .card .endSectionCard div .selectPredefinedPrice {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.container .card .endSectionCard div h4 {
+.container>form>.card>.endSectionCard>div>h4 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
 }
 
-.container .card .endSectionCard .quantity h4 {
+.container>form>.card>.endSectionCard>.quantity>h4 {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -114,7 +116,7 @@
   padding-inline: 0.5rem;
 }
 
-.container .card .endSectionCard .quantity input {
+.container>form>.card>.endSectionCard>.quantity>input {
   font-family: Louis George Cafe;
   font-style: normal;
   font-weight: 700;
@@ -126,7 +128,7 @@
   outline: 1px;
 }
 
-.container .card .endSectionCard .quantity {
+.container>form>.card>.endSectionCard>.quantity {
   margin-top: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -134,7 +136,7 @@
   width: 100%;
 }
 
-.container .card .endSectionCard .addToCart {
+.container>form>.card>.endSectionCard>.addToCart {
   margin-top: 0.5rem;
   font-family: Louis George Cafe;
   font-style: normal;
@@ -148,6 +150,6 @@
   transition: all 0.3s;
 }
 
-.container .card .endSectionCard .addToCart:hover {
+.container>form>.card>.endSectionCard>.addToCart:hover {
   color: rgba(255, 255, 255, 1);
 }

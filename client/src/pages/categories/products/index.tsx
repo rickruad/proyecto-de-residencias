@@ -11,6 +11,16 @@ import Header from '@/components/Header';
 
 import styles from '@/styles/products.module.css';
 
+const Button = ({ price }: { price: string }) => {
+  const [select, setSelect] = useState(false);
+
+  const setPrice = () => {
+    setSelect(true);
+  };
+
+  return <button onClick={setPrice} className={classNames(styles.predefinedPrice, select ? styles.selectPredefinedPrice : null)}>{`MX$${price}`}</button>
+}
+
 export default function Home() {
   let index = 0;
   var splitPrices = [['']];
@@ -29,7 +39,6 @@ export default function Home() {
   const { length, products, images, descriptions, prices, categories, types } = Server.useAllProducts();
 
   const [displayError, setDisplayError] = useState(false)
-  const [select, setSelect] = useState(false);
   const [display, setDisplay] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const [productName, setProductName] = useState('');
@@ -54,10 +63,6 @@ export default function Home() {
   for (let i = 1; i < length; i++) {
     index++;
 
-    const setPrice = () => {
-      setSelect(true);
-    };
-
     if (categories[i] === category) {
       productsHTML.push(
         <div className={styles.card} key={i}>
@@ -75,9 +80,9 @@ export default function Home() {
           <div className={styles.endSectionCard}>
             <div className={classNames(types[i] === 'gift-card' ? null : styles.hidePrices)}>
               <h4>Precio:</h4>
-              <button onClick={setPrice} className={classNames(styles.predefinedPrice, select ? styles.selectPredefinedPrice : null)}>{`MX$${splitPrices[index][0]}`}</button>
-              <button onClick={setPrice} className={classNames(styles.predefinedPrice, select ? styles.selectPredefinedPrice : null)}>{`MX$${splitPrices[index][1]}`}</button>
-              <button onClick={setPrice} className={classNames(styles.predefinedPrice, select ? styles.selectPredefinedPrice : null)}>{`MX$${splitPrices[index][2]}`}</button>
+              <Button price={splitPrices[index][0]} />
+              <Button price={splitPrices[index][1]} />
+              <Button price={splitPrices[index][2]} />
             </div>
             <div className={classNames(types[i] === 'product' ? null : styles.hidePrices)}>
               <h4>Precio:</h4>

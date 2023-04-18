@@ -48,7 +48,7 @@ export default function Header() {
           height='100'
         />
       </Link>
-      <Link href="#">
+      <Link href="../cart">
         <Image className={styles.image}
           src='/img/cart.png'
           alt='cart'

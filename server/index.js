@@ -22,6 +22,56 @@ const db = mysql.createConnection({
 
 db.connect();
 
+const createUsersTable = "CREATE TABLE users (" +
+"id INT PRIMARY KEY NOT NULL UNIQUE, " +
+"email VARCHAR(45) NOT NULL UNIQUE, " +
+"password VARCHAR(45) NOT NULL, " + 
+"username VARCHAR(45) NOT NULL UNIQUE, " +
+"birthdate VARCHAR(45) NOT NULL, " +
+"profilePicture VARCHAR(256) NULL, " +
+"status INT NOT NULL DEFAULT '0', " +
+"admin INT NOT NULL DEFAULT '0')";
+
+const createProductsTable = "CREATE TABLE products (" + 
+"id INT PRIMARY KEY NOT NULL UNIQUE, " + 
+"product VARCHAR(100) NOT NULL, " +
+"image VARCHAR(512) NOT NULL, " +
+"description VARCHAR(256) NOT NULL, " +
+"price VARCHAR(45) NOT NULL DEFAULT '0', " +
+"category VARCHAR(45) NOT NULL, " + 
+"type VARCHAR(45) NOT NULL)";
+
+const createUsersCartTable = "CREATE TABLE userscart (" +
+"id INT PRIMARY KEY NOT NULL UNIQUE, " +
+"username VARCHAR(45) NOT NULL, " +
+"product VARCHAR(45) NOT NULL, " +
+"priceselected VARCHAR(45) NULL DEFAULT '0', " +
+"quantity VARCHAR(45) NOT NULL)";
+
+db.query(createUsersTable, (err, result) => {
+  if (err) {
+    if (err.code !== 'ER_TABLE_EXISTS_ERROR') {
+      console.log(err);
+    }
+  }
+})
+
+db.query(createProductsTable, (err, result) => {
+  if (err) {
+    if (err.code !== 'ER_TABLE_EXISTS_ERROR') {
+      console.log(err);
+    }
+  }
+})
+
+db.query(createUsersCartTable, (err, result) => {
+  if (err) {
+    if (err.code !== 'ER_TABLE_EXISTS_ERROR') {
+      console.log(err);
+    }
+  }
+})
+
 const storageAvatars = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./client/public/img/profile-pictures/");
@@ -254,6 +304,45 @@ app.post("/api/add-product", uploadProduct.single("image"), (req, res) => {
   }
 
   insertData(1);
+})
+
+app.post("/api/users-cart", (req, res) => {
+  const username = req.body.username;
+  const product = req.body.product;
+  const priceselected = req.body.priceselected;
+  const quantity = req.body.quantity;
+
+  const query = 'INSERT INTO userscart (id, username, product, priceselected, quantity) VALUE (?, ?, ?, ?, ?)';
+
+  const insertData = (idToTry) => {
+    db.query(query, [idToTry, username, product, priceselected, quantity], (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          insertData(parseInt(idToTry) + 1);
+        } else {
+          console.log(err);
+        }
+      } else {
+        console.log('Producto agregado con éxito');
+      }
+    })
+  }
+
+  insertData(1);
+})
+
+app.post("/api/get-cart", (req, res) => {
+  db.query("SELECT * FROM userscart", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        res.json({ message: 'USER ERROR' })
+      }
+    }
+  })
 })
 
 app.listen(PORT, () => {

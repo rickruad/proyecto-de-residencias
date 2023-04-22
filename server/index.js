@@ -1,10 +1,13 @@
+import localConfig from '../local-config.js';
+
+const { DBNAME, DBPASSWORD, DBPORT } = localConfig.connectionDatabase();
+
 const PORT = process.env.PORT || 3001;
 
-const path = require('path');
-const cors = require('cors');
-const mysql = require('mysql');
-const multer = require('multer');
-const express = require('express');
+import cors from 'cors';
+import mysql from 'mysql';
+import multer from 'multer';
+import express from 'express';
 
 const app = express();
 
@@ -15,9 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: '12345asd',
-  database: 'proyecto-de-residencias',
-  PORT: 3306
+  password: DBPASSWORD,
+  database: DBNAME,
+  PORT: DBPORT
 })
 
 db.connect();

@@ -22,6 +22,8 @@ export default function Cart() {
   const { products, images, descriptions } = Server.useAllProducts();
   const CurrentUsername = username;
 
+  var totalPrice = 0;
+
   var indexProduct = 0;
 
   const usernameCartMap = usernameCart.map((username, index) => {
@@ -54,6 +56,8 @@ export default function Cart() {
       Server.removeProductToCart({ id: Number(currentUsername.id) });
     }
 
+    totalPrice = totalPrice + Number(currentUsername.price);
+
     return (
       <div key={currentUsername.id} className={styles.card}>
         <div className={styles.startSectionCard}>
@@ -81,7 +85,6 @@ export default function Cart() {
         <div className={styles.products}>{usernameCartHTML}</div>
       </div>
     </section>
-
 
   </>
 }

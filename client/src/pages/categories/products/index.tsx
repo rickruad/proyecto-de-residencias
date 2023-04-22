@@ -14,11 +14,12 @@ import styles from '@/styles/products.module.css';
 
 export default function Home() {
   Server.useLoginAuthenticationInsidePage();
+  const { username } = Server.useActualUserInformation();
   const { products, images, descriptions, prices, categories, types } = Server.useAllProducts();
 
   const router = useRouter();
   const selectedCategory = router.query.category !== undefined ? router.query.category : 'NULL';
-  const [selectedPrice, setSelectedPrice] = useState<string>();
+  const [selectedPrice, setSelectedPrice] = useState<string>('0');
   const [selectQuantity, setSelectQuantity] = useState<number>(1);
 
   const Buttons = ({ price }: { price: string[] }) => {
@@ -48,18 +49,14 @@ export default function Home() {
     }
 
     return <>
-      <button onClick={setPrice1} className={classNames(styles.predefinedPrice, select1 ? styles.selectPredefinedPrice : null)}>{`MX$${price[0]}`}</button>
-      <button onClick={setPrice2} className={classNames(styles.predefinedPrice, select2 ? styles.selectPredefinedPrice : null)}>{`MX$${price[1]}`}</button>
-      <button onClick={setPrice3} className={classNames(styles.predefinedPrice, select3 ? styles.selectPredefinedPrice : null)}>{`MX$${price[2]}`}</button>
+      <button type='button' onClick={setPrice1} className={classNames(styles.predefinedPrice, select1 ? styles.selectPredefinedPrice : null)}>{`MX$${price[0]}`}</button>
+      <button type='button' onClick={setPrice2} className={classNames(styles.predefinedPrice, select2 ? styles.selectPredefinedPrice : null)}>{`MX$${price[1]}`}</button>
+      <button type='button' onClick={setPrice3} className={classNames(styles.predefinedPrice, select3 ? styles.selectPredefinedPrice : null)}>{`MX$${price[2]}`}</button>
     </>
   }
 
   const handleSelectQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectQuantity(Number(event.target.value));
-  }
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
   }
 
   const filterProducts = products.map((product, index) => {
@@ -78,6 +75,37 @@ export default function Home() {
   });
 
   const allSelectedProducts = filterProducts.map((selectedProduct) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      if (selectedProduct.type === 'gift-card') {
+        if (selectedPrice !== '0') {
+          Server.addProductToCart({
+            username: username,
+            product: selectedProduct.product,
+            priceselected: selectedPrice,
+            quantity: selectQuantity.toString()
+          });
+          if (typeof window !== 'undefined') {
+            window.location.href = `../../categories/products?category=${selectedCategory}`
+          }
+        } else {
+          console.log('falta seleccionar el precio');
+        }
+      } else {
+        Server.addProductToCart({
+          username: username,
+          product: selectedProduct.product,
+          priceselected: selectedProduct.price.toString(),
+          quantity: selectQuantity.toString()
+        });
+        if (typeof window !== 'undefined') {
+          window.location.href = `../../categories/products?category=${selectedCategory}`
+        }
+      }
+
+    }
+
     return (
       <form onSubmit={handleSubmit} key={selectedProduct.product}>
         <div className={styles.card}>
@@ -107,7 +135,7 @@ export default function Home() {
             }
             <div className={styles.quantity}>
               <h4>Cantidad:</h4>
-              <input type="number" placeholder='1' min='1' value={selectQuantity} onChange={handleSelectQuantityChange}/>
+              <input type="number" placeholder='1' min='1' value={selectQuantity} onChange={handleSelectQuantityChange} />
             </div>
             <button type='submit' className={styles.addToCart}>Agregar al carrito</button>
           </div>

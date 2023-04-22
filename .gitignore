@@ -39,3 +39,6 @@
 # User
 /client/public/img/products-pictures/*
 /client/public/img/profile-pictures/*
+
+# local config
+local-config.js

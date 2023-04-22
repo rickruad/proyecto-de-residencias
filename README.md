@@ -1,82 +1,41 @@
 # Proyecto de residencias
 Este es un proyecto realizado en React con NextJS y TypeScript
 ## Requisitos
-- Tener instalado git.
 - Tener instalado MySQL Workbench con MySQL Server.
 > En la instalación de MySQL Workbench, al momento de llegar a la configuración del MySQL Server, en el apartado de métodos de autenticación, seleccione la opción "Use Legacy Authentication Method", puesto que el módulo MySQL para React no soporta aún el nuevo método de autenticación.
 - Tener instalado Node.js
 - Tener instalado Visual Studio Code o algún otro editor de código.
 ## Cómo ejecutar este proyecto
-> Aclaración, antes de realizar todos estos pasos, deberá crear un schema en MySQL Workbench y dentro del schema crear una tabla llamada "users" y otra llamada "products". Recomiendo nombrar al schema como "proyecto-de-residencias".
-1. Primero, ubique el directorio al cual desee clonar el repositorio
-2. Luego, abra la terminal y clone el proyecto con
-```bash
-$ git clone https://github.com/rickruad/proyecto-de-residencias
-```
-3. Abra el directorio en donde está clonado el proyecto
-```bash
-$ cd ./proyecto-de-residencias/
-```
-4. En este directorio vamos a instalar los módulos del servidor, ejecute el siguiente comando
-```bash
-$ npm install
-```
-5. Luego, diríjase al directorio "client"
-```bash
-$ cd ./client/
-```
-6. Ahora vamos a instalar los módulos del cliente con el mismo comando
-```bash
-$ npm install
-```
-7. En MySQL Workbench, modifique las tablas "users" y "products" creadas previamente y añada las siguientes columnas
-
-- Users
-
-| Column Name    | Datatype     | PK  | NN  | UQ  | B   | UN  | ZF  | AI  | G   | Default/Expression |
-| -------------- | ------------ | --- | --- | --- | --- | --- | --- | --- | --- | ------------------ |
-| id             | INT          | Yes | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| email          | VARCHAR(45)  | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
-| password       | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| username       | VARCHAR(45)  | No  | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
-| birthdate      | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| profilePicture | VARCHAR(256) | No  | No  | No  | No  | No  | No  | No  | No  | Empty                   |
-| status         | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
-| admin          | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
-
-- Products
-
-| Column Name | Datatype     | PK  | NN  | UQ  | B   | UN  | ZF  | AI  | G   | Default/Expression |
-| ----------- | ------------ | --- | --- | --- | --- | --- | --- | --- | --- | ------------------ |
-| id          | VARCHAR(100) | Yes | Yes | Yes | No  | No  | No  | No  | No  | Empty              |
-| product     | VARCHAR(256) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| image       | VARCHAR(256) | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| description | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| price       | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | '0'                |
-| category    | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              |
-| type        | VARCHAR(45)  | No  | Yes | No  | No  | No  | No  | No  | No  | Empty              | 
-
-> Para ver la tabla, seleccione el schema creado (según lo recomendado, debería llamarse proyecto-de-residencias), cree un nuevo SQL File y escriba "SELECT * FROM users", luego le da al botón "Execute the statement under the keyboard cursor" y con eso debería de mostrarse la tabla
-
-> En Products, la columna "type" tendría los tipos "gift-card" y "product" por ahora.
-8. Ahora abra con Visual Studio Code el proyecto y diríjase al archivo index.js ubicado en ./proyecto-de-residencias/server/index.js
-9. Dentro del archivo, revise las siguientes líneas
+1. En MySQL Workbench, cree un schema, recomiendo de nombre "proyecto-de-residencias".
+2. Luego, desactive la opción "Safe Updates" en Edit > Preferences > SQL Editor
+3. Ahora descargue el proyecto en [releases](https://github.com/rickruad/proyecto-de-residencias/releases), descomprimaló y abra la carpeta con Visual Studio Code.
+4. Cree un archivo en la raíz del proyecto llamado "local-config.js" y copie el siguiente código modificando lo que está comentado.
 ```js
-const db = mysql.createConnection({
-  user: 'root',
-  host: 'localhost',
-  password: '12345asd',
-  database: 'proyecto-de-residencias',
-  PORT: 3306
-})
+// local-config.js
+
+export function connectionDatabase() {
+	const DBPASSWORD = 'password'; // Acá va la contraseña de su local instance
+	const DBNAME = 'schema-name'; // Acá va el nombre de su schema, siguiendo el nombre recomendado sería "proyecto-de-residencias"
+	const DBPORT = 3306; // Acá va el puerto que utiliza MySQL Server, actualmente está puesto el número por default, si no lo modificó, dejeló así
+	
+	return {
+		DBPASSWORD,
+		DBNAME,
+		DBPORT
+	}
+}
+
+const localConfig = {
+	connectionDatabase,
+}
+
+export default localConfig;
 ```
-10. Reemplace la password con su password de su base de datos, al igual que el nombre de la database con el nombre del schema creado anteriormente (si uso el nombre recomendado, no hace falta cambiarlo).
-> El PORT no es necesario cambiarlo a no ser que usted haya cambiado el puerto en donde se ejecuta MySQL Server, si ese fue el caso, reemplace el número del PORT por el que ingresó usted al momento de configurar el MySQL Server.
-11. Por último, volviendo a la terminal, regrese a la raíz del proyecto (siendo este ./proyecto-de-residencias/) e inicie el servidor usando el siguiente comando
+5. Por último, volviendo a la terminal, regrese a la raíz del proyecto (siendo este ./proyecto-de-residencias/) e inicie el servidor usando el siguiente comando
 ```bash
 npm start
 ```
-12. Y también inicie la webapp moviéndose al directorio ./client/ y ejecutando el siguiente comando
+6. Y también inicie la webapp moviéndose al directorio ./client/ y ejecutando el siguiente comando
 ```bash
 npm run dev
 ```

@@ -14,7 +14,6 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profilePictureExists, setProfilePictureExists] = useState(false);
 
-
   useEffect(() => {
     if (profilePicture) {
       setProfilePictureExists(true);
@@ -30,7 +29,7 @@ export default function Header() {
   }
 
   return <header className={styles.container}>
-    <Link href="../">
+    <Link href='../../'>
       <Image className={styles.image}
         src='/img/home.png'
         alt='home'

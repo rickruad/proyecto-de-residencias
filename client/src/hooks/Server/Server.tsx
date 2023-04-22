@@ -261,19 +261,21 @@ export const useGetAllCart = () => {
   const [priceSelectedCart, setPriceSelectedCart] = useState<string[]>([]);
   const [quantityCart, setQuantityCart] = useState<string[]>([]);
 
-  axios.post(`${baseURL}api/get-cart`).then((response) => {
-    if (response.data.message) {
-      console.log(response.data.message);
-    } else {
-      for (let i = 0; i < response.data.length; i++) {
-        setIdCart(prevId => [...prevId, response.data[i].id]);
-        setUsernameCart(prevUsername => [...prevUsername, response.data[i].username]);
-        setProductCart(prevProduct => [...prevProduct, response.data[i].product]);
-        setPriceSelectedCart(prevPriceSelected => [...prevPriceSelected, response.data[i].priceselected]);
-        setQuantityCart(prevQuantity => [...prevQuantity, response.data[i].quantity]);
+  useEffect(() => {
+    axios.post(`${baseURL}api/get-cart`).then((response) => {
+      if (response.data.message) {
+        console.log(response.data.message);
+      } else {
+        for (let i = 0; i < response.data.length; i++) {
+          setIdCart(prevId => [...prevId, response.data[i].id]);
+          setUsernameCart(prevUsername => [...prevUsername, response.data[i].username]);
+          setProductCart(prevProduct => [...prevProduct, response.data[i].product]);
+          setPriceSelectedCart(prevPriceSelected => [...prevPriceSelected, response.data[i].priceselected]);
+          setQuantityCart(prevQuantity => [...prevQuantity, response.data[i].quantity]);
+        }
       }
-    }
-  });
+    });
+  }, [])
 
   return {
     idCart,
@@ -282,6 +284,16 @@ export const useGetAllCart = () => {
     priceSelectedCart,
     quantityCart
   }
+}
+
+export const removeProductToCart = ({ id }: { id: number }) => {
+  return axios.post(`${baseURL}api/remove-product-cart`, { id: id }).then((response) => {
+    if (response.data.message === 'SUCCESS') {
+      if (typeof window !== 'undefined') {
+        window.location.href = '../../cart';
+      }
+    }
+  })
 }
 
 const Server = {
@@ -299,7 +311,8 @@ const Server = {
   useAllProducts,
   addProduct,
   addProductToCart,
-  useGetAllCart
+  useGetAllCart,
+  removeProductToCart
 };
 
 export default Server;

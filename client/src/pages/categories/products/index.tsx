@@ -14,7 +14,7 @@ import styles from '@/styles/products.module.css';
 
 export default function Home() {
   Server.useLoginAuthenticationInsidePage();
-  const { username } = Server.useActualUserInformation();
+  const { username, admin } = Server.useActualUserInformation();
   const { products, images, descriptions, prices, categories, types } = Server.useAllProducts();
 
   const router = useRouter();
@@ -151,7 +151,12 @@ export default function Home() {
 
     <section className={styles.container}>{allSelectedProducts}</section>
 
-    <AddNewProduct category={selectedCategory.toString()} />
+    {admin === 1 ?
+      <AddNewProduct category={selectedCategory.toString()} />
+      :
+      null
+    }
+    
   </>
 
 }

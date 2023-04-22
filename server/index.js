@@ -348,6 +348,18 @@ app.post("/api/get-cart", (req, res) => {
   })
 })
 
+app.post("/api/remove-product-cart", (req, res) => {
+  const id = req.body.id;
+
+  db.query("DELETE FROM userscart WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ message: 'SUCCESS' });
+    }
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}/`);
 });

@@ -1,19 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Server from "@/hooks/Server";
 
 import Image from 'next/image';
+import styled from 'styled-components';
 
 import Head from "@/components/Head";
 import Header from "@/components/Header";
 
+import styles from '@/styles/cart.module.css';
+
+const ImageProduct = styled.div<{ image: string }>`
+  background-image: url(${props => props.image});
+`;
+
 export default function Cart() {
   Server.useLoginAuthenticationInsidePage();
-  
+
   const { username } = Server.useActualUserInformation();
   const { idCart, usernameCart, productCart, priceSelectedCart, quantityCart } = Server.useGetAllCart();
   const { products, images, descriptions } = Server.useAllProducts();
   const CurrentUsername = username;
+
   var indexProduct = 0;
 
   const usernameCartMap = usernameCart.map((username, index) => {
@@ -41,19 +49,23 @@ export default function Cart() {
   });
 
   const usernameCartHTML = usernameCartMap.map((currentUsername) => {
+
+    const handleAbortBuy = () => {
+      Server.removeProductToCart({ id: Number(currentUsername.id) });
+    }
+
     return (
-      <div key={currentUsername.id}>
-        <Image
-          src={currentUsername.image}
-          alt={currentUsername.product}
-          width={200}
-          height={100}
-          priority={true}
-        />
-        <h1>{currentUsername.username}</h1>
-        <h1>{currentUsername.product}</h1>
-        <h1>{Number(currentUsername.price) * Number(currentUsername.quantity)}</h1>
-        <h1>{currentUsername.quantity}</h1>
+      <div key={currentUsername.id} className={styles.card}>
+        <div className={styles.startSectionCard}>
+          <ImageProduct image={currentUsername.image} className={styles.imageProduct} />
+          <h2>{currentUsername.product}</h2>
+          <h4>{currentUsername.description}</h4>
+        </div>
+        <div className={styles.endSectionCard}>
+          <h4>{`Cantidad: ${currentUsername.quantity}`}</h4>
+          <h4>{`Precio: ${currentUsername.price}`}</h4>
+          <button className={styles.deleteProductButton} onClick={handleAbortBuy}>Borrar</button>
+        </div>
       </div>
     )
   })
@@ -63,6 +75,13 @@ export default function Cart() {
 
     <Header />
 
-    <div>{usernameCartHTML}</div>
+    <section className={styles.sectionCart}>
+      <div className={styles.showProducts}>
+        <button className={styles.buyButton}>Comprar</button>
+        <div className={styles.products}>{usernameCartHTML}</div>
+      </div>
+    </section>
+
+
   </>
 }

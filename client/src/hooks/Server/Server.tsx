@@ -234,6 +234,56 @@ export const addProduct = ({ formData }: { formData: FormData }) => {
   return axios.post(`${baseURL}api/add-product`, formData);
 }
 
+interface addProductToCartProps {
+  username: string,
+  product: string,
+  priceselected: string,
+  quantity: string
+}
+
+export const addProductToCart = ({ username, product, priceselected, quantity }: addProductToCartProps) => {
+  console.log(username);
+  console.log(product);
+  console.log(priceselected);
+  console.log(quantity)
+  return axios.post(`${baseURL}api/users-cart`, { 
+    username: username, 
+    product: product, 
+    priceselected: priceselected, 
+    quantity: quantity 
+  });
+}
+
+export const useGetAllCart = () => {
+  const [idCart, setIdCart] = useState<string[]>([]);
+  const [usernameCart, setUsernameCart] = useState<string[]>([]);
+  const [productCart, setProductCart] = useState<string[]>([]);
+  const [priceSelectedCart, setPriceSelectedCart] = useState<string[]>([]);
+  const [quantityCart, setQuantityCart] = useState<string[]>([]);
+
+  axios.post(`${baseURL}api/get-cart`).then((response) => {
+    if (response.data.message) {
+      console.log(response.data.message);
+    } else {
+      for (let i = 0; i < response.data.length; i++) {
+        setIdCart(prevId => [...prevId, response.data[i].id]);
+        setUsernameCart(prevUsername => [...prevUsername, response.data[i].username]);
+        setProductCart(prevProduct => [...prevProduct, response.data[i].product]);
+        setPriceSelectedCart(prevPriceSelected => [...prevPriceSelected, response.data[i].priceselected]);
+        setQuantityCart(prevQuantity => [...prevQuantity, response.data[i].quantity]);
+      }
+    }
+  });
+
+  return {
+    idCart,
+    usernameCart,
+    productCart,
+    priceSelectedCart,
+    quantityCart
+  }
+}
+
 const Server = {
   useIsOnline,
   register,
@@ -247,7 +297,9 @@ const Server = {
   promoteUser,
   useUpdateUser,
   useAllProducts,
-  addProduct
+  addProduct,
+  addProductToCart,
+  useGetAllCart
 };
 
 export default Server;

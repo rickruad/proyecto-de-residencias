@@ -95,8 +95,13 @@ app.post('/api/sing-up', uploadAvatars.single("image"), (req, res) => {
   const birthdate = req.body.birthdate;
   const email = req.body.email;
   const password = req.body.password;
+  const profilePicture = req.body.profilePicture;
+  var imageUrl = null;
 
-  const imageUrl = `/img/profile-pictures/${req.file.filename}`;
+  if (profilePicture === 'YES') {
+    imageUrl = `/img/profile-pictures/${req.file.filename}`;
+  }
+
   const query = 'INSERT INTO users (id, username, birthdate, email, password, profilePicture) VALUES (?,?,?,?,?,?)'
 
   const insertData = (idToTry) => {

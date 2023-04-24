@@ -1,39 +1,22 @@
-import { useState, useEffect } from 'react';
-
 import Server from "@/hooks/Server";
 
-import Image from 'next/image';
-import styled from 'styled-components';
+import Link from 'next/link';
 
 import Head from "@/components/Head";
 import Header from "@/components/Header";
 
 import styles from '@/styles/cart.module.css';
 
-const ImageProduct = styled.div<{ image: string }>`
-  background-image: url(${props => props.image});
-`;
-
 export default function Cart() {
   Server.useLoginAuthenticationInsidePage();
 
   const { username } = Server.useActualUserInformation();
   const { idCart, usernameCart, productCart, priceSelectedCart, quantityCart } = Server.useGetAllCart();
-  const { products, images, descriptions } = Server.useAllProducts();
   const CurrentUsername = username;
 
   var totalPrice = 0;
 
-  var indexProduct = 0;
-
   const usernameCartMap = usernameCart.map((username, index) => {
-
-    for (let i = 0; i < products.length; i++) {
-      if (productCart[index] === products[i]) {
-        indexProduct = i;
-        break;
-      }
-    }
 
     return {
       id: idCart[index],
@@ -41,8 +24,6 @@ export default function Cart() {
       product: productCart[index],
       price: priceSelectedCart[index],
       quantity: quantityCart[index],
-      image: images[indexProduct],
-      description: descriptions[indexProduct]
     }
   }).filter((username, index, self) => {
     return index === self.findIndex((a) => {
@@ -56,20 +37,16 @@ export default function Cart() {
       Server.removeProductToCart({ id: Number(currentUsername.id) });
     }
 
-    totalPrice = totalPrice + Number(currentUsername.price);
+    totalPrice = totalPrice + (Number(currentUsername.price) * Number(currentUsername.quantity));
 
     return (
       <div key={currentUsername.id} className={styles.card}>
-        <div className={styles.startSectionCard}>
-          <ImageProduct image={currentUsername.image} className={styles.imageProduct} />
-          <h2>{currentUsername.product}</h2>
-          <h4>{currentUsername.description}</h4>
+        <div className={styles.priceNameSection}>
+          <h3>{currentUsername.product}</h3>
+          <h5>{`Precio individual: ${Number(currentUsername.price) * Number(currentUsername.quantity)}`}</h5>
         </div>
-        <div className={styles.endSectionCard}>
-          <h4>{`Cantidad: ${currentUsername.quantity}`}</h4>
-          <h4>{`Precio: ${currentUsername.price}`}</h4>
-          <button className={styles.deleteProductButton} onClick={handleAbortBuy}>Borrar</button>
-        </div>
+        <h4>{`Cantidad: ${currentUsername.quantity}`}</h4>
+        <button className={styles.deleteProductButton} onClick={handleAbortBuy}>Borrar</button>
       </div>
     )
   })
@@ -80,8 +57,15 @@ export default function Cart() {
     <Header />
 
     <section className={styles.sectionCart}>
+
       <div className={styles.showProducts}>
-        <button className={styles.buyButton}>Comprar</button>
+        <div className={styles.buy}>
+          <div className={styles.infoBuy}>
+            <h3>{`Total a pagar: MX$${totalPrice}`}</h3>
+            <h4>{`Cashback: MX$${totalPrice * 0.02}`}</h4>
+          </div>
+          <Link href={{ pathname: '../../cart/buy' }} className={styles.buyButton}>Comprar</Link>
+        </div>
         <div className={styles.products}>{usernameCartHTML}</div>
       </div>
     </section>

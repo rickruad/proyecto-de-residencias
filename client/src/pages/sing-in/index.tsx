@@ -27,10 +27,7 @@ export default function Home() {
   
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (email.length <= 0 || password.length <= 0) {
-      setDisplay(!display);
-      setError('No se han rellenado todos los datos')
-    } else {
+    if (email.length >= 0 || password.length >= 0) {
       axios.post('http://localhost:3001/api/sing-in', { email: email, password: password }).then((response) => {
         if (response.data.message) {
           setDisplay(!display);
@@ -65,12 +62,14 @@ export default function Home() {
                 type='email'
                 placeholder='Ingrese su email'
                 value={email}
+                required={true}
                 onChange={handleEmailChange}
               />
               <input
                 type='password'
                 placeholder='Ingrese su contraseña'
                 value={password}
+                required={true}
                 onChange={handlePasswordChange}
               />
             </div>

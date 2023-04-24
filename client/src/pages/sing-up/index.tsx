@@ -57,9 +57,7 @@ export default function Home() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (email.length <= 0 || password.length <= 0 || username.length <= 0 || birthdate.length <= 0) {
-      setDisplay(!display);
-    } else {
+    if (email.length >= 0 || password.length >= 0 || username.length >= 0 || birthdate.length >= 0) {
       if (profilePicture) {
         const formData = new FormData();
         formData.append("image", profilePicture);
@@ -67,6 +65,7 @@ export default function Home() {
         formData.append("birthdate", birthdate);
         formData.append("email", email);
         formData.append("password", password);
+        formData.append("profilePicture", 'YES');
 
         Server.register({ formData });
 
@@ -79,6 +78,7 @@ export default function Home() {
         formData.append("birthdate", birthdate);
         formData.append("email", email);
         formData.append("password", password);
+        formData.append("profilePicture", 'NO');
 
         Server.register({ formData });
 
@@ -87,10 +87,6 @@ export default function Home() {
         }
       }
     }
-  };
-
-  const hideDisplay = () => {
-    setDisplay(!display);
   };
 
   return <>
@@ -102,7 +98,7 @@ export default function Home() {
         <form onSubmit={handleSubmit}>
           <div>
             <h4>Nombre completo</h4>
-            <input type="text" value={username} onChange={handleUsernameChange} />
+            <input type="text" required={true} value={username} onChange={handleUsernameChange} />
           </div>
           <div>
             <h4>Fecha de nacimiento</h4>
@@ -111,15 +107,16 @@ export default function Home() {
               min={`${year - 100}-${month > 9 ? month : `0${month}`}-${day > 9 ? day : `0${day}`}`}
               max={`${year}-${month > 9 ? month : `0${month}`}-${day > 9 ? day : `0${day}`}`}
               value={birthdate}
+              required={true}
               onChange={handleBirthdateChange} />
           </div>
           <div>
             <h4>Email</h4>
-            <input type="email" value={email} onChange={handleEmailChange} />
+            <input type="email" required={true} value={email} onChange={handleEmailChange} />
           </div>
           <div>
             <h4>Contraseña</h4>
-            <input type="text" value={password} onChange={handlePasswordChange} />
+            <input type="text" required={true} value={password} onChange={handlePasswordChange} />
           </div>
           <div className={styles.uploadImage}>
             <Image
@@ -138,11 +135,6 @@ export default function Home() {
           <button type="submit">Registrarse</button>
         </form>
       </section>
-      <div className={classNames(styles.background, display ? styles.backgroundDisplay : null)}></div>
-      <div className={classNames(styles.errorMessage, display ? styles.errorMessageDisplay : null)}>
-        <h3>No se han rellenado todos los datos</h3>
-        <button onClick={hideDisplay}>Aceptar</button>
-      </div>
     </main>
   </>
 }

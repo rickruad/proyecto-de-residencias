@@ -42,3 +42,6 @@
 
 # local config
 local-config.js
+
+# ignore images
+*.png

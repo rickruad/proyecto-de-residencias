@@ -119,7 +119,7 @@ export default function Home() {
           <div className={styles.uploadImage}>
             <Image
               className={styles.imagePreview}
-              src={imagePreview ? imagePreview : '/img/no-image-available.png'}
+              src={imagePreview ? imagePreview : '/img/no-image-available(512x512).png'}
               alt='test'
               width='100'
               height='100'

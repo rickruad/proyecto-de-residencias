@@ -18,6 +18,21 @@ export default function Products() {
   const router = useRouter();
   const selectedCategory = router.query.category !== undefined ? router.query.category : 'NULL';
 
+  if (!Array.isArray(products)) {
+    return <>
+      <Head title='Productos' />
+
+      <Header />
+
+      {admin === 1 ?
+        <AddNewProduct category={selectedCategory.toString()} />
+        :
+        null
+      }
+
+    </>
+  }
+
   const filterProducts = products.map((product, index) => {
     return {
       id: ids[index],
@@ -56,7 +71,7 @@ export default function Products() {
     <section className={styles.container}>{allSelectedProducts}</section>
 
     {admin === 1 ?
-      <AddNewProduct category={'entertainment'} />
+      <AddNewProduct category={selectedCategory.toString()} />
       :
       null
     }

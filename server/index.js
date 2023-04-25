@@ -4,6 +4,8 @@ const { DBNAME, DBPASSWORD, DBPORT } = localConfig.connectionDatabase();
 
 const PORT = process.env.PORT || 3001;
 
+import fs from 'fs';
+import path from 'path';
 import cors from 'cors';
 import mysql from 'mysql';
 import multer from 'multer';
@@ -24,6 +26,18 @@ const db = mysql.createConnection({
 })
 
 db.connect();
+
+const currentDirectory = decodeURI(path.dirname(import.meta.url).replace(/^file:\/\/\//, ''));
+
+const folderPathPFP = path.join(currentDirectory, '../client/public/img/profile-pictures');
+fs.mkdir(folderPathPFP, { recursive: true }, (err) => {
+  if (err) throw err;
+});
+
+const folderPathPP = path.join(currentDirectory, '../client/public/img/products-pictures');
+fs.mkdir(folderPathPP, { recursive: true }, (err) => {
+  if (err) throw err;
+});
 
 const createUsersTable = "CREATE TABLE users (" +
   "id INT PRIMARY KEY NOT NULL UNIQUE, " +

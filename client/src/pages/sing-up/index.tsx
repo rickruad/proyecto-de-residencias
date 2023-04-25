@@ -1,7 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 
 import Image from 'next/image';
-import classNames from 'classnames';
 
 import Server from '@/hooks/Server';
 
@@ -14,7 +13,6 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [display, setDisplay] = useState(false);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState('');
 

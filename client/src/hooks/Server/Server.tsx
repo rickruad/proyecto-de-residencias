@@ -187,7 +187,6 @@ export const useUpdateUser = ({ formData }: { formData: FormData }) => {
 }
 
 export const useAllProducts = () => {
-  const [length, setLength] = useState(1);
   const [ids, setIds] = useState<number[]>([]);
   const [products, setProducts] = useState<string[]>([]);
   const [images, setImages] = useState<string[]>([]);
@@ -204,7 +203,6 @@ export const useAllProducts = () => {
         setCategories(response.data.message);
         setTypes(response.data.message);
       } else {
-        setLength(response.data.length + 1);
         for (let i = 0; i < response.data.length; i++) {
           setIds(prevIds => [...prevIds, response.data[i].id]);
           setProducts(prevProducts => [...prevProducts, response.data[i].product]);
@@ -219,7 +217,6 @@ export const useAllProducts = () => {
   }, []);
 
   return {
-    length,
     ids,
     products,
     images,
@@ -246,11 +243,11 @@ export const addProductToCart = ({ username, product, priceselected, quantity }:
   console.log(product);
   console.log(priceselected);
   console.log(quantity)
-  return axios.post(`${baseURL}api/users-cart`, { 
-    username: username, 
-    product: product, 
-    priceselected: priceselected, 
-    quantity: quantity 
+  return axios.post(`${baseURL}api/users-cart`, {
+    username: username,
+    product: product,
+    priceselected: priceselected,
+    quantity: quantity
   });
 }
 
@@ -296,6 +293,46 @@ export const removeProductToCart = ({ id }: { id: number }) => {
   })
 }
 
+interface saveBuyProps {
+  username: string,
+  products: string,
+  type: string,
+  namecard: string,
+  numbercard: string,
+  expirationdatecard: string,
+  securitycodecard: string,
+  fullname: string,
+  country: string,
+  locality: string,
+  firstdirection: string,
+  seconddirection: string,
+  postalcode: string,
+  phonenumber: string,
+  save: boolean
+}
+
+export const saveBuy = ({ username, products, type, namecard, numbercard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber, save }: saveBuyProps) => {
+  if (save) {
+    axios.post(`${baseURL}api/save-info-buy`, { username, type, namecard, numbercard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber }).then((response) => {
+      axios.post(`${baseURL}api/buy-product`, { username, products }).then((response) => {
+        if (response.data.message === 'SUCCESSFULLY DELETED') {
+          if (typeof window !== 'undefined') {
+            window.location.href = '../../cart';
+          }
+        }
+      })
+    })
+  } else {
+    axios.post(`${baseURL}api/buy-product`, { username, products }).then((response) => {
+      if (response.data.message === 'SUCCESSFULLY DELETED') {
+        if (typeof window !== 'undefined') {
+          window.location.href = '../../cart';
+        }
+      }
+    })
+  }
+}
+
 const Server = {
   useIsOnline,
   register,
@@ -312,7 +349,8 @@ const Server = {
   addProduct,
   addProductToCart,
   useGetAllCart,
-  removeProductToCart
+  removeProductToCart,
+  saveBuy
 };
 
 export default Server;

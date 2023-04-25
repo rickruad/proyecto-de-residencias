@@ -145,18 +145,21 @@ export default function AddNewProduct({ category }: { category: string }) {
               <option value='gift-card'>Tarjeta de regalo</option>
             </select>
           </div>
-          <div className={classNames(productType === 'product' ? null : styles.hidePrice)}>
-            <label>Precio</label>
-            <input type="number" required={true} min='1' value={productPrice} onChange={handleProductPriceChange} />
-          </div>
-          <div className={classNames(productType === 'product' ? styles.hidePrice : null)}>
-            <label>Precios fijos</label>
+          {productType === 'product' ?
             <div>
-              <input type="number" max='10000' required={true} value={productPriceOne} onChange={handleProductPriceOneChange} />
-              <input type="number" max='10000' required={true} value={productPriceTwo} onChange={handleProductPriceTwoChange} />
-              <input type="number" max='10000' required={true} value={productPriceThree} onChange={handleProductPriceThreeChange} />
+              <label>Precio</label>
+              <input type="number" required={true} min='1' value={productPrice} onChange={handleProductPriceChange} />
             </div>
-          </div>
+            :
+            <div>
+              <label>Precios fijos</label>
+              <div>
+                <input type="number" max='10000' required={true} value={productPriceOne} onChange={handleProductPriceOneChange} />
+                <input type="number" max='10000' required={true} value={productPriceTwo} onChange={handleProductPriceTwoChange} />
+                <input type="number" max='10000' required={true} value={productPriceThree} onChange={handleProductPriceThreeChange} />
+              </div>
+            </div>
+          }
           <div>
             <label>Categoría del producto</label>
             <select required={true} onChange={handleProductCategoryChange}>

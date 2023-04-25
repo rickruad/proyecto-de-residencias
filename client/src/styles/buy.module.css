@@ -8,9 +8,149 @@
 
 .centerSection>.showInfo {
   display: flex;
-  flex-direction: column;
   background-color: #FFFFFF;
+  width: 40rem;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.centerSection>.showInfo>.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.centerSection>.showInfo>.form>h2,
+.centerSection>.showInfo>.form>.checkBox>h4,
+.centerSection>.showInfo>.form>.cardInfo>h3,
+.centerSection>.showInfo>.form>.buttons>.back,
+.centerSection>.showInfo>.form>.personalInfo>h3,
+.centerSection>.showInfo>.form>.buttons>.confirm,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelInput>label,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelInput>input,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelOptions>label,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelOptions>select,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelCodeCard>input,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelCodeCard>label,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelMonthCard>input,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelMonthCard>label,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelNumberCard>input,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelNumberCard>label,
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput>input,
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput>label {
+  font-family: Louis George Cafe;
+  font-weight: 700;
+  color: #000000;
+}
+
+.centerSection>.showInfo>.form>.checkBox>h4,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelInput>label,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelOptions>label,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelCodeCard>label,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelMonthCard>label,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelNumberCard>label,
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput>label {
+  font-weight: 400;
+}
+
+.centerSection>.showInfo>.form>.cardInfo,
+.centerSection>.showInfo>.form>.personalInfo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard {
+  display: flex;
+  width: 100%;
+  height: 4rem;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelInput,
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelOptions,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelCodeCard,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelMonthCard,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelNumberCard,
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput {
+  height: 4rem;
+  width: 49.308%;
+}
+
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelInput>input,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelCodeCard>input,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelMonthCard>input,
+.centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelNumberCard>input,
+.centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput>input {
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+  font-weight: 400;
+}
+
+.centerSection>.showInfo>.form>.checkBox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.centerSection>.showInfo>.form>.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 3rem;
+  gap: 0.5rem;
+}
+
+.centerSection>.showInfo>.form>.buttons>.back,
+.centerSection>.showInfo>.form>.buttons>.confirm {
+  border-radius: 8px;
+  height: 100%;
+  background-color: #191919;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.centerSection>.showInfo>.form>.buttons>.confirm {
+  border-style: none;
+  cursor: pointer;
+}
+
+.centerSection>.showInfo>.form>.cardInfo>.typeNameCard>.labelOptions>h3 {
+  display: flex;
+  align-items: center;
+  padding-inline: 0.2rem;
+  border-style: none;
+  font-family: Louis George Cafe;
+  font-weight: 400;
+  font-size: 1rem;
+  height: 100%;
+  width: 100%;
 }

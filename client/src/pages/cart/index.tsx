@@ -43,7 +43,7 @@ export default function Cart() {
       <div key={currentUsername.id} className={styles.card}>
         <div className={styles.priceNameSection}>
           <h3>{currentUsername.product}</h3>
-          <h5>{`Precio individual: ${Number(currentUsername.price) * Number(currentUsername.quantity)}`}</h5>
+          <h5>{`Precio individual: ${Number(currentUsername.price)}`}</h5>
         </div>
         <h4>{`Cantidad: ${currentUsername.quantity}`}</h4>
         <button className={styles.deleteProductButton} onClick={handleAbortBuy}>Borrar</button>
@@ -64,7 +64,7 @@ export default function Cart() {
             <h3>{`Total a pagar: MX$${totalPrice}`}</h3>
             <h4>{`Cashback: MX$${totalPrice * 0.02}`}</h4>
           </div>
-          <Link href={{ pathname: '../../cart/buy' }} className={styles.buyButton}>Comprar</Link>
+          <Link href={{ pathname: `${usernameCartMap.length > 0 ? '../../cart/buy' : '../../cart'}` }} className={styles.buyButton}>Comprar</Link>
         </div>
         <div className={styles.products}>{usernameCartHTML}</div>
       </div>

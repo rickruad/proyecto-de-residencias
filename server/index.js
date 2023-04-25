@@ -26,30 +26,51 @@ const db = mysql.createConnection({
 db.connect();
 
 const createUsersTable = "CREATE TABLE users (" +
-"id INT PRIMARY KEY NOT NULL UNIQUE, " +
-"email VARCHAR(45) NOT NULL UNIQUE, " +
-"password VARCHAR(45) NOT NULL, " + 
-"username VARCHAR(45) NOT NULL UNIQUE, " +
-"birthdate VARCHAR(45) NOT NULL, " +
-"profilePicture VARCHAR(256) NULL, " +
-"status INT NOT NULL DEFAULT '0', " +
-"admin INT NOT NULL DEFAULT '0')";
+  "id INT PRIMARY KEY NOT NULL UNIQUE, " +
+  "email VARCHAR(45) NOT NULL UNIQUE, " +
+  "password VARCHAR(45) NOT NULL, " +
+  "username VARCHAR(45) NOT NULL UNIQUE, " +
+  "birthdate VARCHAR(45) NOT NULL, " +
+  "profilePicture VARCHAR(256) NULL, " +
+  "status INT NOT NULL DEFAULT '0', " +
+  "admin INT NOT NULL DEFAULT '0')";
 
-const createProductsTable = "CREATE TABLE products (" + 
-"id INT PRIMARY KEY NOT NULL UNIQUE, " + 
-"product VARCHAR(100) NOT NULL, " +
-"image VARCHAR(512) NOT NULL, " +
-"description VARCHAR(256) NOT NULL, " +
-"price VARCHAR(45) NOT NULL DEFAULT '0', " +
-"category VARCHAR(45) NOT NULL, " + 
-"type VARCHAR(45) NOT NULL)";
+const createProductsTable = "CREATE TABLE products (" +
+  "id INT PRIMARY KEY NOT NULL UNIQUE, " +
+  "product VARCHAR(100) NOT NULL, " +
+  "image VARCHAR(512) NOT NULL, " +
+  "description VARCHAR(256) NOT NULL, " +
+  "price VARCHAR(45) NOT NULL DEFAULT '0', " +
+  "category VARCHAR(45) NOT NULL, " +
+  "type VARCHAR(45) NOT NULL)";
 
 const createUsersCartTable = "CREATE TABLE userscart (" +
-"id INT PRIMARY KEY NOT NULL UNIQUE, " +
-"username VARCHAR(45) NOT NULL, " +
-"product VARCHAR(45) NOT NULL, " +
-"priceselected VARCHAR(45) NULL DEFAULT '0', " +
-"quantity VARCHAR(45) NOT NULL)";
+  "id INT PRIMARY KEY NOT NULL UNIQUE, " +
+  "username VARCHAR(45) NOT NULL, " +
+  "product VARCHAR(45) NOT NULL, " +
+  "priceselected VARCHAR(45) NULL DEFAULT '0', " +
+  "quantity VARCHAR(45) NOT NULL)";
+
+const createHistoryTable = "CREATE TABLE history (" +
+  "id INT PRIMARY KEY NOT NULL UNIQUE, " +
+  "username VARCHAR(45) NOT NULL, " +
+  "products MEDIUMTEXT NOT NULL)";
+
+const createUserInfoBuyTable = "CREATE TABLE userinfobuy (" +
+  "id INT PRIMARY KEY NOT NULL UNIQUE, " +
+  "username VARCHAR(45) NOT NULL, " +
+  "type VARCHAR(45) NOT NULL, " +
+  "namecard VARCHAR(64) NOT NULL, " +
+  "numbercard VARCHAR(45) NOT NULL, " +
+  "expirationdatecard VARCHAR(45) NOT NULL, " +
+  "securitycodecard VARCHAR(45) NOT NULL, " +
+  "fullname VARCHAR(64) NOT NULL, " +
+  "country VARCHAR(45) NOT NULL, " +
+  "locality VARCHAR(45) NOT NULL, " +
+  "firstdirection VARCHAR(45) NOT NULL, " +
+  "seconddirection VARCHAR(45) NULL, " +
+  "postalcode VARCHAR(45) NOT NULL, " +
+  "phonenumber VARCHAR(45) NOT NULL)";
 
 db.query(createUsersTable, (err, result) => {
   if (err) {
@@ -68,6 +89,22 @@ db.query(createProductsTable, (err, result) => {
 })
 
 db.query(createUsersCartTable, (err, result) => {
+  if (err) {
+    if (err.code !== 'ER_TABLE_EXISTS_ERROR') {
+      console.log(err);
+    }
+  }
+})
+
+db.query(createHistoryTable, (err, result) => {
+  if (err) {
+    if (err.code !== 'ER_TABLE_EXISTS_ERROR') {
+      console.log(err);
+    }
+  }
+})
+
+db.query(createUserInfoBuyTable, (err, result) => {
   if (err) {
     if (err.code !== 'ER_TABLE_EXISTS_ERROR') {
       console.log(err);
@@ -169,7 +206,7 @@ app.post('/api/sing-out', (req, res) => {
   })
 })
 
-app.post('/api/user', (req, res) => {  
+app.post('/api/user', (req, res) => {
   db.query("SELECT * FROM users WHERE status = '1'", (err, result) => {
     if (err) {
       console.log(err);
@@ -259,10 +296,10 @@ app.post("/api/server-status", (req, res) => {
 
 app.post("/api/get-products", (req, res) => {
   db.query("SELECT * FROM products", (err, result) => {
-    if(err) {
+    if (err) {
       console.log(err);
     } else {
-      if(result.length > 0) {
+      if (result.length > 0) {
         res.send(result);
       } else {
         res.json({ message: 'PRODUCT ERROR' });
@@ -363,6 +400,67 @@ app.post("/api/remove-product-cart", (req, res) => {
       res.json({ message: 'SUCCESS' });
     }
   })
+})
+
+app.post("/api/buy-product", (req, res) => {
+  const products = req.body.products;
+  const username = req.body.username;
+
+  const insertData = (idToTry) => {
+    db.query("INSERT INTO history (id, username, products) VALUE (?, ?, ?)", [idToTry, username, products], (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          insertData(parseInt(idToTry) + 1);
+        } else {
+          console.log(err);
+        }
+      } else {
+        db.query("DELETE FROM userscart WHERE username = ?", [username], (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send({ message: 'SUCCESSFULLY DELETED' });
+          }
+        })
+      }
+    })
+  }
+
+  insertData(1);
+})
+
+app.post("/api/save-info-buy", (req, res) => {
+  const username = req.body.username;
+  const type = req.body.type;
+  const numbercard = req.body.numbercard;
+  const namecard = req.body.namecard;
+  const expirationdatecard = req.body.expirationdatecard;
+  const securitycodecard = req.body.securitycodecard;
+  const fullname = req.body.fullname;
+  const country = req.body.country;
+  const locality = req.body.locality;
+  const firstdirection = req.body.firstdirection;
+  const seconddirection = req.body.seconddirection !== 'none' ? req.body.seconddirection : null;
+  const postalcode = req.body.postalcode;
+  const phonenumber = req.body.phonenumber;
+
+  const query = "INSERT INTO userinfobuy (id, username, type, namecard, numbercard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  const insertData = (idToTry) => {
+    db.query(query, [idToTry, username, type, numbercard, namecard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber], (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          insertData(parseInt(idToTry) + 1);
+        } else {
+          console.log(err);
+        }
+      } else {
+        res.send({ message: 'SUCCESSFULLY SAVED' });
+      }
+    })
+  }
+
+  insertData(1);
 })
 
 app.listen(PORT, () => {

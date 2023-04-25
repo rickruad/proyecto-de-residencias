@@ -128,7 +128,9 @@ db.query(createUserInfoBuyTable, (err, result) => {
 
 db.query("INSERT INTO users (id, username, birthdate, email, password, profilePicture, status, admin) VALUES (?,?,?,?,?,?,?,?)", ['1', 'admin', '2000-01-01', 'admin@admin.com', 'admin', null, '0', '1'], (err, result) => {
   if (err) {
-    console.log(err)
+    if (err.code !== 'ER_DUP_ENTRY') {
+      console.log(err);
+    }
   }
 })
 

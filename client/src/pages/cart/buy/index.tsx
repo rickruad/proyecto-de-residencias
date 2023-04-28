@@ -1,15 +1,15 @@
 import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 
 import Link from 'next/link';
-import Server from '@/hooks/Server';
-import AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
+import * as Server from '@/hooks/Server';
+import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
 import Head from '@/components/Head';
 
 import styles from '@/styles/buy.module.css';
 
 export default function Buy() {
-  const { username } = Server.useActualUserInformation();
+  const { username } = Server.GetCurrentUserInformation();
   const { idCart, usernameCart, productCart } = Server.useGetAllCart();
 
   const [dateMin, setDateMin] = useState<string>('');
@@ -209,7 +209,7 @@ export default function Buy() {
             <div className={styles.typeNameCard}>
               <div className={styles.labelOptions}>
                 <label>Tipo de tarjeta</label>
-                <h3>{AuxiliarFunctions.ToCapitalLetter({ username: cardTypeValue })}</h3>
+                <h3>{AuxiliarFunctions.wordsToCapitalLetter({ text: cardTypeValue })}</h3>
               </div>
               <div className={styles.labelInput}>
                 <label>Nombre a cargo de la tarjeta</label>

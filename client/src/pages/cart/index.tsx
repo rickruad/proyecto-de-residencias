@@ -1,4 +1,4 @@
-import Server from "@/hooks/Server";
+import * as Server from "@/hooks/Server";
 
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ import styles from '@/styles/cart.module.css';
 export default function Cart() {
   Server.useLoginAuthenticationInsidePage();
 
-  const { username } = Server.useActualUserInformation();
+  const { username } = Server.GetCurrentUserInformation();
   const { idCart, usernameCart, productCart, priceSelectedCart, quantityCart } = Server.useGetAllCart();
   const CurrentUsername = username;
 

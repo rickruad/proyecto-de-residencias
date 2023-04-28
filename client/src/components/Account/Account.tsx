@@ -195,7 +195,7 @@ export default function Account() {
   return <>
     {
       status === 1 ?
-        <button onClick={handleOpenMenu} className={classNames(menuStatus ? styles.loginMenuOpen : styles.login)}>
+        <button onClick={handleOpenMenu} className={classNames(styles.isLogin, menuStatus ? styles.loginMenuOpen : null)}>
           {
             profilePicture ?
               <StyledImage src={profilePicture} className={styles.image} />

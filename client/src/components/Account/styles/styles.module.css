@@ -1,5 +1,4 @@
-.login,
-.loginMenuOpen {
+.isLogin {
   display: flex;
   align-items: center;
   padding: 0.5rem;
@@ -15,7 +14,11 @@
   cursor: pointer;
 }
 
-.login>.image,
+.loginMenuOpen {
+  background-color: #F0F5FA;
+}
+
+.isLogin>.image,
 .loginMenuOpen>.image {
   width: 2.5rem;
   height: 2.5rem;
@@ -23,7 +26,7 @@
   background-position: center; 
 }
 
-.login>.noImage,
+.isLogin>.noImage,
 .loginMenuOpen>.noImage {
   display: flex;
   align-items: center;
@@ -36,7 +39,7 @@
   color: #FFFFFF;
 }
 
-.login>.info,
+.isLogin>.info,
 .loginMenuOpen>.info {
   display: flex;
   flex-direction: column;
@@ -44,7 +47,7 @@
   justify-content: space-between;
 }
 
-.login>.info>h4,
+.isLogin>.info>h4,
 .loginMenuOpen>.info>h4 {
   font-family: Google Sans;
   font-weight: 400;
@@ -52,7 +55,7 @@
   font-size: 0.9rem;
 }
 
-.login>.info>h5,
+.isLogin>.info>h5,
 .loginMenuOpen>.info>h5 {
   font-family: Google Sans;
   font-weight: 400;
@@ -113,9 +116,8 @@
   cursor: pointer;
 }
 
-.login:hover,
 .noLogin:hover,
-.loginMenuOpen {
+.isLogin:hover {
   background-color: #F0F5FA;
 }
 
@@ -123,12 +125,14 @@
   font-family: Google Sans;
   font-weight: 700;
   color: #333333;
+  font-size: 0.9rem;
 }
 
 .noLogin>h5 {
   font-family: Google Sans;
   font-weight: 400;
   color: #E94242;
+  font-size: 0.8rem;
 }
 
 .loginSection {
@@ -169,6 +173,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background-color: #FFFFFF;
   align-items: center;
   justify-content: space-between;
 }

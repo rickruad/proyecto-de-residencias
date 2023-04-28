@@ -1,271 +1,79 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
-    max-width: 100%;
-    padding: 0.7rem 1rem;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
-    background-color: #FFFFFF;
-    border-radius: 8px;
-
-    position: relative;
-    z-index: 2;
-
-    transition: all 0.3s;
+.header {
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
 }
 
-.container a .image {
-    position: relative;
-    z-index: 2;
-    width: 2rem;
-    height: 2rem;
-    
-    transition: all .3s;
+.header>.headerContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 80rem;
+  margin: auto;
+  padding: 0rem 1.75rem;
 }
 
-.container div {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
+.header>.headerContainer>h2 {
+  font-family: Google Sans;
+  font-weight: 700;
+  color: #333333;
 }
 
-.container div a .image {
-    position: relative;
-    z-index: 2;
-    width: 2rem;
-    height: 2rem;
-    
-    transition: all .3s;
+.header>.headerContainer>.headerButtonsContainer {
+  display: flex;
+  align-items: center;
 }
 
-.container div a .list {
-    width: 1.65rem;
-}
-
-.container div .button {
-    position: absolute;
-    top: 0.55rem;
-    right: 0.9rem;
-    padding: 1rem;
-    opacity: 0;
-
-    z-index: 7;
-
-    cursor: pointer;
-
-    -webkit-tap-highlight-color: transparent;
-}
-
-.container div .user {
-
-    width: 2rem;
-    height: 2rem;
-    background-color: #70B77E;
-    border-radius: 10rem;
-    color: #FFFFFF;
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-size: 0.9rem;
-    font-weight: 700;
-}
-
-.container div .showUser {
+.header>.headerContainer>.headerButtonsContainer>.noLogin,
+.header>.headerContainer>.headerButtonsContainer>.mdDashBoard,
+.header>.headerContainer>.headerButtonsContainer>.mdShoppingCart {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  padding: 0.5rem;
+  color: #333333;
 }
 
-.container div .hideUser {
-  display: none;
+.header>.headerContainer>.headerButtonsContainer>.noLogin {
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #DDDDDD;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  cursor: pointer;
 }
 
-.container div .profilePicture {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 10rem;
+.header>.headerContainer>.headerButtonsContainer>.noLogin:hover,
+.header>.headerContainer>.headerButtonsContainer>.mdDashBoard:hover,
+.header>.headerContainer>.headerButtonsContainer>.mdShoppingCart:hover {
+  background-color: #F0F5FA;
 }
 
-.container div .showProfilePicture {
-  display: block;
+.header>.headerContainer>.headerButtonsContainer>.mdDashBoard>.icon,
+.header>.headerContainer>.headerButtonsContainer>.mdShoppingCart>.icon {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
-.container div .hideProfilePicture {
-  display: none;
+.header>.headerContainer>.headerButtonsContainer>.noLogin>h4 {
+  font-family: Google Sans;
+  font-weight: 700;
 }
 
-.container div .backgroundClosedMenu {
-    position: fixed;
-    top: 0rem;
-    right: 0rem;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    
-    display: none;
-    z-index: 1;
+.header>.headerContainer>.headerButtonsContainer>.noLogin>h5,
+.header>.headerContainer>.headerButtonsContainer>.mdDashBoard>h5,
+.header>.headerContainer>.headerButtonsContainer>.mdShoppingCart>h5 {
+  font-family: Google Sans;
+  font-weight: 400;
 }
 
-.container div .backgroundOpenMenu {
-    display: block;
-    z-index: 3;
-}
-
-.container div .closedMenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: absolute;
-    background: #FFFFFF;
-    border-radius: 8px;
-    width: calc(100% - 3rem);
-    height: 10rem;
-    top: 3.3rem;
-    right: 0rem;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    gap: 1.5rem;
-    padding: 2rem;
-    z-index: 1;
-    transition: all 0.2s;
-}
-
-.container div .closedMenu h3 {
-    font-family: Louis George Cafe;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.4rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: none;
-}
-
-.container div .closedMenu div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.container div .closedMenu div button {
-    font-family: Louis George Cafe;
-    padding: 0.5rem;
-    font-style: normal;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 1);
-    background-color: #191919;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #191919;
-    transition: all .3s;
-    display: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.container div .closedMenu div button:hover {
-    border-color: rgba(0, 0, 0, 1);
-    color: rgba(255, 255, 255, 1);
-}
-
-.container div .openMenu {
-    top: 4.3rem;
-    right: 0rem;
-    opacity: 1;
-    width: 100%;
-    height: 13rem;
-    z-index: 7;
-}
-
-.container div .openMenu h3 {
-    display: block;
-}
-
-.container div .openMenu div button {
-    display: block;
-}
-
-@media (min-width: 80rem) {
-    .container div .closedMenu {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: absolute;
-        background: #FFFFFF;
-        border-radius: 8px;
-        width: 14rem;
-        height: 8rem;
-        top: 3rem;
-        right: 0rem;
-        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        gap: 0.5rem;
-        padding: 1.7rem 1.5rem;
-        z-index: 1;
-        transition: all 0.2s;
-    }
-
-    .container div .closedMenu h3 {
-        font-size: 1.2rem;
-        font-family: Louis George Cafe;
-        font-style: normal;
-        font-weight: 700;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: none;
-    }
-
-    .container div .closedMenu div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .container div .closedMenu div button {
-        font-family: Louis George Cafe;
-        padding: 0.3rem;
-        font-style: normal;
-        font-weight: 700;
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-        background-color: #191919;
-        width: 100%;
-        border-radius: 8px;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #191919;
-        transition: all .3s;
-        display: none;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        cursor: pointer;
-    }
-
-    .container div .openMenu {
-        top: 4rem;
-        right: 0rem;
-        opacity: 1;
-        width: 16rem;
-        height: 11rem;
-        z-index: 7;
-    }
-
-    .container div .openMenu h3 {
-        display: block;
-    }
-
-    .container div .openMenu div button {
-        display: block;
-    }
+.header>.headerContainer>.headerButtonsContainer>.noLogin>h5 {
+  color: #E94242;
 }

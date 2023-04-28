@@ -1,0 +1,418 @@
+.login,
+.loginMenuOpen {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  color: #333333;
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #DDDDDD;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.login>.image,
+.loginMenuOpen>.image {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: cover;
+  background-position: center; 
+}
+
+.login>.noImage,
+.loginMenuOpen>.noImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #FF716C;
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.login>.info,
+.loginMenuOpen>.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.login>.info>h4,
+.loginMenuOpen>.info>h4 {
+  font-family: Google Sans;
+  font-weight: 400;
+  color: #E94242;
+  font-size: 0.9rem;
+}
+
+.login>.info>h5,
+.loginMenuOpen>.info>h5 {
+  font-family: Google Sans;
+  font-weight: 400;
+  color: #333333;
+  font-size: 0.8rem;
+}
+
+.menu {
+  position: absolute;
+  margin-top: 4rem;
+  margin-right: 1.7rem;
+  top: 0;
+  right: 0;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  background-color: #333333;
+  z-index: 420;
+}
+
+.menu>.button {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  padding: 0.75rem;
+}
+
+.menu>.button>.icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: #FFFFFF;
+}
+
+.menu>.button>.text {
+  font-family: Google Sans;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+}
+
+.menu>.button:hover {
+  background-color: #E94242;
+}
+
+.noLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  color: #333333;
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #DDDDDD;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.login:hover,
+.noLogin:hover,
+.loginMenuOpen {
+  background-color: #F0F5FA;
+}
+
+.noLogin>h4 {
+  font-family: Google Sans;
+  font-weight: 700;
+  color: #333333;
+}
+
+.noLogin>h5 {
+  font-family: Google Sans;
+  font-weight: 400;
+  color: #E94242;
+}
+
+.loginSection {
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 400;
+}
+
+.loginSection>.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 401;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loginSection>.sections {
+  z-index: 402;
+  width: 45rem;
+  height: 44rem;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+}
+
+.loginSection>.sections>.presentation {
+  position: relative;
+  width: 18rem;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.loginSection>.sections>.presentation>.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/img/login-background.jpg);
+  background-position: center;
+  background-size: cover;
+  filter: blur(0.5rem);
+  z-index: 403;
+}
+
+.loginSection>.sections>.presentation>.blackFilter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 404;
+}
+
+.loginSection>.sections>.presentation>h1 {
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 405;
+  color: #FFFFFF;
+  font-family: Google Sans;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.loginSection>.sections>.presentation>.registrationButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  z-index: 405;
+  position: relative;
+  padding: 2rem 1.5rem;
+  gap: 0.5rem;
+}
+
+.loginSection>.sections>.presentation>.registrationButton>h3 {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+
+.loginSection>.sections>.presentation>.registrationButton>button {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #FFFFFF;
+  font-size: 1rem;
+  background-color: transparent;
+  padding: 0.2rem 1rem;
+  border-radius: 8px;
+  border-color: #FFFFFF;
+  outline: none;
+  border-style: solid;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.loginSection>.sections>.presentation>.registrationButton>button:hover {
+  color: #333333;
+  background-color: #FFFFFF;
+}
+
+.loginSection>.sections>.login,
+.loginSection>.sections>.register {
+  position: relative;
+  width: 27rem;
+  height: 100%;
+  padding: 1rem;
+}
+
+.loginSection>.sections>.login>.close,
+.loginSection>.sections>.register>.close {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #333333;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+}
+
+.loginSection>.sections>.login>.loginForm,
+.loginSection>.sections>.register>.registerForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.5rem 3rem;
+}
+
+.loginSection>.sections>.login>.loginForm>h2,
+.loginSection>.sections>.register>.registerForm>h2 {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #333333;
+}
+
+.loginSection>.sections>.login>.loginForm>.inputs,
+.loginSection>.sections>.register>.registerForm>.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput,
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput>label,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput>label,
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput>.labelPassword>label,
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput>label,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput>.labelPassword>label,
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput>.labelPassword>.showPassword,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput>.labelPassword>.showPassword {
+  font-family: Google Sans;
+  font-weight: 400;
+  color: #333333;
+  font-size: 0.9rem;
+}
+
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput>input,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput>input {
+  font-family: Google Sans;
+  font-weight: 400;
+  color: #333333;
+  padding: 0.4rem 0.8rem;
+  outline: none;
+  border: 1px solid #CED4DA;
+  border-radius: 0.35rem;
+  background-color: #F0F5FA;
+  transition: all 0.3s;
+}
+
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput>input:focus,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput>input:focus {
+  outline: none;
+  border-color: #80BDFF;
+  box-shadow: 0px 0px 0px 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.loginSection>.sections>.login>.loginForm>.errorMessage,
+.loginSection>.sections>.register>.registerForm>.errorMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  background-color: #E94242;
+  border-radius: 0.5rem;
+}
+
+.loginSection>.sections>.login>.loginForm>.errorMessage>h3,
+.loginSection>.sections>.register>.registerForm>.errorMessage>h3 {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+
+.loginSection>.sections>.login>.loginForm>button,
+.loginSection>.sections>.register>.registerForm>button,
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput>input::file-selector-button {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #FFFFFF;
+  background-color: #E94242;
+  border: 2px solid #FF716C;
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+  outline: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+}
+
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput>input::file-selector-button {
+  width: 100%;
+}
+
+.loginSection>.sections>.login>.loginForm>button:hover,
+.loginSection>.sections>.register>.registerForm>button:hover,
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput>input::file-selector-button:hover {
+  background-color: #C02E2E;
+}
+
+.loginSection>.sections>.login>.loginForm>.inputs>.labelInput>.labelPassword>.showPassword:hover,
+.loginSection>.sections>.register>.registerForm>.inputs>.labelInput>.labelPassword>.showPassword:hover {
+  color: #E94242;
+  cursor: pointer;
+}
+
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.profilePicture {
+  width: 6rem;
+  height: 6rem;
+
+  border: 1px solid #333333;
+  background-position: center;
+  background-size: cover;
+}
+
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput {
+  width: 63%;
+}
+
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput>h5 {
+  font-family: Google Sans;
+  color: #333333;
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+.loginSection>.sections>.register>.registerForm>.inputs>.uploadImage>.labelInput>input {
+  font-family: Google Sans;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transition: all 0.3s;
+}

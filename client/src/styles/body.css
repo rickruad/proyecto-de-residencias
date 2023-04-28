@@ -5,9 +5,7 @@ body {
 
   margin: auto;
 
-  max-width: 80rem;
-
-  background-color: #DEDEDE;
+  background-color: #F0F5FA;
 
   transition: background-color 0.3s;
 }

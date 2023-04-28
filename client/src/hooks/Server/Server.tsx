@@ -43,16 +43,13 @@ export const useLogin = ({ email, password }: { email: string, password: string 
   return status;
 }
 
-export const logout = () => {
-  return (
-    axios.post(`${baseURL}api/sing-out`).then((response) => {
-      if (response.data.message == 'Success') {
-        if (typeof window !== 'undefined') {
-          window.location.href = '../sing-in/';
-        }
-      }
-    })
-  )
+export const Logout = async () => {
+  const response = await axios.post(`${baseURL}api/sing-out`);
+  if (response.data.message === 'SUCCESS') {
+    if (typeof window !== 'undefined') {
+      window.location.href = '../../';
+    }
+  }
 }
 
 export const useLoginAuthenticationInsidePage = () => {
@@ -79,7 +76,7 @@ export const useLoginAuthenticationOutsidePage = () => {
   );
 }
 
-export const useActualUserInformation = () => {
+export const GetCurrentUserInformation = () => {
   const [id, setId] = useState(0);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -332,25 +329,3 @@ export const saveBuy = ({ username, products, type, namecard, numbercard, expira
     })
   }
 }
-
-const Server = {
-  useIsOnline,
-  register,
-  useLogin,
-  logout,
-  useLoginAuthenticationInsidePage,
-  useLoginAuthenticationOutsidePage,
-  useActualUserInformation,
-  useAllUsersInformation,
-  deleteUser,
-  promoteUser,
-  useUpdateUser,
-  useAllProducts,
-  addProduct,
-  addProductToCart,
-  useGetAllCart,
-  removeProductToCart,
-  saveBuy
-};
-
-export default Server;

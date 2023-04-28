@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import Server from '@/hooks/Server';
+import * as Server from '@/hooks/Server';
 
 import Head from '@/components/Head';
 import Header from '@/components/Header';
@@ -12,7 +12,7 @@ import styles from '@/styles/products.module.css';
 export default function Products() {
   Server.useLoginAuthenticationInsidePage();
 
-  const { admin } = Server.useActualUserInformation();
+  const { admin } = Server.GetCurrentUserInformation();
   const { ids, products, images, descriptions, prices, categories, types } = Server.useAllProducts();
 
   const router = useRouter();

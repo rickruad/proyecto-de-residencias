@@ -1,13 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
 import Image from 'next/image';
-import Server from '@/hooks/Server';
+import * as Server from '@/hooks/Server';
 import classNames from 'classnames';
 
 import styles from './styles/styles.module.css';
 
 export default function AddNewProduct({ category }: { category: string }) {
-  const { admin } = Server.useActualUserInformation();
+  const { admin } = Server.GetCurrentUserInformation();
   const [display, setDisplay] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const [productName, setProductName] = useState('');

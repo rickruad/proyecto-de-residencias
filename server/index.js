@@ -149,15 +149,17 @@ const storageAvatars = multer.diskStorage({
 
 const uploadAvatars = multer({ storage: storageAvatars });
 
-app.post('/api/sing-up', uploadAvatars.single("image"), (req, res) => {
+app.post('/api/sing-up', uploadAvatars.single("profilePicture"), (req, res) => {
   const username = req.body.username;
   const birthdate = req.body.birthdate;
   const email = req.body.email;
   const password = req.body.password;
-  const profilePicture = req.body.profilePicture;
+  const thereIsProfilePicture = req.body.thereIsProfilePicture;
   var imageUrl = null;
 
-  if (profilePicture === 'YES') {
+  console.log(thereIsProfilePicture);
+
+  if (thereIsProfilePicture === 'YES') {
     imageUrl = `/img/profile-pictures/${req.file.filename}`;
   }
 
@@ -216,12 +218,10 @@ app.post('/api/sing-out', (req, res) => {
           if (err) {
             console.log(err);
           } else {
-            console.log(updateResult);
-            res.send({ message: 'Success' });
+            res.send({ message: 'SUCCESS' });
           }
         });
       } else {
-        console.log('error inesperado');
         console.log(result)
       }
     }

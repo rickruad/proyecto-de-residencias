@@ -63,6 +63,14 @@
 
 }
 
+@media (min-width: 80rem) {
+  .servicesSection {
+    max-width: 80rem;
+    margin: auto;
+    margin-bottom: 5rem;
+  }
+}
+
 @media (min-width: 1367px) {
   .servicesSection>.servicesContainer>.titleSection>.icon {
     width: 35px;

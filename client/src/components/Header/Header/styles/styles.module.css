@@ -212,22 +212,32 @@
   color: #333333;
 }
 
-.menu {
+.sectionMenu {
+  display: none;
   position: fixed;
-  margin-top: 4rem;
-  margin-right: 0rem;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-  display: none;
-  flex-direction: column;
+  margin-top: 4rem;
   background-color: #FFFFFF;
   z-index: 100;
-  opacity: 1;
-  transition: all 0.3s;
 }
 
-.openMenu {
+.showSectionMenu {
+  display: block;
+}
+
+.menuSection>.menu {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  opacity: 1;
+  transition: all 0.3s;
+  z-index: 100;
 }
 
 .loginWindow {
@@ -246,22 +256,33 @@
 }
 
 @media (min-width: 1367px) {
-  .menu {
-    position: absolute;
+  .sectionMenu {
+    background-color: transparent;
+    right: 0;
+    margin: auto;
+    max-width: 80rem;
+    display: none;
+    justify-content: flex-end;
+    height: auto;
+    z-index: 1;
+  }
+
+  .showSectionMenu {
+    display: flex;
+  }
+
+  .sectionMenu>.menu {
+    position: relative;
     margin-top: 4.2rem;
     margin-right: 1rem;
     top: 0;
     right: 0;
     width: 160px;
     height: auto;
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: #333333;
     z-index: 420;
-  }
-  
-  .openMenu {
-    display: flex;
   }
 
   .loginWindow {

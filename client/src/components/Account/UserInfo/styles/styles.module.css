@@ -66,3 +66,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+@media (min-width: 80rem) {
+  .userInfoSection {
+    width: 80rem;
+    margin: auto;
+    margin-top: 5rem;
+  }
+}

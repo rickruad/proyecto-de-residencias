@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 import Head from "@/components/Head";
 import Header from "@/components/Header/Header";
+import Footer from '@/components/Footer';
 
 import styles from '@/styles/purchasehistory.module.css';
 
@@ -38,6 +39,8 @@ export default function PurchaseHistory() {
           <h2>{'No has hecho ninguna compra'}</h2>
         </div>
       </section>
+
+      <Footer />
     </>
   }
 
@@ -89,6 +92,8 @@ export default function PurchaseHistory() {
           <h2>{'No has hecho ninguna compra'}</h2>
         </div>
       </section>
+
+      <Footer />
     </>
   }
 
@@ -101,5 +106,7 @@ export default function PurchaseHistory() {
       <h3 className={styles.title}>{'Mis compras'}</h3>
       <div className={styles.purchaseSection}>{purchaseHistory}</div>
     </section>
+
+    <Footer />
   </>
 }

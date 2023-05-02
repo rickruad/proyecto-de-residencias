@@ -113,3 +113,11 @@
 .usersInfoSection>.users>.user>.userButtons>.button:hover {
   background-color: #C02E2E;
 }
+
+@media (min-width: 80rem) {
+  .usersInfoSection {
+    max-width: 80rem;
+    margin: auto;
+    margin-top: 1rem;
+  }
+}

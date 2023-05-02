@@ -3,8 +3,11 @@ import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
 import Head from '@/components/Head';
 import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer';
 import UserInfo from '@/components/Account/UserInfo';
 import UsersInfo from '@/components/Account/UsersInfo';
+
+import styles from '@/styles/account.module.css';
 
 export default function Account() {
   const { username, admin } = Server.GetCurrentUserInformation();
@@ -14,13 +17,18 @@ export default function Account() {
 
     <Header />
 
-    <UserInfo />
-
     {
       admin === 1 ?
-        <UsersInfo />
+        <section className={styles.adminSection}>
+          <UserInfo />
+          <UsersInfo />
+          <Footer />
+        </section>
         :
-        null
-    }
+        <section className={styles.noAdminSection}>
+          <UserInfo />
+          <Footer />
+        </section>
+    }    
   </>
 }

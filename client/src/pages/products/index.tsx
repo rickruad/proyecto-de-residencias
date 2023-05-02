@@ -8,6 +8,7 @@ import classNames from 'classnames';
 
 import Head from '@/components/Head';
 import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer';
 import Product from '@/components/Products/Product';
 import AddProducts from '@/components/Products/AddProducts';
 
@@ -43,6 +44,7 @@ export default function Products() {
         }
       </section>
 
+      <Footer />
     </>
   }
 
@@ -84,6 +86,7 @@ export default function Products() {
         }
       </section>
 
+      <Footer />
     </>
   }
 
@@ -118,5 +121,7 @@ export default function Products() {
     </section>
 
     <section className={styles.products}>{allSelectedProducts}</section>
+
+    <Footer />
   </>
 }

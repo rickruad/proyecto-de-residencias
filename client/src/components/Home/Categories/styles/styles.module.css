@@ -122,6 +122,14 @@
   }
 }
 
+@media (min-width: 80rem) {
+  .categoriesSection {
+    max-width: 80rem;
+    margin: auto;
+    margin-bottom: 5rem;
+  }
+}
+
 @media (min-width: 1367px) {
   .categoriesSection>.categoriesContainer>.titleSection>.icon {
     width: 35px;

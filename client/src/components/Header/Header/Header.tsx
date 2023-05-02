@@ -79,8 +79,10 @@ export default function Header() {
         </div>
       </section>
     </header>
-    <section className={classNames(styles.menu, menuStatus ? styles.openMenu : null)}>
-      <HeaderMenu />
+    <section className={classNames(styles.sectionMenu, menuStatus ? styles.showSectionMenu : null)}>
+      <div className={styles.menu}>
+        <HeaderMenu />
+      </div>
     </section>
     <section className={classNames(styles.loginWindow, windowStatus ? styles.openLoginWindow : null)}>
       <Login />

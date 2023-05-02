@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 export const firstWord = ({ text }: { text: string }) => {
   const firstWord = text.split(" ")[0];
 
@@ -20,4 +22,37 @@ export const wordsToCapitalLetter = ({ text }: { text: string }) => {
   const textWithCapital = wordsWithCapital.join(' ');
 
   return textWithCapital;
+}
+
+const GetWindowDimensions = () => {
+  if (typeof window !== 'undefined') {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  };
+  return {
+    width: 0,
+    height: 0
+  };
+}
+
+export const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(
+    GetWindowDimensions()
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      if (typeof window !== 'undefined') {
+        setWindowDimensions(GetWindowDimensions());
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowDimensions;
 }

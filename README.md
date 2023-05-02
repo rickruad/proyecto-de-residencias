@@ -25,8 +25,19 @@ export function connectionDatabase() {
 	}
 }
 
+export function connectionServer() {
+	const SVPORT = 3001; // Este es el puerto en el que se va a iniciar el servidor
+	const SVIP = 'localhost' // Y esta es la dirección en la que va a estar el servidor
+	
+	return {
+		SVPORT,
+		SVIP
+	}
+}
+
 const localConfig = {
-	connectionDatabase,
+	connectionServer,
+	connectionDatabase
 }
 
 export default localConfig;
@@ -39,4 +50,4 @@ npm start
 ```bash
 npm run dev
 ```
-> El servidor se ejecutará en http://localhost:3001/ y la webapp en http://localhost:3000/
+> La página se iniciará en el siguiente puerto http://localhost:3000/

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { StyledImage, StyledCarousel } from '@/hooks/StyledComponents';
+import { StyledCarousel } from '@/hooks/StyledComponents';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 import styles from './styles/styles.module.css';
 
@@ -21,7 +22,7 @@ export default function Carousel() {
       let currentPositionRight = (position + 1) % arrayImages.length;
 
       setPosition(currentPositionRight);
-      setNewPosition(currentPositionRight * -(348 / arrayImages.length));
+      setNewPosition(currentPositionRight * -(100 / arrayImages.length));
     }, 5000);
 
     return () => clearInterval(interval);
@@ -37,7 +38,14 @@ export default function Carousel() {
   const allImagesForCarousel = images.map((currentImage) => {
     return (
       <Link key={currentImage.id} className={styles.link} href={{ pathname: '../../' }}>
-        <StyledImage src={currentImage.image} className={styles.styledImage} />
+        <Image
+          className={styles.styledImage}
+          src={currentImage.image}
+          alt={`image ${currentImage.id + 1}`}
+          width={1000}
+          height={1000}
+          priority={true}
+        />
       </Link>
     )
   })
@@ -46,7 +54,7 @@ export default function Carousel() {
     <section className={styles.carouselContainer}>
       <div>
         <div>
-          <StyledCarousel position={newPosition} className={styles.styledCarousel} >{allImagesForCarousel}</StyledCarousel>
+          <StyledCarousel position={`${newPosition}%`} className={styles.styledCarousel} >{allImagesForCarousel}</StyledCarousel>
         </div>
       </div>
     </section>

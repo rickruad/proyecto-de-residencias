@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 
 import axios from 'axios';
+import localConfig from '../../../../local-config';
 
-const baseURL = 'http://localhost:3001/';
+const { SVIP, SVPORT } = localConfig.connectionServer();
+
+const baseURL = `http://${SVIP}:${SVPORT}`;
 
 export const useIsOnline = () => {
   const [serverStatus, setServerStatus] = useState(null)
@@ -52,28 +55,13 @@ export const Logout = async () => {
   }
 }
 
-export const useLoginAuthenticationInsidePage = () => {
-  return (
-    axios.post(`${baseURL}api/user-status`).then((response) => {
-      if (typeof window !== 'undefined') {
-        if (response.data.message == 0) {
-          window.location.href = '../sing-in/';
-        };
-      }
-    })
-  );
-}
-
-export const useLoginAuthenticationOutsidePage = () => {
-  return (
-    axios.post(`${baseURL}api/user-status`).then((response) => {
-      if (typeof window !== 'undefined') {
-        if (response.data.message == 1) {
-          window.location.href = './';
-        };
-      }
-    })
-  );
+export const LoginAuthenticator = async () => {
+  const response = await axios.post(`${baseURL}api/user-status`);
+  if (response.data.message !== 1) {
+    if (typeof window !== 'undefined') {
+      window.location.href = '../../';
+    }
+  }
 }
 
 export const GetCurrentUserInformation = () => {
@@ -88,7 +76,7 @@ export const GetCurrentUserInformation = () => {
 
   useEffect(() => {
     axios.post(`${baseURL}api/user`).then((response) => {
-      if (response.data.message == 'USER ERROR') {
+      if (response.data.message === 'USER ERROR') {
         setUsername(response.data.message);
         setEmail(response.data.message);
         setPassword(response.data.message);
@@ -118,16 +106,15 @@ export const GetCurrentUserInformation = () => {
   }
 };
 
-export const useAllUsersInformation = () => {
-  const [length, setLength] = useState(1);
-  const [ids, setIds] = useState<number[]>([1]);
-  const [emails, setEmails] = useState<string[]>(['']);
-  const [passwords, setPasswords] = useState<string[]>(['']);
-  const [usernames, setUsernames] = useState<string[]>(['']);
-  const [birthdates, setBirthdates] = useState<string[]>(['']);
-  const [profilePictures, setProfilePictures] = useState<string[]>(['']);
-  const [statuses, setStatuses] = useState<number[]>([0]);
-  const [admins, setAdmins] = useState<number[]>([0]);
+export const GetAllUsersInformation = () => {
+  const [ids, setIds] = useState<number[]>([]);
+  const [emails, setEmails] = useState<string[]>([]);
+  const [passwords, setPasswords] = useState<string[]>([]);
+  const [usernames, setUsernames] = useState<string[]>([]);
+  const [birthdates, setBirthdates] = useState<string[]>([]);
+  const [profilePictures, setProfilePictures] = useState<string[]>([]);
+  const [statuses, setStatuses] = useState<number[]>([]);
+  const [admins, setAdmins] = useState<number[]>([]);
 
   useEffect(() => {
     axios.post(`${baseURL}api/users`).then((response) => {
@@ -137,7 +124,6 @@ export const useAllUsersInformation = () => {
         setPasswords(response.data.message);
         setBirthdates(response.data.message);
       } else {
-        setLength(response.data.length + 1);
         for (let i = 0; i < response.data.length; i++) {
           setIds(prevIds => [...prevIds, response.data[i].id]);
           setEmails(prevEmails => [...prevEmails, response.data[i].email]);
@@ -154,7 +140,6 @@ export const useAllUsersInformation = () => {
 
   return {
     ids,
-    length,
     emails,
     passwords,
     usernames,
@@ -165,27 +150,22 @@ export const useAllUsersInformation = () => {
   }
 }
 
-export const deleteUser = ({ username }: { username: string }) => {
-  return axios.post(`${baseURL}api/delete-user`, { username: username });
+export const deleteUser = ({ id }: { id: number }) => {
+  return axios.post(`${baseURL}api/delete-user`, { id: id });
 }
 
-export const promoteUser = ({ username }: { username: string }) => {
-  return axios.post(`${baseURL}api/promote-user`, { username: username });
+export const promoteUser = ({ id }: { id: number }) => {
+  return axios.post(`${baseURL}api/promote-user`, { id: id });
 }
 
-export const useUpdateUser = ({ formData }: { formData: FormData }) => {
-  const [message, setMessage] = useState('');
-
-  axios.post(`${baseURL}api/update-user`, formData).then((response) => {
-    setMessage(response.data.message);
-  })
-
-  return message;
+export const UpdateUser = ({ formData }: { formData: FormData }) => {
+  axios.post(`${baseURL}api/update-user`, formData)
 }
 
-export const useAllProducts = () => {
+export const GetAllProducts = () => {
   const [ids, setIds] = useState<number[]>([]);
   const [products, setProducts] = useState<string[]>([]);
+  const [datesAdded, setDatesAdded] = useState<string[]>([]);
   const [images, setImages] = useState<string[]>([]);
   const [descriptions, setDescriptions] = useState<string[]>([]);
   const [prices, setPrices] = useState<string[]>([]);
@@ -203,6 +183,7 @@ export const useAllProducts = () => {
         for (let i = 0; i < response.data.length; i++) {
           setIds(prevIds => [...prevIds, response.data[i].id]);
           setProducts(prevProducts => [...prevProducts, response.data[i].product]);
+          setDatesAdded(prevDatesAdded => [...prevDatesAdded, response.data[i].dateadded])
           setImages(prevImages => [...prevImages, response.data[i].image]);
           setDescriptions(prevDescriptions => [...prevDescriptions, response.data[i].description]);
           setPrices(prevPrices => [...prevPrices, response.data[i].price]);
@@ -216,6 +197,7 @@ export const useAllProducts = () => {
   return {
     ids,
     products,
+    datesAdded,
     images,
     descriptions,
     prices,
@@ -230,30 +212,29 @@ export const addProduct = ({ formData }: { formData: FormData }) => {
 
 interface addProductToCartProps {
   username: string,
+  dateAdded: string,
   product: string,
   priceselected: string,
   quantity: string
 }
 
-export const addProductToCart = ({ username, product, priceselected, quantity }: addProductToCartProps) => {
-  console.log(username);
-  console.log(product);
-  console.log(priceselected);
-  console.log(quantity)
+export const addProductToCart = ({ username, dateAdded, product, priceselected, quantity }: addProductToCartProps) => {
   return axios.post(`${baseURL}api/users-cart`, {
     username: username,
+    dateAdded: dateAdded,
     product: product,
     priceselected: priceselected,
     quantity: quantity
   });
 }
 
-export const useGetAllCart = () => {
-  const [idCart, setIdCart] = useState<string[]>([]);
+export const GetAllCart = () => {
+  const [idCart, setIdCart] = useState<number[]>([]);
   const [usernameCart, setUsernameCart] = useState<string[]>([]);
+  const [dateAddedCart, setDateAddedCart] = useState<number[]>([]);
   const [productCart, setProductCart] = useState<string[]>([]);
-  const [priceSelectedCart, setPriceSelectedCart] = useState<string[]>([]);
-  const [quantityCart, setQuantityCart] = useState<string[]>([]);
+  const [priceSelectedCart, setPriceSelectedCart] = useState<number[]>([]);
+  const [quantityCart, setQuantityCart] = useState<number[]>([]);
 
   useEffect(() => {
     axios.post(`${baseURL}api/get-cart`).then((response) => {
@@ -263,6 +244,7 @@ export const useGetAllCart = () => {
         for (let i = 0; i < response.data.length; i++) {
           setIdCart(prevId => [...prevId, response.data[i].id]);
           setUsernameCart(prevUsername => [...prevUsername, response.data[i].username]);
+          setDateAddedCart(prevDateAdded => [...prevDateAdded, response.data[i].dateadded]);
           setProductCart(prevProduct => [...prevProduct, response.data[i].product]);
           setPriceSelectedCart(prevPriceSelected => [...prevPriceSelected, response.data[i].priceselected]);
           setQuantityCart(prevQuantity => [...prevQuantity, response.data[i].quantity]);
@@ -274,6 +256,7 @@ export const useGetAllCart = () => {
   return {
     idCart,
     usernameCart,
+    dateAddedCart,
     productCart,
     priceSelectedCart,
     quantityCart

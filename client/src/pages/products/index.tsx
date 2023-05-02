@@ -1,19 +1,23 @@
 import { useRouter } from 'next/router';
+import { MdShoppingBag } from 'react-icons/md';
 
 import * as Server from '@/hooks/Server';
+import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
+
+import classNames from 'classnames';
 
 import Head from '@/components/Head';
 import Header from '@/components/Header';
 import Product from '@/components/Products/Product';
-import AddNewProduct from '@/components/Products/AddNewProduct';
+import AddProducts from '@/components/Products/AddProducts';
 
 import styles from '@/styles/products.module.css';
 
 export default function Products() {
-  Server.useLoginAuthenticationInsidePage();
+  Server.LoginAuthenticator();
 
   const { admin } = Server.GetCurrentUserInformation();
-  const { ids, products, images, descriptions, prices, categories, types } = Server.useAllProducts();
+  const { ids, products, datesAdded, images, descriptions, prices, categories, types } = Server.GetAllProducts();
 
   const router = useRouter();
   const selectedCategory = router.query.category !== undefined ? router.query.category : 'NULL';
@@ -24,11 +28,20 @@ export default function Products() {
 
       <Header />
 
-      {admin === 1 ?
-        <AddNewProduct category={selectedCategory.toString()} />
-        :
-        null
-      }
+      <section className={styles.category}>
+        <MdShoppingBag className={styles.icon} />
+        <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+      </section>
+
+      <section className={classNames(styles.products, styles.noProducts)}>
+        <h2>{'No hay productos disponibles'}</h2>
+        {
+          admin === 1 ?
+            <AddProducts />
+            :
+            null
+        }
+      </section>
 
     </>
   }
@@ -37,6 +50,7 @@ export default function Products() {
     return {
       id: ids[index],
       product: product,
+      dateAdded: datesAdded[index],
       image: images[index],
       description: descriptions[index],
       price: prices[index].split(', '),
@@ -45,9 +59,33 @@ export default function Products() {
     }
   }).filter((product, index, self) => {
     return index === self.findIndex((a) => {
-      return a.product === product.product && a.category === selectedCategory;
+      return a.dateAdded === product.dateAdded && a.category === selectedCategory;
     });
   });
+
+  if (filterProducts.length <= 0) {
+    return <>
+      <Head title='Productos' />
+
+      <Header />
+
+      <section className={styles.category}>
+        <MdShoppingBag className={styles.icon} />
+        <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+      </section>
+
+      <section className={classNames(styles.products, styles.noProducts)}>
+        <h2>{'No hay productos disponibles'}</h2>
+        {
+          admin === 1 ?
+            <AddProducts />
+            :
+            null
+        }
+      </section>
+
+    </>
+  }
 
   const allSelectedProducts = filterProducts.map((selectedProduct) => {
     return <Product
@@ -64,17 +102,21 @@ export default function Products() {
   })
 
   return <>
-    <Head title='Productos' />
+    <Head title={AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })} />
 
     <Header />
 
-    <section className={styles.container}>{allSelectedProducts}</section>
+    <section className={styles.category}>
+      <MdShoppingBag className={styles.icon} />
+      <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+      {
+        admin === 1 ?
+          <AddProducts />
+          :
+          null
+      }
+    </section>
 
-    {admin === 1 ?
-      <AddNewProduct category={selectedCategory.toString()} />
-      :
-      null
-    }
-
+    <section className={styles.products}>{allSelectedProducts}</section>
   </>
 }

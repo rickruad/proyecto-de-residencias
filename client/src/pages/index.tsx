@@ -1,9 +1,9 @@
 import Head from '@/components/Head';
 import Header from '@/components/Header';
-import Footer from '@/components/Home/Footer';
+import Footer from '@/components/Footer';
 import Carousel from '@/components/Home/Carousel';
-import Products from '@/components/Home/Products';
 import Services from '@/components/Home/Services';
+import Categories from '@/components/Home/Categories';
 
 export default function Home() {
   return <>
@@ -13,7 +13,7 @@ export default function Home() {
 
     <Carousel />
 
-    <Products />
+    <Categories />
 
     <Services />
 

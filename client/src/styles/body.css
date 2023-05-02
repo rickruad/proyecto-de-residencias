@@ -4,6 +4,8 @@ body {
   position: relative;
 
   margin: auto;
+  max-width: 80rem;
+  min-height: 100vh;
 
   background-color: #F0F5FA;
 

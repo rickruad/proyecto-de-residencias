@@ -9,7 +9,8 @@
 .servicesSection>.servicesContainer {
   display: flex;
   flex-direction: column;
-  width: 80rem;
+  width: 100%;
+  padding-inline: 1rem;
 }
 
 .servicesSection>.servicesContainer>.titleSection {
@@ -20,8 +21,8 @@
 }
 
 .servicesSection>.servicesContainer>.titleSection>.icon {
-  width: 35px;
-  height: 35px;
+  width: 4rem;
+  height: auto;
   color: #333333;
 }
 
@@ -38,6 +39,7 @@
   font-weight: 700;
   color: #333333;
   white-space: nowrap;
+  font-size: 1.4rem;
 }
 
 .servicesSection>.servicesContainer>.titleSection>.line {
@@ -50,4 +52,28 @@
   font-weight: 400;
   font-style: italic;
   color: #333333;
+  font-size: 1rem;
+}
+
+@media (min-width: 650px) {
+  .servicesSection>.servicesContainer>.titleSection>.icon {
+    width: 3rem;
+    height: auto;
+  }
+
+}
+
+@media (min-width: 1367px) {
+  .servicesSection>.servicesContainer>.titleSection>.icon {
+    width: 35px;
+    height: auto;
+  }
+
+  .servicesSection>.servicesContainer>.titleSection>h2 {
+    font-size: 1.4rem;
+  }
+
+  .servicesSection>.servicesContainer>h3 {
+    font-size: 1.2rem;
+  }
 }

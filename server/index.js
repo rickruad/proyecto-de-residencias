@@ -1,8 +1,9 @@
 import localConfig from '../local-config.js';
 
 const { DBNAME, DBPASSWORD, DBPORT } = localConfig.connectionDatabase();
+const { SVPORT } = localConfig.connectionServer();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || SVPORT;
 
 import fs from 'fs';
 import path from 'path';
@@ -52,7 +53,8 @@ const createUsersTable = "CREATE TABLE users (" +
 const createProductsTable = "CREATE TABLE products (" +
   "id INT PRIMARY KEY NOT NULL UNIQUE, " +
   "product VARCHAR(100) NOT NULL, " +
-  "image VARCHAR(512) NOT NULL, " +
+  "dateadded VARCHAR(45) NOT NULL, " +
+  "image LONGTEXT NOT NULL, " +
   "description VARCHAR(256) NOT NULL, " +
   "price VARCHAR(45) NOT NULL DEFAULT '0', " +
   "category VARCHAR(45) NOT NULL, " +
@@ -61,6 +63,7 @@ const createProductsTable = "CREATE TABLE products (" +
 const createUsersCartTable = "CREATE TABLE userscart (" +
   "id INT PRIMARY KEY NOT NULL UNIQUE, " +
   "username VARCHAR(45) NOT NULL, " +
+  "dateadded VARCHAR(45) NOT NULL, " +
   "product VARCHAR(45) NOT NULL, " +
   "priceselected VARCHAR(45) NULL DEFAULT '0', " +
   "quantity VARCHAR(45) NOT NULL)";
@@ -142,7 +145,7 @@ const storageAvatars = multer.diskStorage({
     const originalName = file.originalname;
     const extension = originalName.split(".").pop();
     const timestamp = new Date().toISOString().replace(/[-T:\.Z]/g, "");
-    const fileName = `${originalName.split(".")[0]}-${timestamp}.${extension}`;
+    const fileName = `${timestamp}.${extension}`;
     cb(null, fileName);
   },
 });
@@ -271,9 +274,9 @@ app.post('/api/user-status', (req, res) => {
 });
 
 app.post('/api/delete-user', (req, res) => {
-  const username = req.body.username;
+  const id = req.body.id;
 
-  db.query("DELETE FROM users WHERE username = ?", [username], (err, result) => {
+  db.query("DELETE FROM users WHERE id = ?", [id], (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -281,40 +284,49 @@ app.post('/api/delete-user', (req, res) => {
 })
 
 app.post('/api/promote-user', (req, res) => {
-  const username = req.body.username;
+  const id = req.body.id;
 
-  db.query("UPDATE users SET admin = '1' WHERE username = ? ", [username], (err, result) => {
+  db.query("UPDATE users SET admin = '1' WHERE id = ? ", [id], (err, result) => {
     if (err) {
       console.log(err);
     }
   })
 })
 
-app.post('/api/update-user', uploadAvatars.single("image"), (req, res) => {
+app.post('/api/verify-email', (req, res) => {
+  const email = req.body.email;
+
+  const query = 'SELECT COUNT(*) FROM users WHERE email = ?';
+
+  db.query(query, [email], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ message: `${result[0]['COUNT(*)']}` })
+    }
+  })
+})
+
+app.post('/api/update-user', uploadAvatars.single("profilePicture"), (req, res) => {
   const id = req.body.id;
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
   const birthdate = req.body.birthdate;
-  const oldProfilePicture = req.body.profilePicture;
-  const profilePicture = `/img/profile-pictures/${req.file.filename}`;
+  const oldProfilePicture = req.body.oldProfilePicture === 'null' ? null : req.body.oldProfilePicture;
+  const DBProfilePicture = req.file ? `/img/profile-pictures/${req.file.filename}` : oldProfilePicture;
 
   const query = 'UPDATE users SET email = ?, password = ?, username = ?, birthdate = ?, profilePicture = ? WHERE id = ?';
-  const values = [email, password, username, birthdate, profilePicture ? profilePicture : oldProfilePicture, id];
+  const values = [email, password, username, birthdate, DBProfilePicture, id];
 
   db.query(query, values, (err, result) => {
     if (err) {
       console.log(err);
-      res.send({ message: sqlMessage })
     } else {
-      res.send({ message: 'Actualizado los valores correctamente' });
+      res.json({ message: 'SUCCESS' });
     }
   })
 })
-
-app.post("/api/server-status", (req, res) => {
-  res.json({ message: "El servidor está en linea" });
-});
 
 app.post("/api/get-products", (req, res) => {
   db.query("SELECT * FROM products", (err, result) => {
@@ -338,15 +350,16 @@ const storageProduct = multer.diskStorage({
     const originalName = file.originalname;
     const extension = originalName.split(".").pop();
     const timestamp = new Date().toISOString().replace(/[-T:\.Z]/g, "");
-    const fileName = `${originalName.split(".")[0]}-${timestamp}.${extension}`;
+    const fileName = `${timestamp}.${extension}`;
     cb(null, fileName);
   },
 });
 
 const uploadProduct = multer({ storage: storageProduct });
 
-app.post("/api/add-product", uploadProduct.single("image"), (req, res) => {
+app.post("/api/add-product", uploadProduct.single("productImage"), (req, res) => {
   const name = req.body.productName;
+  const dateadded = req.body.dateAdded;
   const description = req.body.productDescription;
   const price = req.body.productPrice;
   const category = req.body.productCategory;
@@ -354,10 +367,10 @@ app.post("/api/add-product", uploadProduct.single("image"), (req, res) => {
 
   const imageUrl = `/img/products-pictures/${req.file.filename}`;
 
-  const query = 'INSERT INTO products (id, product, image, description, price, category, type) VALUE (?, ?, ?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO products (id, product, dateadded, image, description, price, category, type) VALUE (?, ?, ?, ?, ?, ?, ?, ?)';
 
   const insertData = (idToTry) => {
-    db.query(query, [idToTry, name, imageUrl, description, price, category, type], (err, result) => {
+    db.query(query, [idToTry, name, dateadded, imageUrl, description, price, category, type], (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
           insertData(parseInt(idToTry) + 1);
@@ -375,22 +388,21 @@ app.post("/api/add-product", uploadProduct.single("image"), (req, res) => {
 
 app.post("/api/users-cart", (req, res) => {
   const username = req.body.username;
+  const dateadded = req.body.dateAdded;
   const product = req.body.product;
   const priceselected = req.body.priceselected;
   const quantity = req.body.quantity;
 
-  const query = 'INSERT INTO userscart (id, username, product, priceselected, quantity) VALUE (?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO userscart (id, username, dateadded, product, priceselected, quantity) VALUE (?, ?, ?, ?, ?, ?)';
 
   const insertData = (idToTry) => {
-    db.query(query, [idToTry, username, product, priceselected, quantity], (err, result) => {
+    db.query(query, [idToTry, username, dateadded, product, priceselected, quantity], (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
           insertData(parseInt(idToTry) + 1);
         } else {
           console.log(err);
         }
-      } else {
-        console.log('Producto agregado con éxito');
       }
     })
   }

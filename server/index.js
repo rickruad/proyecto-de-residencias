@@ -71,7 +71,9 @@ const createUsersCartTable = "CREATE TABLE userscart (" +
 const createHistoryTable = "CREATE TABLE history (" +
   "id INT PRIMARY KEY NOT NULL UNIQUE, " +
   "username VARCHAR(45) NOT NULL, " +
-  "products MEDIUMTEXT NOT NULL)";
+  "products MEDIUMTEXT NOT NULL, " +
+  "dateadded VARCHAR(45) NOT NULL, " +
+  "totalprice VARCHAR(45) NOT NULL)"; 
 
 const createUserInfoBuyTable = "CREATE TABLE userinfobuy (" +
   "id INT PRIMARY KEY NOT NULL UNIQUE, " +
@@ -449,11 +451,16 @@ app.post("/api/remove-product-cart", (req, res) => {
 })
 
 app.post("/api/buy-product", (req, res) => {
-  const products = req.body.products;
   const username = req.body.username;
+  const products = req.body.products;
+  const date = req.body.date;
+  const dateadded = req.body.dateadded;
+  const totalprice = req.body.totalprice;
+
+  const query = "INSERT INTO history (id, username, products, date, dateadded, totalprice) VALUE (?, ?, ?, ?, ?, ?)";
 
   const insertData = (idToTry) => {
-    db.query("INSERT INTO history (id, username, products) VALUE (?, ?, ?)", [idToTry, username, products], (err, result) => {
+    db.query(query, [idToTry, username, products, date, dateadded, totalprice], (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
           insertData(parseInt(idToTry) + 1);
@@ -507,6 +514,20 @@ app.post("/api/save-info-buy", (req, res) => {
   }
 
   insertData(1);
+})
+
+app.post('/api/get-purchase-history', (req, res) => {
+  db.query("SELECT * FROM history", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        res.json({ message: 'ERROR' })
+      }
+    }
+  })
 })
 
 app.listen(PORT, () => {

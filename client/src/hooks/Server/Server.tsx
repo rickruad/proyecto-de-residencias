@@ -276,6 +276,9 @@ export const removeProductToCart = ({ id }: { id: number }) => {
 interface saveBuyProps {
   username: string,
   products: string,
+  date: string,
+  dateadded: string,
+  totalprice: string,
   type: string,
   namecard: string,
   numbercard: string,
@@ -291,10 +294,10 @@ interface saveBuyProps {
   save: boolean
 }
 
-export const saveBuy = ({ username, products, type, namecard, numbercard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber, save }: saveBuyProps) => {
+export const saveBuy = ({ username, products, date, dateadded, totalprice, type, namecard, numbercard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber, save }: saveBuyProps) => {
   if (save) {
     axios.post(`${baseURL}api/save-info-buy`, { username, type, namecard, numbercard, expirationdatecard, securitycodecard, fullname, country, locality, firstdirection, seconddirection, postalcode, phonenumber }).then((response) => {
-      axios.post(`${baseURL}api/buy-product`, { username, products }).then((response) => {
+      axios.post(`${baseURL}api/buy-product`, { username, products, date, dateadded, totalprice }).then((response) => {
         if (response.data.message === 'SUCCESSFULLY DELETED') {
           if (typeof window !== 'undefined') {
             window.location.href = '../../cart';
@@ -303,12 +306,47 @@ export const saveBuy = ({ username, products, type, namecard, numbercard, expira
       })
     })
   } else {
-    axios.post(`${baseURL}api/buy-product`, { username, products }).then((response) => {
+    axios.post(`${baseURL}api/buy-product`, { username, products, date, dateadded, totalprice }).then((response) => {
       if (response.data.message === 'SUCCESSFULLY DELETED') {
         if (typeof window !== 'undefined') {
           window.location.href = '../../';
         }
       }
     })
+  }
+}
+
+export const GetPurchaseHistory = () => {
+  const [IDs, setIDs] = useState<number[]>([]);
+  const [usernames, setUsernames] = useState<string[]>([]);
+  const [products, setProducts] = useState<string[]>([]);
+  const [datesAdded, setDatesAdded] = useState<string[]>([]);
+  const [datesAddedMili, setDatesAddedMili] = useState<number[]>([]);
+  const [totalPrices, setTotalPrices] = useState<number[]>([]);
+  
+  useEffect(() => {
+    axios.post(`${baseURL}api/get-purchase-history`).then((response) => {
+      if (response.data.message === 'ERROR') {
+        console.log('ERROR');
+      } else {
+        for (let i = 0; i < response.data.length; i++) {
+          setIDs(prevID => [...prevID, response.data[i].id]);
+          setUsernames(prevUsername => [...prevUsername, response.data[i].username]);
+          setProducts(prevProduct => [...prevProduct, response.data[i].product]);
+          setDatesAdded(prevDateAdded => [...prevDateAdded, response.data[i].date]);
+          setDatesAddedMili(prevDateAddedMili => [...prevDateAddedMili, response.data[i].dateadded]);
+          setTotalPrices(prevTotalPrice => [...prevTotalPrice, response.data[i].totalprice]);
+        }
+      }
+    })
+  }, [])
+
+  return {
+    IDs,
+    usernames,
+    products,
+    datesAdded,
+    datesAddedMili,
+    totalPrices
   }
 }

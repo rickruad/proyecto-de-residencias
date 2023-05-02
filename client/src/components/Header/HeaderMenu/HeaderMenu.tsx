@@ -33,7 +33,7 @@ export default function HeaderMenu() {
         <MdInfoOutline className={styles.icon} />
         <h4 className={styles.text}>{'Información'}</h4>
       </Link>
-      <Link className={styles.button} href={{ pathname: './' }}>
+      <Link className={styles.button} href={{ pathname: './purchase-history/' }}>
         <MdOutlineListAlt className={styles.icon} />
         <h4 className={styles.text}>{'Mis compras'}</h4>
       </Link>

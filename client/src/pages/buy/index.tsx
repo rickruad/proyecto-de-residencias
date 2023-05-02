@@ -10,9 +10,17 @@ import styles from '@/styles/buy.module.css';
 
 export default function Buy() {
   const { username } = Server.GetCurrentUserInformation();
-  const { idCart, usernameCart, productCart } = Server.GetAllCart();
+  const { idCart, usernameCart, dateAddedCart, productCart, priceSelectedCart, quantityCart } = Server.GetAllCart();
 
   const [dateMin, setDateMin] = useState<string>('');
+  const [dateAdded, setDateAdded] = useState<string>('');
+  const [dateAddedMili, setDateAddedMili] = useState<string>('');
+
+  const [totalPrice, setTotalPrice] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<number>(0);
+  const [currentUsername, setCurrentUsername] = useState<string>('');
+  const [allProductsCart, setAllProductsCart] = useState<string>('');
+
   const [cardTypeValue, setCardTypeValue] = useState<string>('visa');
   const [nameCardValue, setNameCardValue] = useState<string>('');
   const [numberCardValue, setNumberCardValue] = useState<string>('');
@@ -31,11 +39,57 @@ export default function Buy() {
   const [lengthProducts, setLengthProducts] = useState<number>(0);
 
   useEffect(() => {
+    setCurrentUsername(username);
+  }, [username])
+
+  useEffect(() => {
+    const date = new Date();
+    const dateToMili = date.getTime();
+    setCurrentDate(dateToMili);
+  }, [])
+
+  const filterAllCart = usernameCart.map((username, index) => {
+    return {
+      id: idCart[index],
+      username: username,
+      dateAdded: dateAddedCart[index],
+      product: productCart[index],
+      price: priceSelectedCart[index],
+      quantity: quantityCart[index],
+    }
+  }).filter((username, index, self) => {
+    return index === self.findIndex((a) => {
+      return a.id === username.id && a.username === currentUsername
+    });
+  });
+
+  filterAllCart.sort((a, b) => (b.dateAdded - currentDate) - (a.dateAdded - currentDate));
+
+  useEffect(() => {
+    var totalPrice = 0;
+    var allProducts = [];
+    if (filterAllCart) {
+      for (let i = 0; i < filterAllCart.length; i++) {
+        totalPrice = totalPrice + (filterAllCart[i].price * filterAllCart[i].quantity)
+        allProducts.push(filterAllCart[i].product);
+      }
+    }
+
+    setTotalPrice(totalPrice.toString());
+    setAllProductsCart(allProducts.join(', '))
+
+  }, [filterAllCart, filterAllCart.length])
+
+  useEffect(() => {
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
-
-    setDateMin(`${year}-${month > 9 ? month : `0${month}`}`)
+    const day = date.getDay();
+    const mili = date.getTime();
+    
+    setDateAddedMili(mili.toString());
+    setDateMin(`${year}-${month > 9 ? month : `0${month}`}`);
+    setDateAdded(`${year}-${month > 9 ? month : `0${month}`}-${day > 9 ? day : `0${day}`}`);
   }, [])
 
   useEffect(() => {
@@ -163,8 +217,6 @@ export default function Buy() {
     event.preventDefault();
 
     if (cardTypeValue !== 'tarjeta invalida') {
-      const products = getProducts.slice(0, lengthProducts);
-      const productsToString = products.join(', ');
 
       var secondDirection = '';
 
@@ -176,7 +228,10 @@ export default function Buy() {
 
       Server.saveBuy({
         username: username,
-        products: productsToString,
+        products: allProductsCart,
+        date: dateAdded,
+        dateadded: dateAddedMili,
+        totalprice: totalPrice,
         type: cardTypeValue,
         namecard: nameCardValue,
         numbercard: numberCardValue,

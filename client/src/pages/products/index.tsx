@@ -30,15 +30,17 @@ export default function Products() {
       <Header />
 
       <section className={styles.category}>
-        <MdShoppingBag className={styles.icon} />
-        <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+        <div className={styles.iconTitle}>
+          <MdShoppingBag className={styles.icon} />
+          <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+        </div>
       </section>
 
       <section className={classNames(styles.products, styles.noProducts)}>
         <h2>{'No hay productos disponibles'}</h2>
         {
           admin === 1 ?
-            <AddProducts />
+            <AddProducts type='text' />
             :
             null
         }
@@ -72,15 +74,17 @@ export default function Products() {
       <Header />
 
       <section className={styles.category}>
-        <MdShoppingBag className={styles.icon} />
-        <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+        <div className={styles.iconTitle}>
+          <MdShoppingBag className={styles.icon} />
+          <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+        </div>
       </section>
 
       <section className={classNames(styles.products, styles.noProducts)}>
         <h2>{'No hay productos disponibles'}</h2>
         {
           admin === 1 ?
-            <AddProducts />
+            <AddProducts type='text' />
             :
             null
         }
@@ -110,11 +114,13 @@ export default function Products() {
     <Header />
 
     <section className={styles.category}>
-      <MdShoppingBag className={styles.icon} />
-      <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+      <div className={styles.iconTitle}>
+        <MdShoppingBag className={styles.icon} />
+        <h2>{AuxiliarFunctions.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
+      </div>
       {
         admin === 1 ?
-          <AddProducts />
+          <AddProducts type='icon' />
           :
           null
       }

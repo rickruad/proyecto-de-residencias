@@ -1,11 +1,14 @@
+import { MdOutlineAdd } from 'react-icons/md';
 import { StyledImage } from '@/hooks/StyledComponents';
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import * as Server from '@/hooks/Server';
 
+import classNames from 'classnames';
+
 import styles from './styles/styles.module.css';
 
-export default function AddProducts() {
+export default function AddProducts({ type }: { type: 'icon' | 'text' }) {
   const [showAddProducts, setShowAddProducts] = useState<boolean>(false);
 
   const [dateAdded, setDateAdded] = useState<string>('');
@@ -108,7 +111,7 @@ export default function AddProducts() {
     formData.append("productType", productType);
     formData.append("productCategory", productCategory);
     formData.append("productDescription", productDescription);
-    
+
     Server.addProduct({ formData });
 
     if (typeof window !== 'undefined') {
@@ -117,8 +120,12 @@ export default function AddProducts() {
   };
 
   return <>
-    <button onClick={handleShowAddProduct} className={styles.button}>{'Añade un nuevo producto'}</button>
-
+    {
+      type === 'icon' ?
+        <MdOutlineAdd onClick={handleShowAddProduct} className={classNames(styles.button, styles.iconButton)} />
+        :
+        <button onClick={handleShowAddProduct} className={styles.button}>{'Añade un nuevo producto'}</button>
+    }
     {
       showAddProducts ?
         <section className={styles.addProduct}>

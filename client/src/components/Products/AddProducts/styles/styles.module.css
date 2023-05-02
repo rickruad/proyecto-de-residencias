@@ -11,6 +11,11 @@
   cursor: pointer;
 }
 
+.iconButton {
+  height: 3rem;
+  width: 3rem;
+}
+
 .button:hover,
 .addProduct>.addProductCartel>.buttons>button:hover,
 .addProduct>.addProductCartel>.labelInputFile>input::file-selector-button:hover {

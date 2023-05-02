@@ -7,7 +7,7 @@ import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 import classNames from 'classnames';
 
 import Head from '@/components/Head';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import Product from '@/components/Products/Product';
 import AddProducts from '@/components/Products/AddProducts';
 

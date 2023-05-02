@@ -306,7 +306,7 @@ export const saveBuy = ({ username, products, type, namecard, numbercard, expira
     axios.post(`${baseURL}api/buy-product`, { username, products }).then((response) => {
       if (response.data.message === 'SUCCESSFULLY DELETED') {
         if (typeof window !== 'undefined') {
-          window.location.href = '../../cart';
+          window.location.href = '../../';
         }
       }
     })

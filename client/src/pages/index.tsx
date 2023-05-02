@@ -1,5 +1,5 @@
 import Head from '@/components/Head';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import Carousel from '@/components/Home/Carousel';
 import Services from '@/components/Home/Services';

@@ -6,6 +6,8 @@ import * as Server from '@/hooks/Server';
 import Link from 'next/link';
 import classNames from 'classnames';
 
+import Purchase from '@/components/Header/Purchase';
+
 import styles from './styles/styles.module.css';
 
 export default function Cart() {
@@ -34,7 +36,6 @@ export default function Cart() {
   }
 
   if (!Array.isArray(usernameCart)) {
-    console.log('YES')
     return <>
       {
         status === 1 ?
@@ -72,7 +73,7 @@ export default function Cart() {
                 <h3>{'Total a pagar: MX$0'}</h3>
                 <h4>{'Cashback: MX$0'}</h4>
               </div>
-              <Link href={{ pathname: './' }} className={styles.footerButton}>{'Comprar'}</Link>
+              <button className={classNames(styles.footerButton, styles.footerButtonNoProducts)}>{'Comprar'}</button>
             </div>
           </section>
           :
@@ -202,7 +203,8 @@ export default function Cart() {
               <h3>{`Total a pagar: MX$${totalPrice}`}</h3>
               <h4>{`Cashback: MX$${totalPrice * 0.02}`}</h4>
             </div>
-            <Link href={{ pathname: './' }} className={styles.footerButton}>{'Comprar'}</Link>
+            {/* <Purchase /> */}
+            <Link href={{ pathname: '../../buy/' }} className={styles.footerButton}>{'Comprar'}</Link>
           </div>
         </section>
         :

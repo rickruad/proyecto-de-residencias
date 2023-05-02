@@ -2,7 +2,7 @@ import * as Server from '@/hooks/Server';
 import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
 import Head from '@/components/Head';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import UserInfo from '@/components/Account/UserInfo';
 import UsersInfo from '@/components/Account/UsersInfo';
 

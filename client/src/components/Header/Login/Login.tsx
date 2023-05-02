@@ -4,7 +4,7 @@ import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import * as Server from '@/hooks/Server';
 
 import axios from 'axios';
-import localConfig from '../../../../local-config';
+import localConfig from '../../../../../local-config';
 
 import styles from './styles/styles.module.css';
 

@@ -158,8 +158,8 @@ export const promoteUser = ({ id }: { id: number }) => {
   return axios.post(`${baseURL}api/promote-user`, { id: id });
 }
 
-export const UpdateUser = ({ formData }: { formData: FormData }) => {
-  axios.post(`${baseURL}api/update-user`, formData)
+export const deleteUserCart = ({ username }: { username: string }) => {
+  axios.post(`${baseURL}api/delete-user-cart`, { username: username });
 }
 
 export const GetAllProducts = () => {

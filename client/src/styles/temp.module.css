@@ -40,7 +40,7 @@
 .centerSection>.showInfo>.form>.cardInfo>.numberDateCodeCard>.labelNumberCard>label,
 .centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput>input,
 .centerSection>.showInfo>.form>.personalInfo>.labelInputContainer>.labelInput>label {
-  font-family: Louis George Cafe;
+  font-family: Google Sans;
   font-weight: 700;
   color: #000000;
 }
@@ -148,7 +148,7 @@
   align-items: center;
   padding-inline: 0.2rem;
   border-style: none;
-  font-family: Louis George Cafe;
+  font-family: Google Sans;
   font-weight: 400;
   font-size: 1rem;
   height: 100%;

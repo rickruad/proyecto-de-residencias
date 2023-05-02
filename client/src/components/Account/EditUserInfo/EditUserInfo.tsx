@@ -3,6 +3,7 @@ import { StyledImage } from '@/hooks/StyledComponents';
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import axios from 'axios';
+import * as Server from '@/hooks/Server';
 import localConfig from '../../../../../local-config';
 
 import styles from './styles/styles.module.css';
@@ -33,6 +34,8 @@ interface AxiosPostProps {
 
 const AxiosPost = ({ id, oldEmail, oldPassword, oldUsername, oldBirthdate, oldProfilePicture, newEmail, newPassword, newUsername, newBirthdate, newProfilePicture }: AxiosPostProps) => {
   const { SVPORT, SVIP } = localConfig.connectionServer();
+
+  Server.deleteUserCart({ username: oldUsername });
 
   const formData = new FormData();
 

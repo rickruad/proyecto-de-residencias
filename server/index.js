@@ -328,6 +328,18 @@ app.post('/api/update-user', uploadAvatars.single("profilePicture"), (req, res) 
   })
 })
 
+app.post('/api/delete-user-cart', (req, res) => {
+  const username = req.body.username;
+
+  db.query("DELETE FROM userscart WHERE username = ?", [username], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({ message: 'SUCCESSFULLY DELETED' });
+    }
+  })
+})
+
 app.post("/api/get-products", (req, res) => {
   db.query("SELECT * FROM products", (err, result) => {
     if (err) {

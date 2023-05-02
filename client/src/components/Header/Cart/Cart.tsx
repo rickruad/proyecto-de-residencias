@@ -20,6 +20,7 @@ export default function Cart() {
   const [currentUsername, setCurrentUsername] = useState<string>('');
 
   var totalPrice = 0;
+  var cashback = 0;
 
   useEffect(() => {
     setCurrentUsername(username);
@@ -168,6 +169,8 @@ export default function Cart() {
     )
   })
 
+  cashback = totalPrice * 0.02;
+
   return <>
     {
       status === 1 ?
@@ -201,7 +204,7 @@ export default function Cart() {
           <div className={styles.footerCart}>
             <div className={styles.footerInfo}>
               <h3>{`Total a pagar: MX$${totalPrice}`}</h3>
-              <h4>{`Cashback: MX$${totalPrice * 0.02}`}</h4>
+              <h4>{`Cashback: MX$${cashback.toFixed(2)}`}</h4>
             </div>
             {/* <Purchase /> */}
             <Link href={{ pathname: '../../buy/' }} className={styles.footerButton}>{'Comprar'}</Link>

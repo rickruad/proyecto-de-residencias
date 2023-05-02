@@ -5,7 +5,7 @@ import localConfig from '../../../../local-config';
 
 const { SVIP, SVPORT } = localConfig.connectionServer();
 
-const baseURL = `http://${SVIP}:${SVPORT}`;
+const baseURL = `http://${SVIP}:${SVPORT}/`;
 
 export const useIsOnline = () => {
   const [serverStatus, setServerStatus] = useState(null)

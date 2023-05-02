@@ -267,7 +267,7 @@ export const removeProductToCart = ({ id }: { id: number }) => {
   return axios.post(`${baseURL}api/remove-product-cart`, { id: id }).then((response) => {
     if (response.data.message === 'SUCCESS') {
       if (typeof window !== 'undefined') {
-        window.location.href = '../../cart';
+        window.location.href = '../../';
       }
     }
   })

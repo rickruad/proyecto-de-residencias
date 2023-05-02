@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { MdShoppingCart, MdClose, MdDelete } from 'react-icons/md';
 
@@ -13,6 +14,10 @@ import styles from './styles/styles.module.css';
 export default function Cart() {
   const { username, status } = Server.GetCurrentUserInformation();
   const { idCart, usernameCart, dateAddedCart, productCart, priceSelectedCart, quantityCart } = Server.GetAllCart();
+
+  const router = useRouter();
+  const pathname = router.pathname.toString();
+  const query = router.query.category ? router.query.category.toString() : '';
 
   const [windowStatus, setWindowStatus] = useState<boolean>(false);
 
@@ -150,7 +155,7 @@ export default function Cart() {
   const allUserCart = filterAllCart.map((currentProduct) => {
 
     const handleAbortBuy = () => {
-      Server.removeProductToCart({ id: currentProduct.id });
+      Server.removeProductToCart({ id: currentProduct.id, pathname: pathname, query: query });
     }
 
     totalPrice = totalPrice + (currentProduct.price * currentProduct.quantity);
@@ -206,8 +211,7 @@ export default function Cart() {
               <h3>{`Total a pagar: MX$${totalPrice}`}</h3>
               <h4>{`Cashback: MX$${cashback.toFixed(2)}`}</h4>
             </div>
-            {/* <Purchase /> */}
-            <Link href={{ pathname: '../../buy/' }} className={styles.footerButton}>{'Comprar'}</Link>
+            <Purchase /> 
           </div>
         </section>
         :

@@ -263,14 +263,13 @@ export const GetAllCart = () => {
   }
 }
 
-export const removeProductToCart = ({ id }: { id: number }) => {
-  return axios.post(`${baseURL}api/remove-product-cart`, { id: id }).then((response) => {
-    if (response.data.message === 'SUCCESS') {
-      if (typeof window !== 'undefined') {
-        window.location.href = '../../';
-      }
+export const removeProductToCart = async ({ id, pathname, query }: { id: number, pathname: string, query: string }) => {
+  const response = await axios.post(`${baseURL}api/remove-product-cart`, { id: id });
+  if (response.data.message === 'SUCCESS') {
+    if (typeof window !== 'undefined') {
+      window.location.href = `../..${pathname}${query.length > 0 ? `?category=${query}` : ''}`;
     }
-  })
+  }
 }
 
 interface saveBuyProps {

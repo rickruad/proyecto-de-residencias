@@ -44,6 +44,7 @@ export default function Carousel() {
           alt={`image ${currentImage.id + 1}`}
           width={1000}
           height={1000}
+          quality={100}
           priority={true}
         />
       </Link>

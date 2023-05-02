@@ -72,6 +72,7 @@ const createHistoryTable = "CREATE TABLE history (" +
   "id INT PRIMARY KEY NOT NULL UNIQUE, " +
   "username VARCHAR(45) NOT NULL, " +
   "products MEDIUMTEXT NOT NULL, " +
+  "date VARCHAR(45) NOT NULL, " +
   "dateadded VARCHAR(45) NOT NULL, " +
   "totalprice VARCHAR(45) NOT NULL)"; 
 

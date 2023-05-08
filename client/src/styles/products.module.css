@@ -63,7 +63,7 @@
   .products {
     flex-direction: row;
     flex-wrap: wrap;
-    min-height: calc(100vh - 9.5rem);
+    min-height: calc(100vh - 16.8rem);
     max-width: 80rem;
     margin: auto;
     margin-top: 1rem;

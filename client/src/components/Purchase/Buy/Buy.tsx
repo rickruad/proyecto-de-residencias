@@ -1,12 +1,12 @@
-import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
+import { MdShoppingBag } from 'react-icons/md';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import Link from 'next/link';
+
 import * as Server from '@/hooks/Server';
 import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
 
-import Head from '@/components/Head';
-
-import styles from '@/styles/buy.module.css';
+import styles from './styles/styles.module.css';
 
 export default function Buy() {
   const { username } = Server.GetCurrentUserInformation();
@@ -34,9 +34,6 @@ export default function Buy() {
   const [postalCodeValue, setPostalCodeValue] = useState<string>('');
   const [numberPhoneValue, setNumberPhoneValue] = useState<string>('');
   const [saveCardInfo, setSaveCardInfo] = useState<boolean>(false);
-  
-  const [getProducts, setGetProducts] = useState<string[]>([]);
-  const [lengthProducts, setLengthProducts] = useState<number>(0);
 
   useEffect(() => {
     setCurrentUsername(username);
@@ -104,29 +101,6 @@ export default function Buy() {
       setCardTypeValue('tarjeta invalida');
     }
   }, [numberCardValue])
-
-  useEffect(() => {
-    const currentUsername = username;
-
-    const selectedProducts = usernameCart.map((username, index) => {
-      return {
-        id: idCart[index],
-        username: username,
-        product: productCart[index]
-      }
-    }).filter((username, index, self) => {
-      return index === self.findIndex((a) => {
-        return a.id === username.id && a.username === currentUsername
-      });
-    });
-
-    if (selectedProducts) {
-      setLengthProducts(selectedProducts.length);
-      for (let i = 0; i < selectedProducts.length; i++) {
-        setGetProducts(prevGetProducts => [...prevGetProducts, selectedProducts[i].product]);
-      }
-    }
-  }, [username, idCart, productCart, usernameCart])
   
   const handleNameCard = (event: ChangeEvent<HTMLInputElement>) => {
     setNameCardValue(event.target.value);
@@ -253,13 +227,13 @@ export default function Buy() {
   }
 
   return <>
-    <Head title='Comprar' />
-
-    <section className={styles.centerSection}>
-      <div className={styles.showInfo}>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <h2>Formulario de pago</h2>
-          <div className={styles.cardInfo}>
+    <section className={styles.buySection}>
+      <div className={styles.title}>
+        <MdShoppingBag className={styles.icon} />
+        <h2>{'Comprar'}</h2>
+      </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.cardInfo}>
             <h3>Ingrese los datos de su tarjeta</h3>
             <div className={styles.typeNameCard}>
               <div className={styles.labelOptions}>
@@ -324,11 +298,10 @@ export default function Buy() {
             <h4>Guardar esta información para una próxima compra</h4>
           </div>
           <div className={styles.buttons}>
-            <Link className={styles.back} href={{ pathname: '../cart' }}>Regresar</Link>
+            <Link className={styles.back} href={{ pathname: '../../' }}>Regresar</Link>
             <button className={styles.confirm} type='submit'>Confirmar</button>
           </div>
-        </form>
-      </div>
+      </form>
     </section>
   </>
 }

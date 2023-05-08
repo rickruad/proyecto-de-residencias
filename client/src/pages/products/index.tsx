@@ -18,7 +18,7 @@ export default function Products() {
   Server.LoginAuthenticator();
 
   const { admin } = Server.GetCurrentUserInformation();
-  const { ids, products, datesAdded, images, descriptions, prices, categories, types } = Server.GetAllProducts();
+  const { ids, products, datesAdded, images, descriptions, prices, cashbacks, categories, types } = Server.GetAllProducts();
 
   const router = useRouter();
   const selectedCategory = router.query.category !== undefined ? router.query.category : 'NULL';
@@ -58,6 +58,7 @@ export default function Products() {
       image: images[index],
       description: descriptions[index],
       price: prices[index].split(', '),
+      cashback: cashbacks[index],
       category: categories[index],
       type: types[index]
     }
@@ -102,6 +103,7 @@ export default function Products() {
       image={selectedProduct.image}
       description={selectedProduct.description}
       price={selectedProduct.price}
+      cashback={selectedProduct.cashback}
       category={selectedProduct.category}
       type={selectedProduct.type}
       currentCategory={selectedCategory.toString()}

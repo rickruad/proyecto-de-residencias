@@ -1,0 +1,32 @@
+.cardsSection {
+  margin-top: 5rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.cardsSection > .title {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.cardsSection > .title > .icon {
+  width: 35px;
+  height: 35px;
+  color: #333333;
+}
+
+.cardsSection > .title > h2 {
+  font-family: Google Sans;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #333333;
+}
+
+@media (min-width: 80rem) {
+  .cardsSection {
+    max-width: 80rem;
+    margin: auto;
+    margin-top: 5rem;
+  }
+}

@@ -169,6 +169,7 @@ export const GetAllProducts = () => {
   const [images, setImages] = useState<string[]>([]);
   const [descriptions, setDescriptions] = useState<string[]>([]);
   const [prices, setPrices] = useState<string[]>([]);
+  const [cashbacks, setCashbacks] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [types, setTypes] = useState<string[]>([]);
 
@@ -187,6 +188,7 @@ export const GetAllProducts = () => {
           setImages(prevImages => [...prevImages, response.data[i].image]);
           setDescriptions(prevDescriptions => [...prevDescriptions, response.data[i].description]);
           setPrices(prevPrices => [...prevPrices, response.data[i].price]);
+          setCashbacks(prevCashback => [...prevCashback, response.data[i].cashback]);
           setCategories(prevCategories => [...prevCategories, response.data[i].category]);
           setTypes(prevTypes => [...prevTypes, response.data[i].type]);
         }
@@ -201,6 +203,7 @@ export const GetAllProducts = () => {
     images,
     descriptions,
     prices,
+    cashbacks,
     categories,
     types
   }
@@ -215,15 +218,17 @@ interface addProductToCartProps {
   dateAdded: string,
   product: string,
   priceselected: string,
+  cashback: string,
   quantity: string
 }
 
-export const addProductToCart = ({ username, dateAdded, product, priceselected, quantity }: addProductToCartProps) => {
+export const addProductToCart = ({ username, dateAdded, product, priceselected, cashback, quantity }: addProductToCartProps) => {
   return axios.post(`${baseURL}api/users-cart`, {
     username: username,
     dateAdded: dateAdded,
     product: product,
     priceselected: priceselected,
+    cashback: cashback,
     quantity: quantity
   });
 }
@@ -234,6 +239,7 @@ export const GetAllCart = () => {
   const [dateAddedCart, setDateAddedCart] = useState<number[]>([]);
   const [productCart, setProductCart] = useState<string[]>([]);
   const [priceSelectedCart, setPriceSelectedCart] = useState<number[]>([]);
+  const [cashbacks, setCashbacks] = useState<number[]>([]);
   const [quantityCart, setQuantityCart] = useState<number[]>([]);
 
   useEffect(() => {
@@ -247,6 +253,7 @@ export const GetAllCart = () => {
           setDateAddedCart(prevDateAdded => [...prevDateAdded, response.data[i].dateadded]);
           setProductCart(prevProduct => [...prevProduct, response.data[i].product]);
           setPriceSelectedCart(prevPriceSelected => [...prevPriceSelected, response.data[i].priceselected]);
+          setCashbacks(prevCashback => [...prevCashback, response.data[i].cashback]);
           setQuantityCart(prevQuantity => [...prevQuantity, response.data[i].quantity]);
         }
       }
@@ -259,6 +266,7 @@ export const GetAllCart = () => {
     dateAddedCart,
     productCart,
     priceSelectedCart,
+    cashbacks,
     quantityCart
   }
 }
@@ -299,7 +307,7 @@ export const saveBuy = ({ username, products, date, dateadded, totalprice, type,
       axios.post(`${baseURL}api/buy-product`, { username, products, date, dateadded, totalprice }).then((response) => {
         if (response.data.message === 'SUCCESSFULLY DELETED') {
           if (typeof window !== 'undefined') {
-            window.location.href = '../../cart';
+            window.location.href = '../../purchase-history';
           }
         }
       })
@@ -308,7 +316,7 @@ export const saveBuy = ({ username, products, date, dateadded, totalprice, type,
     axios.post(`${baseURL}api/buy-product`, { username, products, date, dateadded, totalprice }).then((response) => {
       if (response.data.message === 'SUCCESSFULLY DELETED') {
         if (typeof window !== 'undefined') {
-          window.location.href = '../../';
+          window.location.href = '../../purchase-history';
         }
       }
     })

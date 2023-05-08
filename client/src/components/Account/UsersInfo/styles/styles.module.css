@@ -1,29 +1,96 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.message > .desing {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message > .desing > h3 {
+  font-family: Google Sans;
+  font-weight: 500;
+  text-align: center;
+  color: #333333;
+}
+
+.message > .desing > div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.message > .desing > div > button {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #e94242;
+  border: 2px solid #ff716c;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  outline: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+}
+
+.message > .desing > div > button:hover {
+  background-color: #c02e2e;
+}
+
+.hide {
+  display: none;
+}
+
 .usersInfoSection {
   display: flex;
   flex-direction: column;
   margin: 1rem;
   padding: 1rem;
   gap: 1rem;
-  height: calc(100vh - 19.1rem);
-  background-color: #FFFFFF;
+  height: calc(100vh - 27rem);
+  background-color: #ffffff;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.1);
 }
 
-.usersInfoSection>.sectionTitle {
+.usersInfoSection > .sectionTitle {
   font-family: Google Sans;
   font-weight: 500;
   color: #333333;
   text-align: center;
 }
 
-.usersInfoSection>.users {
+.usersInfoSection > .users {
   display: block;
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
-.usersInfoSection>.users>.user {
+.usersInfoSection > .users > .user {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,47 +98,47 @@
   padding: 0.5rem 0rem;
 }
 
-.usersInfoSection>.users>.user>.userInfo {
+.usersInfoSection > .users > .user > .userInfo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   width: calc(100% - 160px);
 }
 
-.usersInfoSection>.users>.user>.userActive {
+.usersInfoSection > .users > .user > .userActive {
   width: 100%;
 }
 
-.usersInfoSection>.users>.user>.userInfo>.profilePicture {
+.usersInfoSection > .users > .user > .userInfo > .profilePicture {
   min-width: 3rem;
   height: 3rem;
   background-size: cover;
   background-position: center;
 }
 
-.usersInfoSection>.users>.user>.userInfo>.noProfilePicture {
+.usersInfoSection > .users > .user > .userInfo > .noProfilePicture {
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 3rem;
   height: 3rem;
-  background-color: #FF716C;
+  background-color: #ff716c;
   font-family: Google Sans;
   font-weight: 500;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-.usersInfoSection>.users>.user>.userInfo>.userEmail {
+.usersInfoSection > .users > .user > .userInfo > .userEmail {
   display: flex;
   flex-direction: column;
   width: 65%;
 }
 
-.usersInfoSection>.users>.user>.userActive>.userEmail {
+.usersInfoSection > .users > .user > .userActive > .userEmail {
   width: 100%;
 }
 
-.usersInfoSection>.users>.user>.userInfo>.userEmail>h3 {
+.usersInfoSection > .users > .user > .userInfo > .userEmail > h3 {
   font-family: Google Sans;
   font-weight: 500;
   font-size: 1rem;
@@ -81,7 +148,7 @@
   text-overflow: ellipsis;
 }
 
-.usersInfoSection>.users>.user>.userInfo>.userEmail>h5 {
+.usersInfoSection > .users > .user > .userInfo > .userEmail > h5 {
   font-family: Google Sans;
   font-weight: 400;
   font-size: 0.8rem;
@@ -91,18 +158,18 @@
   text-overflow: ellipsis;
 }
 
-.usersInfoSection>.users>.user>.userButtons {
+.usersInfoSection > .users > .user > .userButtons {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.usersInfoSection>.users>.user>.userButtons>.button {
+.usersInfoSection > .users > .user > .userButtons > .button {
   min-width: 3rem;
   height: 3rem;
-  color: #FFFFFF;
-  background-color: #E94242;
-  border: 2px solid #FF716C;
+  color: #ffffff;
+  background-color: #e94242;
+  border: 2px solid #ff716c;
   cursor: pointer;
   padding: 0.8rem;
   outline: none;
@@ -110,8 +177,8 @@
   transition: all 0.3s;
 }
 
-.usersInfoSection>.users>.user>.userButtons>.button:hover {
-  background-color: #C02E2E;
+.usersInfoSection > .users > .user > .userButtons > .button:hover {
+  background-color: #c02e2e;
 }
 
 @media (min-width: 80rem) {

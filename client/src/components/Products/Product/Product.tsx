@@ -13,12 +13,13 @@ interface ProductProps {
   image: string,
   description: string,
   price: string[],
+  cashback: string,
   category: string,
   type: string,
   currentCategory: string
 }
 
-export default function Product({ id, product, image, description, price, category, type, currentCategory }: ProductProps) {
+export default function Product({ id, product, image, description, price, cashback, category, type, currentCategory }: ProductProps) {
   const { username } = Server.GetCurrentUserInformation();
 
   const [dateAdded, setDateAdded] = useState<string>('');
@@ -71,18 +72,24 @@ export default function Product({ id, product, image, description, price, catego
 
   const handleSelectQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectQuantity(Number(event.target.value));
+
+    console.log(cashback)
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const cashbackTo100 = Number(cashback) / 100;
+
     if (type === 'gift-card') {
       if (selectedPrice !== '0') {
+        const totalCashback = (Number(selectedPrice) * selectQuantity) * cashbackTo100;
         Server.addProductToCart({
           username: username,
           dateAdded: dateAdded,
           product: product,
           priceselected: selectedPrice,
+          cashback: totalCashback.toString(),
           quantity: selectQuantity.toString()
         });
         if (typeof window !== 'undefined') {
@@ -92,10 +99,12 @@ export default function Product({ id, product, image, description, price, catego
         console.log('falta seleccionar el precio');
       }
     } else {
+      const totalCashback = (Number(price) * selectQuantity) * cashbackTo100;
       Server.addProductToCart({
         username: username,
         dateAdded: dateAdded,
         product: product,
+        cashback: totalCashback.toString(),
         priceselected: price.toString(),
         quantity: selectQuantity.toString()
       });

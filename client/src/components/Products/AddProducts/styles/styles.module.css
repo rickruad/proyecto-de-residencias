@@ -62,7 +62,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  border-radius: 0.5rem;
 }
 
 .addProduct > .addProductCartel > h2 {
@@ -210,6 +209,7 @@
   .addProduct > .addProductCartel {
     width: 40rem;
     height: auto;
+    border-radius: 0.5rem;
   }
 
   .addProduct > .addProductCartel > .styledImage {

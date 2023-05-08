@@ -5,6 +5,7 @@ import { MdShoppingCart, MdClose, MdDelete } from "react-icons/md";
 import * as Server from "@/hooks/Server";
 
 import Link from "next/link";
+import Image from "next/image";
 import classNames from "classnames";
 
 import styles from "./styles/styles.module.css";
@@ -242,7 +243,22 @@ export default function Cart() {
               <h3>{`Total a pagar: MX$${totalPrice}`}</h3>
               <h4>{`Cashback: MX$${totalCashback.toFixed(2)}`}</h4>
             </div>
-            <Link href={{ pathname: '../../purchase/' }} className={styles.footerButton}>{'Comprar'}</Link>
+            <div className={styles.method}>
+              <div className={styles.line} />
+              <h4>{'Elige tu método de pago'}</h4>
+              <div className={styles.line} />
+            </div>
+            
+            <Link href={{ pathname: '../../purchase/' }} className={styles.footerButton}>
+              <Image
+                className={styles.image}
+                src={'/img/protopay-card.png'}
+                alt={'protopay card'}
+                width={600}
+                height={300}
+                priority={true}
+              />
+            </Link>
           </div>
         </section>
       ) : null}

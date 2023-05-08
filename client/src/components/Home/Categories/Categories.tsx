@@ -50,12 +50,12 @@ export default function Categories() {
           <MdShoppingBag className={styles.icon} />
           <h2>{'Productos'}</h2>
           <div className={styles.line} />
-          {
+          {/* {
             admin === 1 ?
               <MdOutlineAddCircle className={classNames(styles.icon, styles.pointer)} />
               :
               null
-          }
+          } */}
         </div>
         <h3>{'Busca entre las siguientes categorías y sorpréndete'}</h3>
         <div className={styles.allCategories}>{allCategories}</div>

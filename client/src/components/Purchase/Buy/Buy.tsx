@@ -2,11 +2,14 @@ import { MdShoppingBag } from "react-icons/md";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 
 import Link from "next/link";
+import localConfig from "../../../../../local-config";
 
 import * as Server from "@/hooks/Server";
 import * as AuxiliarFunctions from "@/hooks/AuxiliarFunctions";
 
 import styles from "./styles/styles.module.css";
+import axios from "axios";
+import classNames from "classnames";
 
 export default function Buy() {
   const { username } = Server.GetCurrentUserInformation();
@@ -18,6 +21,7 @@ export default function Buy() {
     priceSelectedCart,
     quantityCart,
   } = Server.GetAllCart();
+  const { SVIP, SVPORT } = localConfig.connectionServer();
 
   const [dateMin, setDateMin] = useState<string>("");
   const [dateAdded, setDateAdded] = useState<string>("");
@@ -27,6 +31,9 @@ export default function Buy() {
   const [currentDate, setCurrentDate] = useState<number>(0);
   const [currentUsername, setCurrentUsername] = useState<string>("");
   const [allProductsCart, setAllProductsCart] = useState<string>("");
+
+  const [wrongStatus, setWrongStatus] = useState<boolean>(false);
+  const [wrongText, setWrongText] = useState<string>("");
 
   const [cardTypeValue, setCardTypeValue] = useState<string>("visa");
   const [nameCardValue, setNameCardValue] = useState<string>("");
@@ -114,7 +121,7 @@ export default function Buy() {
     } else if (numberCardValue.length === 0) {
       setCardTypeValue("");
     } else {
-      setCardTypeValue("tarjeta invalida");
+      setCardTypeValue("tarjeta inválida");
     }
   }, [numberCardValue]);
 
@@ -218,7 +225,7 @@ export default function Buy() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (cardTypeValue !== "tarjeta invalida") {
+    if (cardTypeValue !== "tarjeta inválida") {
       var secondDirection = "";
 
       if (secondDirectionValue) {
@@ -227,28 +234,40 @@ export default function Buy() {
         secondDirection = "none";
       }
 
-      Server.saveBuy({
-        username: username,
-        products: allProductsCart,
-        date: dateAdded,
-        dateadded: dateAddedMili,
-        totalprice: totalPrice,
-        type: cardTypeValue,
-        namecard: nameCardValue,
-        numbercard: numberCardValue,
-        expirationdatecard: dateExpireCardValue,
-        securitycodecard: codeCardValue,
-        fullname: fullNameValue,
-        country: countryValue,
-        locality: locateValue,
-        firstdirection: firstDirectionValue,
-        seconddirection: secondDirection,
-        postalcode: postalCodeValue,
-        phonenumber: numberPhoneValue,
-        save: saveCardInfo,
-      });
+      axios
+        .post(`http://${SVIP}:${SVPORT}/api/verify-numbercard`, {
+          numberCardValue,
+        })
+        .then((response) => {
+          if (response.data.message !== "0") {
+            setWrongStatus(true);
+            setWrongText("Ya existente");
+          } else {
+            Server.saveBuy({
+              username: username,
+              products: allProductsCart,
+              date: dateAdded,
+              dateadded: dateAddedMili,
+              totalprice: totalPrice,
+              type: cardTypeValue,
+              namecard: nameCardValue,
+              numbercard: numberCardValue,
+              expirationdatecard: dateExpireCardValue,
+              securitycodecard: codeCardValue,
+              fullname: fullNameValue,
+              country: countryValue,
+              locality: locateValue,
+              firstdirection: firstDirectionValue,
+              seconddirection: secondDirection,
+              postalcode: postalCodeValue,
+              phonenumber: numberPhoneValue,
+              save: saveCardInfo,
+            });
+          }
+        });
     } else {
-      console.log("ERROR");
+      setWrongStatus(true);
+      setWrongText("Tarjeta inválida");
     }
   };
 
@@ -261,18 +280,18 @@ export default function Buy() {
         </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.cardInfo}>
-            <h3>Ingrese los datos de su tarjeta</h3>
-            <div className={styles.typeNameCard}>
-              <div className={styles.labelOptions}>
-                <label>Tipo de tarjeta</label>
-                <h3>
-                  {AuxiliarFunctions.wordsToCapitalLetter({
-                    text: cardTypeValue,
-                  })}
-                </h3>
-              </div>
+            <h3>{"Ingrese los datos de su tarjeta"}</h3>
+            <div className={styles.labelType}>
+              <label>{"Tipo de tarjeta"}</label>
+              <h3>
+                {AuxiliarFunctions.wordsToCapitalLetter({
+                  text: cardTypeValue,
+                })}
+              </h3>
+            </div>
+            <div className={styles.inputs}>
               <div className={styles.labelInput}>
-                <label>Nombre a cargo de la tarjeta</label>
+                <label>{"Nombre a cargo de la tarjeta (*)"}</label>
                 <input
                   type="text"
                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"
@@ -281,20 +300,36 @@ export default function Buy() {
                   onChange={handleNameCard}
                 />
               </div>
-            </div>
-            <div className={styles.numberDateCodeCard}>
-              <div className={styles.labelNumberCard}>
-                <label>Número de la tarjeta</label>
+              <div className={styles.labelInput}>
+                <div className={styles.numberWrong}>
+                  <label>{"Número de tarjeta (*)"}</label>
+                  <label
+                    className={classNames(wrongStatus ? null : styles.hide)}
+                  >
+                    {" - "}
+                  </label>
+                  <label
+                    className={classNames(
+                      styles.wrong,
+                      wrongStatus ? null : styles.hide
+                    )}
+                  >
+                    {wrongText}
+                  </label>
+                </div>
                 <input
                   type="text"
                   pattern="[0-9\-]*"
+                  minLength={19}
                   required={true}
                   value={numberCardValue}
                   onChange={handleNumberCard}
                 />
               </div>
-              <div className={styles.labelMonthCard}>
-                <label>Fecha de caducidad</label>
+            </div>
+            <div className={styles.inputs}>
+              <div className={styles.labelInput}>
+                <label>{"Fecha de caducidad (*)"}</label>
                 <input
                   type="month"
                   min={dateMin}
@@ -303,11 +338,13 @@ export default function Buy() {
                   onChange={handleDateExpireCard}
                 />
               </div>
-              <div className={styles.labelCodeCard}>
-                <label>Código de seguridad</label>
+              <div className={styles.labelInput}>
+                <label>{"Código de seguridad (*)"}</label>
                 <input
-                  type="number"
+                  type="text"
                   required={true}
+                  pattern="[0-9]*"
+                  minLength={3}
                   value={codeCardValue}
                   onChange={handleCodeCard}
                 />
@@ -315,10 +352,10 @@ export default function Buy() {
             </div>
           </div>
           <div className={styles.personalInfo}>
-            <h3>Ingrese sus datos personales</h3>
-            <div className={styles.labelInputContainer}>
+            <h3>{"Ingrese sus datos personales"}</h3>
+            <div className={styles.inputs}>
               <div className={styles.labelInput}>
-                <label>Nombre completo</label>
+                <label>{"Nombre completo (*)"}</label>
                 <input
                   type="text"
                   pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+"
@@ -328,7 +365,7 @@ export default function Buy() {
                 />
               </div>
               <div className={styles.labelInput}>
-                <label>País</label>
+                <label>{"País (*)"}</label>
                 <input
                   type="text"
                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"
@@ -337,8 +374,10 @@ export default function Buy() {
                   onChange={handleCountry}
                 />
               </div>
+            </div>
+            <div className={styles.inputs}>
               <div className={styles.labelInput}>
-                <label>Localidad</label>
+                <label>{"Localidad (*)"}</label>
                 <input
                   type="text"
                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"
@@ -348,7 +387,7 @@ export default function Buy() {
                 />
               </div>
               <div className={styles.labelInput}>
-                <label>1ra Dirección de facturación</label>
+                <label>{"1ra Dirección de facturación (*)"}</label>
                 <input
                   type="text"
                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]+"
@@ -357,8 +396,10 @@ export default function Buy() {
                   onChange={handleFirstDirection}
                 />
               </div>
+            </div>
+            <div className={styles.inputs}>
               <div className={styles.labelInput}>
-                <label>2da Dirección de facturación</label>
+                <label>{"2da Dirección de facturación"}</label>
                 <input
                   type="text"
                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]+"
@@ -367,7 +408,7 @@ export default function Buy() {
                 />
               </div>
               <div className={styles.labelInput}>
-                <label>Código postal</label>
+                <label>{"Código postal (*)"}</label>
                 <input
                   type="text"
                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]+"
@@ -376,27 +417,31 @@ export default function Buy() {
                   onChange={handlePostalCode}
                 />
               </div>
-              <div className={styles.labelInput}>
-                <label>Número de telefono</label>
-                <input
-                  type="tel"
-                  pattern="[0-9+\-\s]*"
-                  required={true}
-                  value={numberPhoneValue}
-                  onChange={handleNumberPhone}
-                />
-              </div>
+            </div>
+            <div className={styles.labelInput}>
+              <label>{"Número de telefono (*)"}</label>
+              <input
+                type="tel"
+                pattern="[0-9+\-\s]*"
+                minLength={16}
+                required={true}
+                value={numberPhoneValue}
+                onChange={handleNumberPhone}
+              />
             </div>
           </div>
-          <div className={styles.checkBox}>
+          <h5 className={styles.note}>
+            {"TODAS LAS ENTRADAS QUE TIENEN UN (*) SON OBLIGATORIAS"}
+          </h5>
+          <div className={styles.checkbox}>
             <input type="checkbox" onChange={handleSaveCardInfo} />
             <h4>Guardar esta información para una próxima compra</h4>
           </div>
           <div className={styles.buttons}>
-            <Link className={styles.back} href={{ pathname: "../../" }}>
+            <Link className={styles.button} href={{ pathname: "../../" }}>
               Regresar
             </Link>
-            <button className={styles.confirm} type="submit">
+            <button className={styles.button} type="submit">
               Confirmar
             </button>
           </div>

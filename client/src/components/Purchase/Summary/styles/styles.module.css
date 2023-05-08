@@ -1,6 +1,6 @@
 .summarySection {
   width: 100%;
-  padding: 1rem;
+  padding: 0rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

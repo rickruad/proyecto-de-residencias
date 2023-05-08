@@ -603,8 +603,8 @@ app.post("/api/save-info-buy", (req, res) => {
         idToTry,
         username,
         type,
-        numbercard,
         namecard,
+        numbercard,
         expirationdatecard,
         securitycodecard,
         fullname,
@@ -645,6 +645,42 @@ app.post("/api/get-purchase-history", (req, res) => {
     }
   });
 });
+
+app.post("/api/verify-numbercard", (req, res) => {
+  const numbercard = req.body.numberCardValue;
+
+  const query = "SELECT COUNT(*) FROM userinfobuy WHERE numbercard = ?";
+
+  db.query(query, [numbercard], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ message: `${result[0]["COUNT(*)"]}` });
+    }
+  });
+});
+
+app.post("/api/get-cards", (req, res) => {
+  const username = req.body.username;
+
+  const query = "SELECT * FROM userinfobuy WHERE username = ?";
+
+  db.query(query, [username], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+app.post("/api/delete-card", (req, res) => {
+  const id = req.body.id;
+
+  const query = "DELETE FROM userinfobuy WHERE id = ?";
+
+  db.query(query, [id], (err, result) => {
+    if (err) throw err;
+    res.json({ message: 'SUCCESS' });
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}/`);

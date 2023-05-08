@@ -286,18 +286,18 @@ interface saveBuyProps {
   date: string,
   dateadded: string,
   totalprice: string,
-  type: string,
-  namecard: string,
-  numbercard: string,
-  expirationdatecard: string,
-  securitycodecard: string,
-  fullname: string,
-  country: string,
-  locality: string,
-  firstdirection: string,
-  seconddirection: string,
-  postalcode: string,
-  phonenumber: string,
+  type?: string,
+  namecard?: string,
+  numbercard?: string,
+  expirationdatecard?: string,
+  securitycodecard?: string,
+  fullname?: string,
+  country?: string,
+  locality?: string,
+  firstdirection?: string,
+  seconddirection?: string,
+  postalcode?: string,
+  phonenumber?: string,
   save: boolean
 }
 
@@ -356,4 +356,48 @@ export const GetPurchaseHistory = () => {
     datesAddedMili,
     totalPrices
   }
+}
+
+type CardProps = {
+  id: number,
+  type: string,
+  name: string,
+  number: string,
+  expirationDate: string,
+  securityCode: number
+}
+
+export const GetCards = ({ username }: { username: string }) => {
+  const [cards, setCards] = useState<CardProps[]>([]);
+
+  useEffect(() => {
+    axios.post(`${baseURL}api/get-cards`, { username }).then((response) => {
+      if (response) {
+        const cardMap = response.data.map((card : any) => {
+          return {
+            id: card.id,
+            type: card.type,
+            name: card.namecard,
+            number: card.numbercard,
+            expirationDate: card.expirationdatecard,
+            securityCode: card.securityCodeCard,
+          }
+        })
+
+        setCards(cardMap);
+      }
+    })
+  }, [username])
+
+  return cards;
+}
+
+export const DeleteCard = ({ id }: { id: number }) => {
+  axios.post(`${baseURL}api/delete-card`, { id }).then((response) => {
+    if (response.data.message === 'SUCCESS') {
+      if (typeof window !== 'undefined') {
+        window.location.href = '../../purchase';
+      }
+    }
+  }) 
 }

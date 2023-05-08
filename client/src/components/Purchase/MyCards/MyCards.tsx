@@ -104,6 +104,7 @@ export default function MyCards({ username }: { username: string }) {
     setPurchaseMessageStatus(false);
     setCardType("");
     setCardNumber("");
+    setCodeCardValue("");
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

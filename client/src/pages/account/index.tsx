@@ -6,6 +6,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import UserInfo from '@/components/Account/UserInfo';
 import UsersInfo from '@/components/Account/UsersInfo';
+import PurchaseHistoryAdmin from '@/components/Account/PurchaseHistoryAdmin';
 
 import styles from '@/styles/account.module.css';
 
@@ -22,6 +23,7 @@ export default function Account() {
         <section className={styles.adminSection}>
           <UserInfo />
           <UsersInfo />
+          <PurchaseHistoryAdmin />
           <Footer />
         </section>
         :

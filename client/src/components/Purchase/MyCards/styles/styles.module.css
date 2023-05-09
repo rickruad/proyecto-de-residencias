@@ -53,12 +53,16 @@
   width: 100%;
 }
 
-.messagePurchase > .cartel > .labelInput > label {
+.messagePurchase > .cartel > .labelInput > .labelError > label {
   font-family: Google Sans;
   font-weight: 400;
   font-size: 0.9rem;
   color: #333333;
   white-space: nowrap;
+}
+
+.messagePurchase > .cartel > .labelInput > .labelError > .error {
+  color: #E94242;
 }
 
 .messagePurchase > .cartel > .labelInput > input { 

@@ -25,6 +25,9 @@ export default function MyCards({ username }: { username: string }) {
   const [currentDate, setCurrentDate] = useState<number>(0);
   const [currentUsername, setCurrentUsername] = useState<string>("");
   const [allProductsCart, setAllProductsCart] = useState<string>("");
+  const [secureCode, setSecureCode] = useState<number>(0);
+
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const [purchaseMessageStatus, setPurchaseMessageStatus] =
     useState<boolean>(false);
@@ -105,19 +108,25 @@ export default function MyCards({ username }: { username: string }) {
     setCardType("");
     setCardNumber("");
     setCodeCardValue("");
+    setSecureCode(0);
+    setErrorMessage(false);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    Server.saveBuy({
-      username: username,
-      products: allProductsCart,
-      date: dateAdded,
-      dateadded: dateAddedMili,
-      totalprice: totalPrice,
-      save: false,
-    });
+    if (secureCode.toString() === codeCardValue) {
+      Server.saveBuy({
+        username: username,
+        products: allProductsCart,
+        date: dateAdded,
+        dateadded: dateAddedMili,
+        totalprice: totalPrice,
+        save: false,
+      });
+    } else {
+      setErrorMessage(true);
+    }
   };
 
   const showCards = cards.map((card) => {
@@ -129,6 +138,7 @@ export default function MyCards({ username }: { username: string }) {
       setPurchaseMessageStatus(true);
       setCardType(AuxiliarFunctions.wordsToCapitalLetter({ text: card.type }));
       setCardNumber(card.number.slice(-4));
+      setSecureCode(card.securityCode);
     };
 
     return (
@@ -164,7 +174,15 @@ export default function MyCards({ username }: { username: string }) {
             <h3>{"Confirmar compra"}</h3>
             <h4>{`Método de pago: ${cardType} que termina en ${cardNumber}`}</h4>
             <div className={styles.labelInput}>
-              <label>{"Código de seguridad"}</label>
+              <div className={styles.labelError}>
+                <label>{"Código de seguridad"}</label>
+                {errorMessage ? (
+                  <>
+                    <label>{" - "}</label>
+                    <label className={styles.error}>{"Código incorrecto"}</label>
+                  </>
+                ) : null}
+              </div>
               <input
                 type="text"
                 required={true}

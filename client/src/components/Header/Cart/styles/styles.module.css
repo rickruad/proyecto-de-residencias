@@ -258,7 +258,7 @@
 }
 
 .cart > .footerCart > .footerButtonNoProducts:hover {
-  background-color: #e94242;
+  box-shadow: none;
 }
 
 @media (min-width: 30rem) {

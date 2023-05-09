@@ -380,7 +380,7 @@ export const GetCards = ({ username }: { username: string }) => {
             name: card.namecard,
             number: card.numbercard,
             expirationDate: card.expirationdatecard,
-            securityCode: card.securityCodeCard,
+            securityCode: card.securitycodecard,
           }
         })
 
@@ -400,4 +400,12 @@ export const DeleteCard = ({ id }: { id: number }) => {
       }
     }
   }) 
+}
+
+export const DeleteHistory = ({ id }: { id: number }) => {
+  axios.post(`${baseURL}api/delete-history`, { id }).then((response) => {
+    if (response.data.message === 'SUCCESS' && typeof window !== 'undefined') {
+      window.location.href = '../../account';
+    }
+  })
 }

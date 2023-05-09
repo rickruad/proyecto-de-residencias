@@ -47,8 +47,6 @@ const AxiosPost = ({
 }: AxiosPostProps) => {
   const { SVPORT, SVIP } = localConfig.connectionServer();
 
-  Server.deleteUserCart({ username: oldUsername });
-
   const formData = new FormData();
 
   formData.append("id", id.toString());
@@ -78,6 +76,8 @@ const AxiosPost = ({
   } else {
     formData.append("profilePicture", newProfilePicture);
   }
+
+  formData.append("oldusername", oldUsername);
 
   axios
     .post(`http://${SVIP}:${SVPORT}/api/update-user`, formData)
@@ -250,7 +250,7 @@ export default function EditUserInfo({
               <label>{"Nombre completo"}</label>
               <input
                 type="text"
-                value={username}
+                value={handleUsername.length > 0 ? handleUsername : username}
                 onChange={handleUsernameChange}
               />
             </div>
@@ -264,7 +264,7 @@ export default function EditUserInfo({
                 max={`${currentYear}-${
                   currentMonth > 9 ? currentMonth : `0${currentMonth}`
                 }-${currentDay > 9 ? currentDay : `0${currentDay}`}`}
-                value={birthdate}
+                value={handleBirthdate.length > 0 ? handleBirthdate : birthdate}
                 onChange={handleBirthdateChange}
               />
             </div>
@@ -280,7 +280,7 @@ export default function EditUserInfo({
               </div>
               <input
                 type="email"
-                value={email}
+                value={handleEmail.length > 0 ? handleEmail : email}
                 onChange={handleEmailChange}
               />
             </div>
@@ -296,7 +296,7 @@ export default function EditUserInfo({
               </div>
               <input
                 type={passwordStatus ? "text" : "password"}
-                value={password}
+                value={handlePassword.length > 0 ? handlePassword : password}
                 onChange={handlePasswordChange}
               />
             </div>

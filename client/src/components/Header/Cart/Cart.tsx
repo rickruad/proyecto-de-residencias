@@ -86,13 +86,25 @@ export default function Cart() {
                 <h3>{"Total a pagar: MX$0"}</h3>
                 <h4>{"Cashback: MX$0"}</h4>
               </div>
+              <div className={styles.method}>
+                <div className={styles.line} />
+                <h4>{"Elige tu método de pago"}</h4>
+                <div className={styles.line} />
+              </div>
               <button
                 className={classNames(
                   styles.footerButton,
                   styles.footerButtonNoProducts
                 )}
               >
-                {"Comprar"}
+                <Image
+                  className={styles.image}
+                  src={"/img/protopay-card.png"}
+                  alt={"protopay card"}
+                  width={600}
+                  height={300}
+                  priority={true}
+                />
               </button>
             </div>
           </section>
@@ -160,13 +172,25 @@ export default function Cart() {
                 <h3>{"Total a pagar: MX$0"}</h3>
                 <h4>{"Cashback: MX$0"}</h4>
               </div>
+              <div className={styles.method}>
+                <div className={styles.line} />
+                <h4>{"Elige tu método de pago"}</h4>
+                <div className={styles.line} />
+              </div>
               <button
                 className={classNames(
                   styles.footerButton,
                   styles.footerButtonNoProducts
                 )}
               >
-                {"Comprar"}
+                <Image
+                  className={styles.image}
+                  src={"/img/protopay-card.png"}
+                  alt={"protopay card"}
+                  width={600}
+                  height={300}
+                  priority={true}
+                />
               </button>
             </div>
           </section>
@@ -245,15 +269,18 @@ export default function Cart() {
             </div>
             <div className={styles.method}>
               <div className={styles.line} />
-              <h4>{'Elige tu método de pago'}</h4>
+              <h4>{"Elige tu método de pago"}</h4>
               <div className={styles.line} />
             </div>
-            
-            <Link href={{ pathname: '../../purchase/' }} className={styles.footerButton}>
+
+            <Link
+              href={{ pathname: "../../purchase/" }}
+              className={styles.footerButton}
+            >
               <Image
                 className={styles.image}
-                src={'/img/protopay-card.png'}
-                alt={'protopay card'}
+                src={"/img/protopay-card.png"}
+                alt={"protopay card"}
                 width={600}
                 height={300}
                 priority={true}

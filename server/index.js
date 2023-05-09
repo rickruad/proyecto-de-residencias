@@ -357,6 +357,7 @@ app.post(
     const email = req.body.email;
     const password = req.body.password;
     const username = req.body.username;
+    const oldusername = req.body.oldusername;
     const birthdate = req.body.birthdate;
     const oldProfilePicture =
       req.body.oldProfilePicture === "null" ? null : req.body.oldProfilePicture;
@@ -368,12 +369,30 @@ app.post(
       "UPDATE users SET email = ?, password = ?, username = ?, birthdate = ?, profilePicture = ? WHERE id = ?";
     const values = [email, password, username, birthdate, DBProfilePicture, id];
 
+    const queryHistory = "UPDATE history SET username = ? WHERE username = ?";
+    const valuesHistory = [username, oldusername];
+
+    const queryCart = "UPDATE userscart SET username = ? WHERE username = ?";
+    const valuesCart = [username, oldusername];
+
+    const queryInfo = "UPDATE userinfobuy SET username = ? WHERE username = ?";
+    const valuesInfo = [username, oldusername];
+
+    db.query(queryHistory, valuesHistory, (err, result) => {
+      if (err) throw err;
+    });
+
+    db.query(queryCart, valuesCart, (err, result) => {
+      if (err) throw err;
+    })
+
+    db.query(queryInfo, valuesInfo, (err, result) => {
+      if (err) throw err;
+    })
+
     db.query(query, values, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json({ message: "SUCCESS" });
-      }
+      if (err) throw err;
+      res.json({ message: "SUCCESS" });
     });
   }
 );
@@ -675,6 +694,17 @@ app.post("/api/delete-card", (req, res) => {
   const id = req.body.id;
 
   const query = "DELETE FROM userinfobuy WHERE id = ?";
+
+  db.query(query, [id], (err, result) => {
+    if (err) throw err;
+    res.json({ message: 'SUCCESS' });
+  })
+})
+
+app.post("/api/delete-history", (req, res) => {
+  const id = req.body.id;
+
+  const query = "DELETE FROM history WHERE id = ?";
 
   db.query(query, [id], (err, result) => {
     if (err) throw err;

@@ -168,6 +168,7 @@
   justify-content: space-between;
   border: none;
   cursor: pointer;
+  z-index: 2;
 }
 
 .cardsSection > .cardsContainer > .card > .delete {
@@ -184,6 +185,7 @@
   width: 24px;
   height: 24px;
   color: #333333;
+  z-index: 3;
 }
 
 .cardsSection > .cardsContainer > .card:hover > .delete:hover {

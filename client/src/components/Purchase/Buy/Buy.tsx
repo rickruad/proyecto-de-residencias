@@ -164,7 +164,9 @@ export default function Buy() {
 
   const handleCodeCard = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= 4) {
-      setCodeCardValue(event.target.value);
+      let inputVal = event.target.value;
+      inputVal = inputVal.replace(/[^0-9]/g, "");
+      setCodeCardValue(inputVal);
     }
   };
 

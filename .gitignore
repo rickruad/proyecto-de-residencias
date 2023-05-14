@@ -38,7 +38,7 @@ next-env.d.ts
 
 # User
 public/img/products-pictures/*
-public/img/profile-pictures/*
+public/img/users-pictures/*
 
 # local config
 local.config.js

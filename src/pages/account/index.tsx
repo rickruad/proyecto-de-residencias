@@ -1,36 +1,39 @@
-import * as Server from '@/hooks/Server';
-import * as AuxiliarFunctions from '@/hooks/AuxiliarFunctions';
+import { getServerSideProps } from 'src/utils/SessionAuthenticator';
 
-import Head from '@/components/Head';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer';
-import UserInfo from '@/components/Account/UserInfo';
-import UsersInfo from '@/components/Account/UsersInfo';
-import PurchaseHistoryAdmin from '@/components/Account/PurchaseHistoryAdmin';
+import * as GetDBData from 'src/hooks/GetDBData';
+import * as StringUtilities from 'src/utils/StringUtilities';
 
-import styles from '@/styles/account.module.css';
+import { Head, Header, Footer } from 'src/components/shared';
+import { UserData } from 'src/components/Account';
 
-export default function Account() {
-  const { username, admin } = Server.GetCurrentUserInformation();
+import styles from 'src/styles/account.module.css';
 
-  return <>
-    <Head title={`Cuenta de ${AuxiliarFunctions.firstWord({ text: `${AuxiliarFunctions.wordsToCapitalLetter({ text: username })}` })}`} />
+export default function Account({ session, sessionAuth }: { session: boolean; sessionAuth: string }) {
+	const userData = GetDBData.GetCurrentUserData({ sessionAuth });
 
-    <Header />
+	let username: string = StringUtilities.firstWord({
+		text: StringUtilities.wordsToCapitalLetter({ text: userData ? userData.name : '' }),
+	});
 
-    {
-      admin === 1 ?
-        <section className={styles.adminSection}>
-          <UserInfo />
-          <UsersInfo />
-          <PurchaseHistoryAdmin />
-          <Footer />
-        </section>
-        :
-        <section className={styles.noAdminSection}>
-          <UserInfo />
-          <Footer />
-        </section>
-    }    
-  </>
+	return (
+		<>
+			<Head title={`Cuenta de ${username}`} />
+
+			<Header session={session} sessionAuth={sessionAuth} />
+
+			{userData?.admin ? (
+				<section className={styles.adminSection}>
+					<UserData sessionAuth={sessionAuth} />
+					<Footer />
+				</section>
+			) : (
+				<section className={styles.noAdminSection}>
+					<UserData sessionAuth={sessionAuth} />
+					<Footer />
+				</section>
+			)}
+		</>
+	);
 }
+
+export { getServerSideProps };

@@ -3,12 +3,12 @@ import { connectionDatabase } from 'root/local.config';
 
 const { DBPASSWORD, DBPORT } = connectionDatabase();
 
-const connection = mysql.createConnection({
+const db = mysql.createConnection({
 	user: 'root',
 	host: 'localhost',
 	password: DBPASSWORD,
-	database: 'proyecto-de-residencias',
+	database: 'proyecto_de_residencias',
 	port: DBPORT,
 });
 
-export default connection;
+export default db;

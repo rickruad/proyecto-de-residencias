@@ -8,7 +8,7 @@ const localConfig = require('../../local.config.js');
 const { DBPASSWORD, DBPORT } = localConfig.connectionDatabase();
 const { amountHashSalt, sessionAuthMultiplier } = localConfig.sessionAuthSecurity();
 
-const proyectoDeResidenciasDataBase = 'CREATE DATABASE IF NOT EXISTS proyecto-de-residencias';
+const proyectoDeResidenciasDataBase = 'CREATE DATABASE IF NOT EXISTS proyecto_de_residencias';
 
 const createUsersTable = `CREATE TABLE IF NOT EXISTS users (
 	id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
@@ -16,8 +16,8 @@ const createUsersTable = `CREATE TABLE IF NOT EXISTS users (
 	password TEXT NOT NULL,
 	username VARCHAR(64) NOT NULL UNIQUE,
 	birthdate TEXT NOT NULL,
-	profile_picture TEXT NOT NULL,
-	total_cashback TEXT NOT NULL DEFAULT '0',
+	profile_picture TEXT NULL,
+	total_cashback VARCHAR(64) NULL,
 	admin INT NOT NULL DEFAULT '0',
 	session_auth TEXT NOT NULL
 )`;
@@ -35,7 +35,7 @@ const createProductsTable = `CREATE TABLE IF NOT EXISTS products (
 )`;
 
 const createCartTable = `CREATE TABLE IF NOT EXISTS cart(
-	id INT PRIMARY KEI NOT NULL UNIQUE AUTO_INCREMENT,
+	id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
 	email TEXT NOT NULL,
 	date_added TEXT NOT NULL,
 	product TEXT NOT NULL,
@@ -90,7 +90,7 @@ setTimeout(() => {
 		user: 'root',
 		host: 'localhost',
 		password: DBPASSWORD,
-		database: 'proyecto-de-residencias',
+		database: 'proyecto_de_residencias',
 		port: DBPORT,
 	});
 
@@ -124,15 +124,15 @@ setTimeout(async () => {
 		user: 'root',
 		host: 'localhost',
 		password: DBPASSWORD,
-		database: 'proyecto-de-residencias',
+		database: 'proyecto_de_residencias',
 		port: DBPORT,
 	});
 
 	createAdmin.connect();
 
 	const sessionAuth = Date.now() * sessionAuthMultiplier;
-	const encodedSessionAuth = await hash(sessionAuth.toString(), amountHashSalt);
-	const encodedPassword = await hash('admin', amountHashSalt);
+	const encodedSessionAuth = await bcrypt.hash(sessionAuth.toString(), amountHashSalt);
+	const encodedPassword = await bcrypt.hash('admin', amountHashSalt);
 
 	const query =
 		'INSERT INTO users (id, username, birthdate, email, password, profile_picture, session_auth, admin) VALUES (?,?,?,?,?,?,?,?)';
@@ -152,8 +152,6 @@ setTimeout(async () => {
 		if (err) throw err;
 	});
 
-	createAdmin.query('');
-
 	createAdmin.end();
 }, 2000);
 
@@ -167,7 +165,7 @@ fs.mkdir(folderPathTempFiles, { recursive: true }, (err) => {
 	if (err) throw err;
 });
 
-const folderPathUsersPictures = path.join(process.cwd(), '/public/img/profile-pictures');
+const folderPathUsersPictures = path.join(process.cwd(), '/public/img/users-pictures');
 fs.mkdir(folderPathUsersPictures, { recursive: true }, (err) => {
 	if (err) throw err;
 });

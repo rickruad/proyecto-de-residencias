@@ -1,22 +1,43 @@
-import Head from '@/components/Head';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer';
-import Carousel from '@/components/Home/Carousel';
-import Services from '@/components/Home/Services';
-import Categories from '@/components/Home/Categories';
+import { parseCookies } from 'nookies';
+import { GetServerSideProps } from 'next';
 
-export default function Home() {
-  return <>
-    <Head title='Proyecto de Residencias' />
+import { Head, Header, Footer } from 'src/components/shared';
+import { Carousel, Categories, Services } from 'src/components/Home';
 
-    <Header />
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { 'session-id': sessionId } = parseCookies(context);
+	const { 'session-auth': sessionAuth } = parseCookies(context);
 
-    <Carousel />
+	if (!sessionId) {
+		return {
+			props: {
+				session: false,
+			},
+		};
+	}
 
-    <Categories />
+	return {
+		props: {
+			session: true,
+			sessionAuth,
+		},
+	};
+};
 
-    <Services />
+export default function Home({ session, sessionAuth }: { session: boolean; sessionAuth: string }) {
+	return (
+		<>
+			<Head title={'Proyecto de residencias'} />
 
-    <Footer />
-  </>
+			<Header session={session} sessionAuth={sessionAuth} />
+
+			<Carousel />
+
+			<Categories session={session} />
+
+			<Services />
+
+			<Footer />
+		</>
+	);
 }

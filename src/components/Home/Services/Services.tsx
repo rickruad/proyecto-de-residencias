@@ -1,10 +1,6 @@
 import { MdWorkspacesFilled } from 'react-icons/md';
 
-import * as Server from '@/hooks/Server';
-
-import classNames from 'classnames';
-
-import styles from './styles/styles.module.css';
+import styles from './styles/services.module.css';
 
 export default function Services() {
   return <>

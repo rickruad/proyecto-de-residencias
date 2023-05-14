@@ -1,0 +1,87 @@
+.servicesSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5rem;
+}
+
+.servicesSection>.servicesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 1rem;
+}
+
+.servicesSection>.servicesContainer>.titleSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.servicesSection>.servicesContainer>.titleSection>.icon {
+  width: 4rem;
+  height: auto;
+  color: #333333;
+}
+
+.servicesSection>.servicesContainer>.titleSection>.pointer {
+  cursor: pointer;
+}
+
+.servicesSection>.servicesContainer>.titleSection>.pointer:hover {
+  color: #E94242;
+}
+
+.servicesSection>.servicesContainer>.titleSection>h2 {
+  font-family: Google Sans;
+  font-weight: 700;
+  color: #333333;
+  white-space: nowrap;
+  font-size: 1.4rem;
+}
+
+.servicesSection>.servicesContainer>.titleSection>.line {
+  width: 100%;
+  border-top: 1px solid #333333;
+}
+
+.servicesSection>.servicesContainer>h3 {
+  font-family: Google Sans;
+  font-weight: 400;
+  font-style: italic;
+  color: #333333;
+  font-size: 1rem;
+}
+
+@media (min-width: 650px) {
+  .servicesSection>.servicesContainer>.titleSection>.icon {
+    width: 3rem;
+    height: auto;
+  }
+
+}
+
+@media (min-width: 80rem) {
+  .servicesSection {
+    max-width: 80rem;
+    margin: auto;
+    margin-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1367px) {
+  .servicesSection>.servicesContainer>.titleSection>.icon {
+    width: 35px;
+    height: auto;
+  }
+
+  .servicesSection>.servicesContainer>.titleSection>h2 {
+    font-size: 1.4rem;
+  }
+
+  .servicesSection>.servicesContainer>h3 {
+    font-size: 1.2rem;
+  }
+}

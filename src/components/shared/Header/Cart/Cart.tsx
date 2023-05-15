@@ -1,12 +1,11 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import { MdShoppingCart, MdClose, MdDelete } from 'react-icons/md';
 
 import * as GetDBData from 'src/hooks/GetDBData';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import classNames from 'classnames';
 
 import CartEmpty from './Cart.empty';
 
@@ -18,11 +17,8 @@ interface CartProps {
 }
 
 export default function Cart({ session, sessionAuth }: CartProps) {
-	const userCart = GetDBData.GetCurrentUserCart({ sessionAuth });
-
 	const router = useRouter();
-	const pathname = router.pathname.toString();
-	const query = router.query.category ? router.query.category.toString() : '';
+	const userCart = GetDBData.GetCurrentUserCart({ sessionAuth });
 
 	const [windowStatus, setWindowStatus] = useState<boolean>(false);
 
@@ -40,21 +36,25 @@ export default function Cart({ session, sessionAuth }: CartProps) {
 	}
 
 	const userCartHTML = userCart?.map((currentProduct) => {
-		// const handleAbortBuy = () => {
-		// 	Server.removeProductToCart({
-		// 		id: currentProduct.id,
-		// 		pathname: pathname,
-		// 		query: query,
-		// 	});
-		// };
+		const handleAbortBuy = async () => {
+			const response = await fetch('/api/delete/product-cart', {
+				method: 'POST',
+				body: JSON.stringify({ id: currentProduct.id }),
+				headers: { 'Content-Type': 'application/json' },
+			});
 
-		totalPrice = totalPrice + currentProduct.priceSelected * currentProduct.quantity;
-		totalCashback = totalCashback + currentProduct.cashback * 1;
+			if (response.status === 200) {
+				router.reload();
+			}
+		};
+
+		totalPrice += currentProduct.priceSelected * currentProduct.quantity;
+		totalCashback += currentProduct.cashback * 1;
 
 		return (
 			<div key={currentProduct.id} className={styles.product}>
 				<div className={styles.productButtonInfo}>
-					<MdDelete /* onClick={handleAbortBuy} */ className={styles.trashButton} />
+					<MdDelete onClick={handleAbortBuy} className={styles.trashButton} />
 					<div className={styles.productInfo}>
 						<h3>{currentProduct.product}</h3>
 						<h5>{`Precio individual: ${currentProduct.priceSelected}`}</h5>

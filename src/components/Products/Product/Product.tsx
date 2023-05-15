@@ -70,8 +70,6 @@ export default function Product(props: ProductProps) {
 
 	const handleSelectQuantity = (event: ChangeEvent<HTMLInputElement>) => {
 		setSelectQuantity(Number(event.target.value));
-
-		console.log(cashback);
 	};
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

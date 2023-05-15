@@ -231,7 +231,7 @@ export const GetAllPurchases = () => {
 							id: purchase.id,
 							username: purchase.username,
 							products: purchase.products,
-							prices: purchase.products_prices.split(', '),
+							prices: purchase.products_prices ? purchase.products_prices.split(', ') : '',
 							date: purchase.date,
 							dateAdded: purchase.date_added,
 						};

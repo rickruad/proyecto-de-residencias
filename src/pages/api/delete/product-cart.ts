@@ -8,7 +8,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	} else {
 		const { id } = req.body;
 
-		const query: string = 'DELETE FROM users WHERE id = ?';
+		const query: string = 'DELETE FROM cart WHERE id = ?';
 
 		db.query(query, [id], (err, result) => {
 			if (err) throw err;

@@ -3,6 +3,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import db from 'api/db';
 import formidable from 'formidable';
 
+export const config = {
+	api: {
+		bodyParser: false,
+	},
+};
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== 'POST') {
 		res.status(405).json({ error: 'method not allowed' });
@@ -14,7 +20,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			const { sessionAuth, dateAdded, product, price, cashback, quantity } = fields;
 
 			const getEmail: string = 'SELECT * FROM users WHERE session_auth = ?';
-			const saveProductInCart: string = 'email, date_added, product, price_selected, cashback, quantity';
+			const saveProductInCart: string =
+				'INSERT INTO cart (email, date_added, product, price_selected, cashback, quantity) VALUE (?,?,?,?,?,?)';
 
 			db.query(getEmail, [sessionAuth], (err, result) => {
 				if (err) throw err;
@@ -28,12 +35,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 					db.query(saveProductInCart, values, (err, result) => {
 						if (err) throw err;
-
-						if (result.length <= 0) {
-							res.status(500).json({ error: 'error saved product in the cart' });
-						} else {
-							res.status(200).json({ saved: true });
-						}
+						res.status(200).json({ saved: true });
 					});
 				}
 			});

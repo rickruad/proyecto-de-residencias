@@ -8,7 +8,7 @@ import * as StringUtilities from 'src/utils/StringUtilities';
 import classNames from 'classnames';
 
 import { Head, Header, Footer } from 'src/components/shared';
-import { Product } from 'src/components/Products';
+import { Product, AddProducts } from 'src/components/Products';
 
 import styles from 'src/styles/products.module.css';
 
@@ -36,7 +36,7 @@ export default function Products({ session, sessionAuth }: { session: boolean; s
 
 				<section className={classNames(styles.products, styles.noProducts)}>
 					<h2>{'No hay productos disponibles'}</h2>
-					{/* {userData?.admin === 1 ? <AddProducts type="text" /> : null} */}
+					{userData?.admin === 1 ? <AddProducts type="text" /> : null}
 				</section>
 
 				<Footer />
@@ -70,7 +70,7 @@ export default function Products({ session, sessionAuth }: { session: boolean; s
 					<MdShoppingBag className={styles.icon} />
 					<h2>{StringUtilities.wordsToCapitalLetter({ text: selectedCategory.toString() })}</h2>
 				</div>
-				{/* {userData?.admin === 1 ? <AddProducts type="icon" /> : null} */}
+				{userData?.admin === 1 ? <AddProducts type="icon" /> : null}
 			</section>
 
 			<section className={styles.products}>{allSelectedProducts}</section>

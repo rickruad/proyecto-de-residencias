@@ -30,9 +30,11 @@ export default function PurchaseHistory() {
 
 		let totalPrice: number = 0;
 
-		purchase.prices.forEach((price: number) => {
-			totalPrice = totalPrice + price * 1;
-		});
+		if (purchase.prices) {
+			purchase.prices.forEach((price: number) => {
+				totalPrice = totalPrice + price * 1;
+			});
+		}
 
 		return (
 			<>

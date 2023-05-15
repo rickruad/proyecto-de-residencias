@@ -40,9 +40,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	} else {
 		const form = new formidable.IncomingForm();
 
+		console.log('Hola');
+
 		form.parse(req, async (err, fields, files) => {
 			if (err) throw err;
-			const { id, email, password, username, oldUsername, birthdate, oldProfilePicture } = fields;
+			const { id, email, oldEmail, newPassword, oldPassword, username, birthdate, oldProfilePicture } = fields;
+			const { amountHashSalt } = localConfig.sessionAuthSecurity();
 
 			let profilePicture: string | unknown;
 
@@ -53,7 +56,41 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 				profilePicture = oldProfilePicture;
 			}
 
-			
+			const encodedNewPassword = await hash(newPassword.toString(), amountHashSalt);
+			let password: string;
+
+			if (oldPassword.toString() !== encodedNewPassword) {
+				password = encodedNewPassword;
+			} else {
+				password = oldPassword.toString();
+			}
+
+			const updateUser: string =
+				'UPDATE users SET email = ?, password = ?, username = ?, birthdate = ?, profile_picture = ? WHERE id = ?';
+			const updateUserValues = [email, password, username, birthdate, profilePicture, id];
+
+			const values = [email, oldEmail];
+
+			const updateCart: string = 'UPDATE cart SET email = ? WHERE email = ?';
+			const updateCards: string = 'UPDATE cards SET email = ? WHERE email = ?';
+			const updatePurchaseHistory: string = 'UPDATE purchase_history SET email = ? WHERE email = ?';
+
+			db.query(updatePurchaseHistory, values, (err, result) => {
+				if (err) throw err;
+			});
+
+			db.query(updateCart, values, (err, result) => {
+				if (err) throw err;
+			});
+
+			db.query(updateCards, values, (err, result) => {
+				if (err) throw err;
+			});
+
+			db.query(updateUser, updateUserValues, (err, result) => {
+				if (err) throw err;
+				res.status(200).json({ saved: true });
+			});
 		});
 	}
 }

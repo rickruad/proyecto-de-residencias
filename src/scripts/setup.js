@@ -46,7 +46,7 @@ const createCartTable = `CREATE TABLE IF NOT EXISTS cart(
 
 const createPurchaseHistoryTable = `CREATE TABLE IF NOT EXISTS purchase_history (
 	id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
-	email TEXT NOT NULL,
+	username TEXT NOT NULL,
 	products MEDIUMTEXT NOT NULL,
 	products_prices TEXT NOT NULL,
 	date TEXT NOT NULL,

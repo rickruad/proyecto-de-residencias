@@ -4,7 +4,7 @@ import * as GetDBData from 'src/hooks/GetDBData';
 import * as StringUtilities from 'src/utils/StringUtilities';
 
 import { Head, Header, Footer } from 'src/components/shared';
-import { UserData } from 'src/components/Account';
+import { UserData, UsersData, PurchaseHistory } from 'src/components/Account';
 
 import styles from 'src/styles/account.module.css';
 
@@ -24,6 +24,8 @@ export default function Account({ session, sessionAuth }: { session: boolean; se
 			{userData?.admin ? (
 				<section className={styles.adminSection}>
 					<UserData sessionAuth={sessionAuth} />
+					<UsersData sessionAuth={sessionAuth} />
+					<PurchaseHistory />
 					<Footer />
 				</section>
 			) : (

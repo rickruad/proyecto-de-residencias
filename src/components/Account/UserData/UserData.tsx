@@ -3,7 +3,7 @@ import * as StringUtilities from 'src/utils/StringUtilities';
 
 import Image from 'next/image';
 
-import EditUserData from './EditUserData/EditUserData';
+import EditUserData from '../UsersData/EditUserData/EditUserData';
 
 import styles from './styles/userdata.module.css';
 
@@ -35,7 +35,7 @@ export default function UserData({ sessionAuth }: { sessionAuth: string }) {
 						<EditUserData
 							id={userData.id}
 							email={userData.email}
-							password={''}
+							password={userData.password}
 							username={userData.name}
 							birthdate={userData.birthdate}
 							profilePicture={userData.picture}

@@ -1,3 +1,5 @@
 import UserData from './UserData/UserData';
+import UsersData from './UsersData/UsersData';
+import PurchaseHistory from './PurchaseHistory/PurchaseHistory';
 
-export { UserData };
+export { UserData, UsersData, PurchaseHistory };

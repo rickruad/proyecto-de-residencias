@@ -13,10 +13,10 @@ Este es un proyecto realizado en React con NextJS y TypeScript
 
 1. En MySQL Workbench, desactive la opción "Safe Updates" en Edit > Preferences > SQL Editor.
 2. Ahora descargue el proyecto en [releases](https://github.com/rickruad/proyecto-de-residencias/releases), descomprimaló y abra la carpeta con Visual Studio Code.
-3. Cree un archivo en la raíz del proyecto llamado "local-config.js" y copie el siguiente código modificando lo que está comentado.
+3. Cree un archivo en la raíz del proyecto llamado "local.config.js" y copie el siguiente código modificando lo que está comentado.
 
 ```js
-// local-config.js
+// local.config.js
 
 export function connectionDatabase() {
 	const DBPASSWORD = 'password'; // Acá va la contraseña de su local instance.
@@ -24,7 +24,6 @@ export function connectionDatabase() {
 	
 	return {
 		DBPASSWORD,
-		DBNAME,
 		DBPORT
 	}
 }

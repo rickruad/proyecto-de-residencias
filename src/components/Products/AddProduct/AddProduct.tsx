@@ -43,7 +43,7 @@ export default function AddProducts({ type }: { type: 'icon' | 'text' }) {
 	};
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files) {
+		if (event.target.files && event.target.files.length > 0) {
 			setProductImage(event.target.files[0]);
 			const file = event.target.files[0];
 			const reader = new FileReader();
@@ -53,6 +53,8 @@ export default function AddProducts({ type }: { type: 'icon' | 'text' }) {
 			};
 
 			reader.readAsDataURL(file);
+		} else {
+			setProductImagePreview('');
 		}
 	};
 
@@ -155,7 +157,7 @@ export default function AddProducts({ type }: { type: 'icon' | 'text' }) {
 						<div className={styles.labelInputFile}>
 							<label>{'Añade una imágen a la publicación'}</label>
 							<h5>{'Preferentemente 1200x600'}</h5>
-							<input type="file" required={true} onChange={handleFileChange} />
+							<input type="file" accept=".png,.jpeg,.jpg,.gif" required={true} onChange={handleFileChange} />
 						</div>
 						<div className={styles.labelInput}>
 							<label>{'Escriba el nombre de la publicación'}</label>

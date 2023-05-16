@@ -70,8 +70,8 @@
 	height: 10rem;
 	border: 1px solid #333333;
 	border-radius: 0.5rem;
-	background-size: cover;
-	background-position: center;
+	object-fit: cover;
+	object-position: center;
 	transition: all 0.3s;
 }
 

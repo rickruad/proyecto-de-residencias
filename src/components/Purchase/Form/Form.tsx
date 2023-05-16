@@ -44,38 +44,26 @@ export default function Form({ sessionAuth }: { sessionAuth: string }) {
 	userCart.sort((a, b) => b.dateAdded - currentDate - (a.dateAdded - currentDate));
 
 	useEffect(() => {
-		let products: string[] = [];
-		let prices: number[] = [];
-		let quantitys: number[] = [];
-		let cashback: number = 0;
-
-		if (userCart.length > 0) {
-			userCart.forEach((cart) => {
-				products.push(cart.product);
-				prices.push(cart.priceSelected);
-				quantitys.push(cart.quantity);
-				cashback += cart.cashback * 1;
-			});
-		}
-
-		if (userData?.cashback) {
-			cashback += Number(userData.cashback);
-		}
+		const products = userCart.map((cart) => cart.product);
+		const prices = userCart.map((cart) => cart.priceSelected);
+		const quantities = userCart.map((cart) => cart.quantity);
+		const cashback =
+			userCart.reduce((total, cart) => total + cart.cashback * 1, 0) + (userData?.cashback ? Number(userData.cashback) : 0);
 
 		setUserCashback(cashback);
 		setUserPricesCart(prices.join(', '));
 		setUserProductsCart(products.join(', '));
-		setUserQuantityCart(quantitys.join(', '));
-	}, [userData, userCart, userCart.length]);
+		setUserQuantityCart(quantities.join(', '));
+	}, [userData, userCart]);
 
 	useEffect(() => {
 		const date = new Date();
 		const year = date.getFullYear();
 		const month = date.getMonth() + 1;
-		const day = date.getDay();
+		const formattedDate = date.toLocaleDateString('en-GB');
 
+		setDateAdded(formattedDate.replace(/\//g, '-'));
 		setDateMin(`${year}-${month > 9 ? month : `0${month}`}`);
-		setDateAdded(`${year}-${month > 9 ? month : `0${month}`}-${day > 9 ? day : `0${day}`}`);
 	}, []);
 
 	useEffect(() => {

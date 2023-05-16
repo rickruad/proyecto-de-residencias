@@ -264,7 +264,7 @@
 		display: none;
 		justify-content: flex-end;
 		height: auto;
-		z-index: 1;
+		z-index: 97;
 	}
 
 	.showSectionMenu {

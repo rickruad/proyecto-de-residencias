@@ -1,33 +1,37 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
 import db from 'api/db';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+type ErrorResponse = { error: string };
+
+export default function handler(req: NextApiRequest, res: NextApiResponse<ErrorResponse | { purchases: any[] }>) {
 	if (req.method !== 'POST') {
 		res.status(405).json({ error: 'Method not allowed' });
-	} else {
-		const { sessionAuth }: { sessionAuth: string } = req.body;
-		const selectUsername: string = 'SELECT * FROM users WHERE session_auth = ?';
-		const getCart: string = 'SELECT * FROM purchase_history WHERE username = ?';
+		return;
+	}
 
-		db.query(selectUsername, [sessionAuth], (err, result) => {
+	const { sessionAuth } = req.body;
+	const selectUsername = 'SELECT * FROM users WHERE session_auth = ?';
+	const getCart = 'SELECT * FROM purchase_history WHERE username = ?';
+
+	db.query(selectUsername, [sessionAuth], (err, result) => {
+		if (err) throw err;
+
+		if (result.length <= 0) {
+			res.status(404).json({ error: 'User not found' });
+			return;
+		}
+
+		const username = result[0].username;
+
+		db.query(getCart, [username], (err, result) => {
 			if (err) throw err;
 
 			if (result.length <= 0) {
-				res.status(500).json({ error: 'user not found' });
-			} else {
-				const username = result[0].username;
-
-				db.query(getCart, [username], (err, result) => {
-					if (err) throw err;
-
-					if (result.length <= 0) {
-						res.status(200).json({ error: 'this user does not have purchases' });
-					} else {
-						res.status(200).json({ cart: result });
-					}
-				});
+				res.status(400).json({ error: 'This user does not have any purchases' });
+				return;
 			}
+
+			res.status(200).json({ purchases: result });
 		});
-	}
+	});
 }

@@ -88,7 +88,7 @@ export default function UsersData({ sessionAuth }: { sessionAuth: string }) {
 					</div>
 				) : (
 					<div className={classNames(styles.userInfo, styles.userActive)}>
-						{currentUser.picture ? (
+						{currentUser?.picture ? (
 							<Image
 								className={styles.profilePicture}
 								src={currentUser.picture}

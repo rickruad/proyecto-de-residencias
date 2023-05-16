@@ -40,8 +40,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	} else {
 		const form = new formidable.IncomingForm();
 
-		console.log('Hola');
-
 		form.parse(req, async (err, fields, files) => {
 			if (err) throw err;
 			const { id, email, oldEmail, newPassword, oldPassword, username, birthdate, oldProfilePicture } = fields;
@@ -53,7 +51,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 				const profilePictureFile: formidable.File = files.profilePicture as formidable.File;
 				profilePicture = await saveFile(profilePictureFile, 'users-pictures');
 			} else {
-				profilePicture = oldProfilePicture;
+				profilePicture = oldProfilePicture === 'null' ? null : oldProfilePicture;
 			}
 
 			const encodedNewPassword = await hash(newPassword.toString(), amountHashSalt);

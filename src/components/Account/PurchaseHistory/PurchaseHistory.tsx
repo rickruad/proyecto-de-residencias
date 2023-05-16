@@ -30,11 +30,9 @@ export default function PurchaseHistory() {
 
 		let totalPrice: number = 0;
 
-		if (purchase.prices) {
-			purchase.prices.forEach((price: number) => {
-				totalPrice = totalPrice + price * 1;
-			});
-		}
+		purchase.prices.forEach((price, index) => {
+			totalPrice += price * purchase.quantitys[index];
+		});
 
 		return (
 			<>
@@ -46,7 +44,7 @@ export default function PurchaseHistory() {
 						</div>
 						<div className={styles.info}>
 							<h3 className={styles.title}>{'Fecha de pedido'}</h3>
-							<h3 className={styles.content}>{purchase.dateAdded}</h3>
+							<h3 className={styles.content}>{purchase.date}</h3>
 						</div>
 						<div className={styles.info}>
 							<h3 className={styles.title}>{'Número de pedido'}</h3>

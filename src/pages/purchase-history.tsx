@@ -15,22 +15,22 @@ export default function PurchaseHistory({ session, sessionAuth }: { session: boo
 
 	userPurchases.sort((a, b) => b.dateAdded - currentDate - (a.dateAdded - currentDate));
 
-	const purchaseHistory = userPurchases.map((currentPurchase) => {
+	const purchaseHistory = userPurchases.map((purchase) => {
 		let totalPrice: number = 0;
 
-		currentPurchase.prices.forEach((price) => {
-			totalPrice = totalPrice + price * 1;
+		purchase.prices.forEach((price, index) => {
+			totalPrice += price * purchase.quantitys[index];
 		});
 
 		return (
-			<div key={currentPurchase.id} className={styles.purchaseCard}>
+			<div key={purchase.id} className={styles.purchaseCard}>
 				<div className={styles.info}>
 					<h3 className={styles.title}>{'Fecha de pedido'}</h3>
-					<h3 className={styles.content}>{currentPurchase.dateAdded}</h3>
+					<h3 className={styles.content}>{purchase.date}</h3>
 				</div>
 				<div className={styles.info}>
 					<h3 className={styles.title}>{'Número de pedido'}</h3>
-					<h3 className={styles.content}>{currentPurchase.id}</h3>
+					<h3 className={styles.content}>{purchase.id}</h3>
 				</div>
 				<div className={styles.info}>
 					<h3 className={styles.title}>{'Total'}</h3>

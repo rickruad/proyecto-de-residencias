@@ -24,8 +24,9 @@ type Cart = {
 type Purchase = {
 	id: number;
 	username: string;
-	products: string;
+	products: string[];
 	prices: number[];
+	quantitys: number[];
 	date: string;
 	dateAdded: number;
 };
@@ -40,6 +41,15 @@ type Product = {
 	price: string[];
 	category: string;
 	type: string;
+};
+
+type Card = {
+	id: number;
+	type: string;
+	holder: string;
+	number: string;
+	expirationDate: string;
+	securityCode: number;
 };
 
 type UserDB = {
@@ -68,6 +78,7 @@ type PurchaseDB = {
 	username: string;
 	products: string;
 	products_prices: string;
+	products_quantity: string;
 	date: string;
 	date_added: number;
 };
@@ -82,6 +93,15 @@ type ProductDB = {
 	price: string;
 	category: string;
 	type: string;
+};
+
+type CardDB = {
+	id: number;
+	type: string;
+	holder: string;
+	number: string;
+	expiration_date: string;
+	security_code: number;
 };
 
 export const GetCurrentUserData = ({ sessionAuth }: { sessionAuth: string }) => {
@@ -201,8 +221,9 @@ export const GetCurrentUserPurchases = ({ sessionAuth }: { sessionAuth: string }
 						return {
 							id: purchase.id,
 							username: purchase.username,
-							products: purchase.products,
+							products: purchase.products.split(', '),
 							prices: purchase.products_prices.split(', '),
+							quantitys: purchase.products_quantity.split(', '),
 							date: purchase.date,
 							dateAdded: purchase.date_added,
 						};
@@ -230,8 +251,9 @@ export const GetAllPurchases = () => {
 						return {
 							id: purchase.id,
 							username: purchase.username,
-							products: purchase.products,
-							prices: purchase.products_prices ? purchase.products_prices.split(', ') : '',
+							products: purchase.products.split(', '),
+							prices: purchase.products_prices.split(', '),
+							quantitys: purchase.products_quantity.split(', '),
 							date: purchase.date,
 							dateAdded: purchase.date_added,
 						};
@@ -277,4 +299,37 @@ export const GetProducts = ({ category }: { category: string }) => {
 	}, [category]);
 
 	return products;
+};
+
+export const GetCurrentUserCards = ({ sessionAuth }: { sessionAuth: string }) => {
+	const [userCards, setUserCards] = useState<Card[]>([]);
+
+	useEffect(() => {
+		fetch('/api/get/user-cards', {
+			method: 'POST',
+			body: JSON.stringify({ sessionAuth }),
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.error) {
+					return [];
+				} else {
+					const cardsDB: Card[] = data.cards.map((card: CardDB) => {
+						return {
+							id: card.id,
+							type: card.type,
+							holder: card.holder,
+							number: card.number,
+							expirationDate: card.expiration_date,
+							securityCode: card.security_code,
+						};
+					});
+
+					setUserCards(cardsDB);
+				}
+			});
+	}, [sessionAuth]);
+
+	return userCards;
 };

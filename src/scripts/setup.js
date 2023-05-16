@@ -47,8 +47,9 @@ const createCartTable = `CREATE TABLE IF NOT EXISTS cart(
 const createPurchaseHistoryTable = `CREATE TABLE IF NOT EXISTS purchase_history (
 	id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
 	username TEXT NOT NULL,
-	products MEDIUMTEXT NOT NULL,
+	products TEXT NOT NULL,
 	products_prices TEXT NOT NULL,
+	products_quantity TEXT NOT NULL
 	date TEXT NOT NULL,
 	date_added TEXT NOT NULL
 )`;
@@ -65,7 +66,7 @@ const createCardsTable = `CREATE TABLE IF NOT EXISTS cards (
 	country TEXT NOT NULL,
 	locality TEXT NOT NULL,
 	first_direction TEXT NOT NULL,
-	second_direction TEXT NOT NULL,
+	second_direction TEXT NULL,
 	postal_code TEXT NOT NULL,
 	number_phone TEXT NOT NULL
 )`;

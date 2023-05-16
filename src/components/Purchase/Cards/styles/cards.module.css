@@ -1,0 +1,241 @@
+.messagePurchase {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.messagePurchase > .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.messagePurchase > .cartel {
+  padding: 1rem;
+  background-color: #ffffff;
+  z-index: 102;
+  border-radius: 0.25rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.messagePurchase > .cartel > h3 {
+  font-family: Google Sans;
+  font-weight: 500;
+  font-size: 1.3rem;
+  text-align: center;
+  color: #333333;
+}
+
+.messagePurchase > .cartel > h4 {
+  font-family: Google Sans;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #333333;
+}
+
+.messagePurchase > .cartel > .labelInput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.messagePurchase > .cartel > .labelInput > .labelError > label {
+  font-family: Google Sans;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.messagePurchase > .cartel > .labelInput > .labelError > .error {
+  color: #E94242;
+}
+
+.messagePurchase > .cartel > .labelInput > input { 
+  font-family: Google Sans;
+  font-weight: 400;
+  color: #333333;
+  padding: 0.4rem 0.8rem;
+  outline: none;
+  border: 1px solid #CED4DA;
+  border-radius: 0.35rem;
+  background-color: #F0F5FA;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.messagePurchase > .cartel > .labelInput > input:focus {
+  outline: none;
+  border-color: #80BDFF;
+  box-shadow: 0px 0px 0px 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.messagePurchase > .cartel > .buttons {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.messagePurchase > .cartel > .buttons > button {
+  font-family: Google Sans;
+  font-weight: 500;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #E94242;
+  border: 2px solid #FF716C;
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+  outline: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.messagePurchase > .cartel > .buttons > button:hover {
+  background-color: #C02E2E;
+}
+
+.cardsSection {
+  margin-top: 5rem;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cardsSection > .title {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.cardsSection > .title > .icon {
+  width: 35px;
+  height: 35px;
+  color: #333333;
+}
+
+.cardsSection > .title > h2,
+.cardsSection > .noCards > h2 {
+  font-family: Google Sans;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #333333;
+}
+
+.cardsSection > .noCards {
+  width: 100%;
+  height: 12rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardsSection > .cardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cardsSection > .cardsContainer > .card {
+  position: relative;
+  width: 100%;
+  height: 12rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.cardsSection > .cardsContainer > .card > .delete {
+  display: none;
+}
+
+.cardsSection > .cardsContainer > .card:hover > .delete {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  width: 24px;
+  height: 24px;
+  color: #333333;
+  z-index: 3;
+}
+
+.cardsSection > .cardsContainer > .card:hover > .delete:hover {
+  color: #E94242;
+}
+
+.cardsSection > .cardsContainer > .card > .icon {
+  width: 5rem;
+  height: 5rem;
+  color: #333333;
+}
+
+.cardsSection > .cardsContainer > .card > .info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.cardsSection > .cardsContainer > .card > .info > h2,
+.cardsSection > .cardsContainer > .card > .info > h3 {
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #333333;
+}
+.cardsSection > .cardsContainer > .card > .info > h3 {
+  font-weight: 400;
+}
+
+@media (min-width: 40rem) {
+  .messagePurchase > .cartel {
+    width: 40rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  .cardsSection {
+    max-width: 80rem;
+    margin: auto;
+    margin-top: 5rem;
+  }
+
+  .cardsSection > .cardsContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .cardsSection > .noCards,
+  .cardsSection > .cardsContainer > .card {
+    width: 25rem;
+  }
+}

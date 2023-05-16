@@ -12,6 +12,7 @@ export default function Cards({ sessionAuth }: { sessionAuth: string }) {
 	const router = useRouter();
 	const currentDate = Date.now();
 	const userCart = GetDBData.GetCurrentUserCart({ sessionAuth });
+	const userData = GetDBData.GetCurrentUserData({ sessionAuth });
 	const userCards = GetDBData.GetCurrentUserCards({ sessionAuth });
 
 	const [dateAdded, setDateAdded] = useState<string>('');
@@ -19,6 +20,7 @@ export default function Cards({ sessionAuth }: { sessionAuth: string }) {
 	const [userPricesCart, setUserPricesCart] = useState<string>('');
 	const [userProductsCart, setUserProductsCart] = useState<string>('');
 	const [userQuantityCart, setUserQuantityCart] = useState<string>('');
+	const [userCashback, setUserCashback] = useState<number>(0);
 
 	const [secureCode, setSecureCode] = useState<number>(0);
 
@@ -35,19 +37,26 @@ export default function Cards({ sessionAuth }: { sessionAuth: string }) {
 		let products: string[] = [];
 		let prices: number[] = [];
 		let quantitys: number[] = [];
+		let cashback: number = 0;
 
 		if (userCart.length > 0) {
-			for (let i = 0; i < userCart.length; i++) {
-				products.push(userCart[i].product);
-				prices.push(userCart[i].priceSelected);
-				quantitys.push(userCart[i].quantity);
-			}
+			userCart.forEach((cart) => {
+				products.push(cart.product);
+				prices.push(cart.priceSelected);
+				quantitys.push(cart.quantity);
+				cashback += cart.cashback * 1;
+			});
 		}
 
+		if (userData?.cashback) {
+			cashback += Number(userData.cashback);
+		}
+
+		setUserCashback(cashback);
 		setUserPricesCart(prices.join(', '));
 		setUserProductsCart(products.join(', '));
 		setUserQuantityCart(quantitys.join(', '));
-	}, [userCart, userCart.length]);
+	}, [userData, userCart, userCart.length]);
 
 	useEffect(() => {
 		const date = new Date();
@@ -88,6 +97,7 @@ export default function Cards({ sessionAuth }: { sessionAuth: string }) {
 		formData.append('productsPrices', userPricesCart);
 		formData.append('productsQuantity', userQuantityCart);
 		formData.append('date', dateAdded);
+		formData.append('cashback', userCashback.toString());
 		formData.append('dateAdded', currentDate.toString());
 		formData.append('saveCard', 'false');
 

@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			return;
 		}
 
-		const { sessionAuth, saveCard, products, productsPrices, productsQuantity, date, dateAdded } = fields;
+		const { sessionAuth, saveCard, products, productsPrices, productsQuantity, date, dateAdded, cashback } = fields;
 
 		let name = '';
 		let email = '';
@@ -119,6 +119,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		try {
 			await queryPromise(savePurchaseQuery, savePurchaseValues);
 			await queryPromise('DELETE FROM cart WHERE email = ?', [email]);
+			await queryPromise('UPDATE users SET total_cashback = ? WHERE email = ?', [cashback, email]);
 			res.status(200).json({ message: 'Purchase successful' });
 		} catch (error) {
 			console.log(error);

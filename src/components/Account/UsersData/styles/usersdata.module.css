@@ -107,6 +107,10 @@
 
 .usersInfoSection > .users > .user > .userActive {
 	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 4rem;
 }
 
 .usersInfoSection > .users > .user > .userInfo > .profilePicture {

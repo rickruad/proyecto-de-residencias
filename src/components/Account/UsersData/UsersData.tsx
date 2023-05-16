@@ -59,7 +59,7 @@ export default function UsersData({ sessionAuth }: { sessionAuth: string }) {
 
 		return (
 			<div key={currentUser.id} className={styles.user}>
-				{currentUser.sessionAuth !== sessionAuth ? (
+				{currentUser.sessionAuth !== sessionAuth && currentUser.admin !== 1 ? (
 					<div className={styles.userInfo}>
 						{currentUser.picture ? (
 							<Image

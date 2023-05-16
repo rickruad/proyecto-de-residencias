@@ -49,7 +49,7 @@ const createPurchaseHistoryTable = `CREATE TABLE IF NOT EXISTS purchase_history 
 	username TEXT NOT NULL,
 	products TEXT NOT NULL,
 	products_prices TEXT NOT NULL,
-	products_quantity TEXT NOT NULL
+	products_quantity TEXT NOT NULL,
 	date TEXT NOT NULL,
 	date_added TEXT NOT NULL
 )`;

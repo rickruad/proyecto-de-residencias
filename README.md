@@ -18,7 +18,7 @@ Este es un proyecto realizado en React con NextJS y TypeScript
 ```js
 // local.config.js
 
-export function connectionDatabase() {
+function connectionDatabase() {
 	const DBPASSWORD = 'password'; // Acá va la contraseña de su local instance.
 	const DBPORT = 3306; // Acá va el puerto que utiliza MySQL Server, actualmente está puesto el número por default, si no lo modificó, dejeló así.
 	

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import classNames from 'classnames';
 
 import EditUserData from './EditUserData/EditUserData';
+import DeleteUser from './DeleteUser';
 
 import styles from './styles/usersdata.module.css';
 
@@ -17,25 +18,11 @@ export default function UsersData({ sessionAuth }: { sessionAuth: string }) {
 	const usersData = GetDBData.GetAllUsersData();
 
 	const [messageStatus, setMessageStatus] = useState<boolean>(false);
-	const [messageUser, setMessageUser] = useState<string>('');
-	const [messageID, setMessageID] = useState<number>(0);
+	const [userSessionAuth, setUserSessionAuth] = useState<string>('');
 
 	const handleChangeMessageStatus = () => {
 		setMessageStatus(!messageStatus);
-		setMessageUser('');
-		setMessageID(0);
-	};
-
-	const deleteUser = async () => {
-		const response = await fetch('/api/delete/user', {
-			method: 'POST',
-			body: JSON.stringify({ id: messageID }),
-			headers: { 'Content-Type': 'application/json' },
-		});
-
-		if (response.status === 200) {
-			router.reload();
-		}
+		setUserSessionAuth('');
 	};
 
 	const users = usersData.map((currentUser) => {
@@ -53,8 +40,7 @@ export default function UsersData({ sessionAuth }: { sessionAuth: string }) {
 
 		const handleChangeMessageStatus = () => {
 			setMessageStatus(!messageStatus);
-			setMessageUser(currentUser.name);
-			setMessageID(currentUser.id);
+			setUserSessionAuth(currentUser.sessionAuth);
 		};
 
 		return (
@@ -139,16 +125,7 @@ export default function UsersData({ sessionAuth }: { sessionAuth: string }) {
 
 	return (
 		<>
-			<div className={classNames(styles.background, messageStatus ? null : styles.hide)} />
-			<section className={classNames(styles.message, messageStatus ? null : styles.hide)}>
-				<div className={styles.desing}>
-					<h3>{`Quieres eliminar al usuario ${messageUser}`}</h3>
-					<div>
-						<button onClick={deleteUser}>{'Confirmar'}</button>
-						<button onClick={handleChangeMessageStatus}>{'Cancelar'}</button>
-					</div>
-				</div>
-			</section>
+			{messageStatus && <DeleteUser sessionAuth={userSessionAuth} closeMessage={handleChangeMessageStatus} />}
 
 			<section className={styles.usersInfoSection}>
 				<h3 className={styles.sectionTitle}>{'Administración de cuentas'}</h3>

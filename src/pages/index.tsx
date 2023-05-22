@@ -2,7 +2,7 @@ import { parseCookies } from 'nookies';
 import { GetServerSideProps } from 'next';
 
 import { Head, Header, Footer } from 'src/components/shared';
-import { Carousel, Categories, Services } from 'src/components/Home';
+import { Carousel, Categories, Services, VirtualCard } from 'src/components/Home';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { 'session-id': sessionId } = parseCookies(context);
@@ -36,6 +36,8 @@ export default function Home({ session, sessionAuth }: { session: boolean; sessi
 			<Categories session={session} />
 
 			<Services />
+
+			<VirtualCard sessionAuth={sessionAuth} />
 
 			<Footer />
 		</>

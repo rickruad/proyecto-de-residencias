@@ -32,7 +32,7 @@ export default function VirtualCard({ sessionAuth }: { sessionAuth: string }) {
 							<h2>{userData?.name.toUpperCase()}</h2>
 							{userData && (
 								<h3>
-									{userData.cashback ? `Saldo en la tarjeta $${userData.cashback}` : 'No tiene saldo en la tarjeta'}
+									{userData.cashback ? `Saldo en la tarjeta $${Number(userData.cashback).toFixed(2)}` : 'No tiene saldo en la tarjeta'}
 								</h3>
 							)}
 						</div>

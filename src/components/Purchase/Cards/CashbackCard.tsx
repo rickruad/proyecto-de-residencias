@@ -19,22 +19,26 @@ export default function CashbackCard({ sessionAuth }: { sessionAuth: string }) {
 
 	return (
 		<>
-			<button onClick={purchase} className={styles.card}>
-				<Image
-					className={styles.image}
-					src={'/img/protopay-card-img.png'}
-					alt={'protopay card'}
-					width={1000}
-					height={1000}
-					priority={true}
-				/>
-				<div className={styles.info}>
-					<h2>{userData?.name.toUpperCase()}</h2>
-					{userData && (
-						<h3>{userData.cashback ? `Saldo en la tarjeta $${userData.cashback}` : 'No tiene saldo en la tarjeta'}</h3>
-					)}
-				</div>
-			</button>
+				<button onClick={purchase} className={styles.card}>
+					<Image
+						className={styles.image}
+						src={'/img/protopay-card-img.png'}
+						alt={'protopay card'}
+						width={1000}
+						height={1000}
+						priority={true}
+					/>
+					<div className={styles.info}>
+						<h2>{userData?.name.toUpperCase()}</h2>
+						{userData && (
+							<h3>
+								{userData.cashback
+									? `Saldo en la tarjeta $${Number(userData.cashback).toFixed(2)}`
+									: 'No tiene saldo en la tarjeta'}
+							</h3>
+						)}
+					</div>
+				</button>
 
 			{purchaseStatus && <PurchaseCashbackCard sessionAuth={sessionAuth} handleClosePurchase={purchase} />}
 		</>

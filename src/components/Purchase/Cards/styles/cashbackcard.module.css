@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   height: 12rem;
-  background-color: #ffffff;
+  background-color: #384b59;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 0rem 1rem 1rem 1rem;
@@ -12,26 +12,34 @@
   border: none;
   cursor: pointer;
   z-index: 2;
+	overflow: hidden;
 }
 
-.card > .icon {
-  width: 5rem;
-  height: 5rem;
-  color: #333333;
+.card > .image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20rem;
+	height: 100%;
+	z-index: 3;
 }
 
 .card > .info {
   width: 100%;
+	height: 100%;
   display: flex;
   flex-direction: column;
+	justify-content: flex-end;
   align-items: flex-end;
+	position: relative;
+	z-index: 4;
 }
 
 .card > .info > h2,
 .card > .info > h3 {
   font-family: Google Sans;
   font-weight: 500;
-  color: #333333;
+  color: #ffffff;
 }
 .card > .info > h3 {
   font-weight: 400;

@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { FaMoneyCheckAlt } from 'react-icons/fa';
 
 import * as GetDBData from 'src/hooks/GetDBData';
+
+import Image from 'next/image';
 
 import PurchaseCashbackCard from './PurchaseCashbackCard';
 
@@ -19,10 +20,19 @@ export default function CashbackCard({ sessionAuth }: { sessionAuth: string }) {
 	return (
 		<>
 			<button onClick={purchase} className={styles.card}>
-				<FaMoneyCheckAlt className={styles.icon} />
+				<Image
+					className={styles.image}
+					src={'/img/protopay-card-img.png'}
+					alt={'protopay card'}
+					width={1000}
+					height={1000}
+					priority={true}
+				/>
 				<div className={styles.info}>
 					<h2>{userData?.name.toUpperCase()}</h2>
-					<h3>{`Saldo en la tarjeta: $${userData?.cashback}`}</h3>
+					{userData && (
+						<h3>{userData.cashback ? `Saldo en la tarjeta $${userData.cashback}` : 'No tiene saldo en la tarjeta'}</h3>
+					)}
 				</div>
 			</button>
 

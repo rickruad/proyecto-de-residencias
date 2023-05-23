@@ -1,12 +1,13 @@
 import { MdCreditCard } from 'react-icons/md';
-import { FaMoneyCheckAlt } from 'react-icons/fa';
 
 import * as GetDBData from 'src/hooks/GetDBData';
+
+import Image from 'next/image';
 
 import styles from './styles/virtualcard.module.css';
 
 export default function VirtualCard({ sessionAuth }: { sessionAuth: string }) {
-	const userData = GetDBData.GetCurrentUserData({ sessionAuth })
+	const userData = GetDBData.GetCurrentUserData({ sessionAuth });
 
 	return (
 		<>
@@ -19,10 +20,21 @@ export default function VirtualCard({ sessionAuth }: { sessionAuth: string }) {
 					</div>
 					<h3>{'Disfruta de tu tarjeta virtual'}</h3>
 					<div className={styles.card}>
-						<FaMoneyCheckAlt className={styles.icon} />
+						<Image
+							className={styles.image}
+							src={'/img/protopay-card-img.png'}
+							alt={'protopay card'}
+							width={1000}
+							height={1000}
+							priority={true}
+						/>
 						<div className={styles.info}>
 							<h2>{userData?.name.toUpperCase()}</h2>
-							<h3>{`Saldo en la tarjeta: $${userData?.cashback}`}</h3>
+							{userData && (
+								<h3>
+									{userData.cashback ? `Saldo en la tarjeta $${userData.cashback}` : 'No tiene saldo en la tarjeta'}
+								</h3>
+							)}
 						</div>
 					</div>
 				</article>

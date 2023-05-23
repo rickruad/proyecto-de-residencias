@@ -37,7 +37,7 @@ export default function Home({ session, sessionAuth }: { session: boolean; sessi
 
 			<Services />
 
-			<VirtualCard sessionAuth={sessionAuth} />
+			{session && <VirtualCard sessionAuth={sessionAuth} />}
 
 			<Footer />
 		</>

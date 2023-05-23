@@ -37,7 +37,7 @@ export default function Summary({ sessionAuth }: { sessionAuth: string }) {
 					</div>
 					<div className={styles.info}>
 						<h4>{'Cashback'}</h4>
-						<h4 className={styles.text}>{`MX$${totalCashback}`}</h4>
+						<h4 className={styles.text}>{`MX$${totalCashback.toFixed(2)}`}</h4>
 					</div>
 				</div>
 			</section>

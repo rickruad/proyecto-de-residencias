@@ -128,6 +128,7 @@ export default function EditUserData(props: EditUserDataProps) {
 					formData.append('oldEmail', email);
 
 					formData.append('username', handleUsername.length === 0 ? username : handleUsername);
+					formData.append('oldUsername', username);
 					formData.append('birthdate', handleBirthdate.length === 0 ? birthdate : handleBirthdate);
 					formData.append('email', handleEmail.length === 0 ? email : handleEmail);
 					formData.append('newPassword', handlePassword.length === 0 ? password : handlePassword);
@@ -152,6 +153,7 @@ export default function EditUserData(props: EditUserDataProps) {
 					formData.append('oldEmail', email);
 
 					formData.append('username', handleUsername.length === 0 ? username : handleUsername);
+					formData.append('oldUsername', username);
 					formData.append('birthdate', handleBirthdate.length === 0 ? birthdate : handleBirthdate);
 					formData.append('email', handleEmail.length === 0 ? email : handleEmail);
 					formData.append('newPassword', handlePassword.length === 0 ? password : handlePassword);

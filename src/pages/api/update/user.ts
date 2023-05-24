@@ -42,7 +42,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 		form.parse(req, async (err, fields, files) => {
 			if (err) throw err;
-			const { id, email, oldEmail, newPassword, oldPassword, username, birthdate, oldProfilePicture } = fields;
+			const { id, email, oldEmail, newPassword, oldPassword, username, oldUsername, birthdate, oldProfilePicture } =
+				fields;
 			const { amountHashSalt } = localConfig.sessionAuthSecurity();
 
 			let profilePicture: string | unknown;
@@ -71,9 +72,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 			const updateCart: string = 'UPDATE cart SET email = ? WHERE email = ?';
 			const updateCards: string = 'UPDATE cards SET email = ? WHERE email = ?';
-			const updatePurchaseHistory: string = 'UPDATE purchase_history SET email = ? WHERE email = ?';
+			const updatePurchaseHistory: string = 'UPDATE purchase_history SET username = ? WHERE username = ?';
+			const updatePurchaseHistoryValues = [username, oldUsername];
 
-			db.query(updatePurchaseHistory, values, (err, result) => {
+			db.query(updatePurchaseHistory, updatePurchaseHistoryValues, (err, result) => {
 				if (err) throw err;
 			});
 

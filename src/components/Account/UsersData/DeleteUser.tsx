@@ -19,7 +19,7 @@ export default function DeleteUser({ sessionAuth, closeMessage }: DeleteUserProp
 	const deleteUser = async () => {
 		const response = await fetch('/api/delete/user', {
 			method: 'POST',
-			body: JSON.stringify({ id: sessionAuth }),
+			body: JSON.stringify({ id: userData?.id }),
 			headers: { 'Content-Type': 'application/json' },
 		});
 

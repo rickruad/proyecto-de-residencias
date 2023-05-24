@@ -23,7 +23,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 						path: '/',
 						httpOnly: true,
 						sameSite: 'strict',
-						secure: process.env.NODE_ENV === 'production',
 					});
 
 					const encodedSessionAuth = result[0].session_auth;
@@ -33,8 +32,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 						path: '/',
 						httpOnly: true,
 						sameSite: 'strict',
-						secure: process.env.NODE_ENV === 'production',
 					});
+
 					res.status(200).json({ auth: true });
 				}
 			} else {

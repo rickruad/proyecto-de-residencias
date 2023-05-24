@@ -10,7 +10,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			path: '/',
 			httpOnly: true,
 			sameSite: 'strict',
-			secure: process.env.NODE_ENV === 'production',
 		});
 
 		setCookie({ res }, 'session-id', 'none', {
@@ -18,7 +17,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			path: '/',
 			httpOnly: true,
 			sameSite: 'strict',
-			secure: process.env.NODE_ENV === 'production',
 		});
 
 		res.status(200).json({ completed: true });

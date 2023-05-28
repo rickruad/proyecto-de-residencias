@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { MdShoppingBag, MdOutlineAddCircle } from 'react-icons/md';
+import { MdShoppingBag } from 'react-icons/md';
 
 import * as StringUtilities from 'src/utils/StringUtilities';
 

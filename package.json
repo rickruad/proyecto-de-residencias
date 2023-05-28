@@ -5,11 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "concurrently \"npm run watch\" \"npm run next-start\"",
-    "watch": "chokidar 'public/img' -c 'npm run restart'",
-    "restart": "npm run stop && npm run next-start",
-    "stop": "kill-port --port 3000",
-    "next-start": "next start",
+    "start": "next start",
     "lint": "next lint",
     "setup": "node ./src/scripts/setup.js"
   },
@@ -39,10 +35,6 @@
     "@types/bcrypt": "^5.0.0",
     "@types/formidable": "^2.0.6",
     "@types/mysql": "^2.15.21",
-    "@types/styled-components": "^5.1.26",
-    "chokidar": "^3.5.3",
-    "chokidar-cli": "^3.0.0",
-    "concurrently": "^8.0.1",
-    "kill-port": "^2.0.1"
+    "@types/styled-components": "^5.1.26"
   }
 }

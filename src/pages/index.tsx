@@ -35,7 +35,7 @@ export default function Home({ session, sessionAuth }: { session: boolean; sessi
 
 			<Categories session={session} />
 
-			<Services />
+			<Services session={session} />
 
 			{session && <VirtualCard sessionAuth={sessionAuth} />}
 

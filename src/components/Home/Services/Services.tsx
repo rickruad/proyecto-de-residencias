@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import { MdWorkspacesFilled } from 'react-icons/md';
 
 import * as StringUtilities from 'src/utils/StringUtilities';
@@ -9,7 +8,7 @@ import Image from 'next/image';
 import styles from './styles/services.module.css';
 
 interface SessionProps {
-	session: string;
+	session: boolean;
 }
 
 export default function Services(props: SessionProps) {
@@ -40,10 +39,12 @@ export default function Services(props: SessionProps) {
 		};
 
 		return (
-			<button onClick={routerPush} key={currentService.id} className={styles.category}>
+			<button onClick={routerPush} key={currentService.id} className={styles.service}>
 				<Image
 					className={styles.image}
-					src={currentService.image}
+					src={
+						currentService.image === '/img/services/otros.png' ? '/img/placeholder-200x200.png' : currentService.image
+					}
 					alt={currentService.name}
 					width={200}
 					height={200}

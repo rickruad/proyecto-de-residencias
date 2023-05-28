@@ -117,7 +117,7 @@ export default function Product(props: ProductProps) {
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<div className={styles.card}>
 					<div className={styles.startSectionCard}>
-						<Image className={styles.image} src={image} alt={product} width={1000} height={1000} priority={true} />
+						<Image className={styles.image} src={image} alt={product} width={415} height={224} priority={true} />
 						<h2>{product}</h2>
 						<h4>{description}</h4>
 					</div>

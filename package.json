@@ -35,6 +35,8 @@
     "@types/bcrypt": "^5.0.0",
     "@types/formidable": "^2.0.6",
     "@types/mysql": "^2.15.21",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "eslint-plugin-custom": "^0.0.6",
+    "eslint-plugin-react": "^7.32.2"
   }
 }

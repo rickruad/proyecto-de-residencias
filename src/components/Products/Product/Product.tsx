@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { MdDelete } from 'react-icons/md';
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import Image from 'next/image';
@@ -117,7 +118,7 @@ export default function Product(props: ProductProps) {
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<div className={styles.card}>
 					<div className={styles.startSectionCard}>
-						<Image className={styles.image} src={image} alt={product} width={415} height={224} priority={true} />
+						<Image className={styles.image} src={image} alt={product} width={400} height={200} priority={true} />
 						<h2>{product}</h2>
 						<h4>{description}</h4>
 					</div>

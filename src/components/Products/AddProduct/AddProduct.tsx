@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { MdOutlineAdd } from 'react-icons/md';
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 
 import Image from 'next/image';
 import classNames from 'classnames';

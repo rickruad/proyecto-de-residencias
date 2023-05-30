@@ -209,7 +209,7 @@ export default function EditUserData(props: EditUserDataProps) {
 						</div>
 						<div className={styles.labelInput}>
 							<label>{'Nombre completo'}</label>
-							<input type="text" value={handleUsername} placeholder={username} onChange={handleUsernameChange} />
+							<input type="text" value={handleUsername} minLength={1} maxLength={64} placeholder={username} onChange={handleUsernameChange} />
 						</div>
 						<div className={styles.labelInput}>
 							<label>{'Fecha de nacimiento'}</label>
@@ -232,7 +232,7 @@ export default function EditUserData(props: EditUserDataProps) {
 								{errorStatus ? <label>{' - '}</label> : null}
 								{errorStatus ? <label className={styles.error}>{'Correo electrónico ya registrado'}</label> : null}
 							</div>
-							<input type="email" value={handleEmail} placeholder={email} onChange={handleEmailChange} />
+							<input type="email" value={handleEmail} minLength={1} maxLength={64} placeholder={email} onChange={handleEmailChange} />
 						</div>
 						<div className={styles.labelInput}>
 							<div className={styles.labelPassword}>

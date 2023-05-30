@@ -187,7 +187,7 @@ export default function Auth() {
 							<div className={styles.inputs}>
 								<div className={styles.labelInput}>
 									<label>{'Nombre completo'}</label>
-									<input type="text" required={true} value={registerUsername} onChange={handleRegisterUsernameChange} />
+									<input type="text" required={true} minLength={1} maxLength={64} value={registerUsername} onChange={handleRegisterUsernameChange} />
 								</div>
 								<div className={styles.labelInput}>
 									<label>{'Fecha de nacimiento'}</label>
@@ -206,7 +206,7 @@ export default function Auth() {
 								</div>
 								<div className={styles.labelInput}>
 									<label>{'Correo electrónico'}</label>
-									<input type="email" required={true} value={registerEmail} onChange={handleRegisterEmailChange} />
+									<input type="email" required={true} minLength={1} maxLength={64} value={registerEmail} onChange={handleRegisterEmailChange} />
 								</div>
 								<div className={styles.labelInput}>
 									<div className={styles.labelPassword}>

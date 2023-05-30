@@ -1,6 +1,4 @@
-import Head from './Head/Head';
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
-import Button from './Button/Button';
-
-export { Head, Header, Footer, Button };
+export { default as Head } from './Head/Head';
+export { default as Header } from './Header/Header';
+export { default as Footer } from './Footer/Footer';
+export { default as Button } from './Button/Button';

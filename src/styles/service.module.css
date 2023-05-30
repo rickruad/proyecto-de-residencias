@@ -18,6 +18,7 @@
 	color: #333333;
 }
 
+.noContracts > h2,
 .service > .iconTitle > h2 {
 	font-family: Google Sans;
 	font-weight: 700;
@@ -26,7 +27,7 @@
 	white-space: nowrap;
 }
 
-.renderProducts {
+.renderContracts {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -40,6 +41,12 @@
 	background-color: #ffffff;
 }
 
+.noContracts {
+	flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (min-width: 80rem) {
 	.service {
 		max-width: 80rem;
@@ -47,12 +54,20 @@
 		margin-top: 5rem;
 	}
 
-	.renderProducts {
+	.renderContracts {
 		flex-direction: row;
 		flex-wrap: wrap;
 		min-height: calc(100vh - 16.8rem);
 		max-width: 80rem;
 		margin: auto;
 		margin-top: 1rem;
+	}
+
+	.noContracts {
+		flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+		padding-inline: 28rem;
 	}
 }

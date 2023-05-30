@@ -43,9 +43,22 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			const { contractName, contractDescription, contractCashback, contractAdded, contractService } = fields;
 
 			const contractImageFile = files.contractImage as formidable.File;
-			const contractImage = await saveFile(contractImageFile, 'contract-pictures');
+			const contractImage = await saveFile(contractImageFile, 'contracts-pictures');
 
-			
+			const query: string = 'INSERT INTO contracts (name, description, image, service, cashback, date_added) VALUES (?,?,?,?,?,?)';
+			const values = [
+				contractName,
+				contractDescription,
+				contractImage,
+				contractService,
+				contractCashback,
+				contractAdded,
+			];
+
+			db.query(query, values, (err, result) => {
+				if (err) throw err;
+				res.status(200).json({ saved: true });
+			});
 		});
 	}
 }

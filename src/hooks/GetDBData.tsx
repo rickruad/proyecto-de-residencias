@@ -52,6 +52,16 @@ type Card = {
 	securityCode: number;
 };
 
+type Contract = {
+	id: number;
+	name: string;
+	description: string;
+	image: string;
+	service: string;
+	cashback: number;
+	dateAdded: number;
+};
+
 type UserDB = {
 	id: number;
 	email: string;
@@ -102,6 +112,16 @@ type CardDB = {
 	number: string;
 	expiration_date: string;
 	security_code: number;
+};
+
+type ContractDB = {
+	id: number;
+	name: string;
+	description: string;
+	image: string;
+	service: string;
+	cashback: number;
+	date_added: number;
 };
 
 export const GetCurrentUserData = ({ sessionAuth }: { sessionAuth: string }) => {
@@ -332,4 +352,36 @@ export const GetCurrentUserCards = ({ sessionAuth }: { sessionAuth: string }) =>
 	}, [sessionAuth]);
 
 	return userCards;
+};
+
+export const useContracts = ({ service }: { service: string }) => {
+	const [contracts, setContracts] = useState<Contract[]>([]);
+
+	useEffect(() => {
+		fetch('/api/get/contracts', {
+			method: 'POST',
+			body: JSON.stringify({ service }),
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.contracts) {
+					const contractsDB: Contract[] = data.contracts.map((contract: ContractDB) => {
+						return {
+							id: contract.id,
+							name: contract.name,
+							description: contract.description,
+							image: contract.image,
+							service: contract.service,
+							cashback: contract.cashback,
+							dateAdded: contract.date_added,
+						};
+					});
+
+					setContracts(contractsDB);
+				}
+			});
+	}, [service]);
+
+	return contracts;
 };

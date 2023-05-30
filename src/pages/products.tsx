@@ -48,6 +48,7 @@ export default function Products({ session, sessionAuth }: { session: boolean; s
 		return (
 			<Product
 				key={selectedProduct.id}
+				id={selectedProduct.id}
 				product={selectedProduct.name}
 				image={selectedProduct.image}
 				description={selectedProduct.description}

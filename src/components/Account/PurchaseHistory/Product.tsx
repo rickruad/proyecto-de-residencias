@@ -13,7 +13,7 @@ export default function Product(props: ProductProps) {
 		<>
 			<div className={styles.product}>
 				<div className={styles.info}>
-					<h3 className={styles.title}>{'Producto'}</h3>
+					<h3 className={styles.title}>{'Producto/Servicio'}</h3>
 					<h3 className={styles.content}>{productName}</h3>
 				</div>
 				<div className={styles.info}>

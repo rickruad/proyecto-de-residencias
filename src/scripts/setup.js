@@ -71,6 +71,16 @@ const createCardsTable = `CREATE TABLE IF NOT EXISTS cards (
 	number_phone TEXT NOT NULL
 )`;
 
+const createContractsTable = `CREATE TABLE IF NOT EXISTS contracts (
+	id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
+	name TEXT NOT NULL,
+	description TEXT NOT NULL,
+	image TEXT NOT NULL,
+	service TEXT NOT NULL,
+	cashback TEXT NOT NULL,
+	date_added TEXT NOT NULL
+)`;
+
 const createDataBase = mysql.createConnection({
 	user: 'root',
 	host: 'localhost',
@@ -117,6 +127,10 @@ setTimeout(() => {
 		if (err) throw err;
 	});
 
+	createTables.query(createContractsTable, (err) => {
+		if (err) throw err;
+	});
+
 	createTables.end();
 }, 2000);
 
@@ -138,18 +152,9 @@ setTimeout(async () => {
 	const query =
 		'INSERT INTO users (id, username, birthdate, email, password, profile_picture, session_auth, admin) VALUES (?,?,?,?,?,?,?,?)';
 
-	const values = [
-		'1',
-		'admin',
-		'2000-01-01',
-		'admin@admin.com',
-		encodedPassword,
-		null,
-		encodedSessionAuth,
-		'1',
-	];
+	const values = ['1', 'admin', '2000-01-01', 'admin@admin.com', encodedPassword, null, encodedSessionAuth, '1'];
 
-	createAdmin.query(query, values, (err, result) => {
+	createAdmin.query(query, values, (err) => {
 		if (err) throw err;
 	});
 
@@ -171,7 +176,12 @@ fs.mkdir(folderPathUsersPictures, { recursive: true }, (err) => {
 	if (err) throw err;
 });
 
-const folderPathArtistsPictures = path.join(process.cwd(), '/public/img/products-pictures');
-fs.mkdir(folderPathArtistsPictures, { recursive: true }, (err) => {
+const folderPathProductsPictures = path.join(process.cwd(), '/public/img/products-pictures');
+fs.mkdir(folderPathProductsPictures, { recursive: true }, (err) => {
+	if (err) throw err;
+});
+
+const folderPathContractsPictures = path.join(process.cwd(), '/public/img/contracts-pictures');
+fs.mkdir(folderPathContractsPictures, { recursive: true }, (err) => {
 	if (err) throw err;
 });

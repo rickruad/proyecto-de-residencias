@@ -1,3 +1,4 @@
+import Contract from "./Contract/Contract";
 import AddContract from "./AddContract/AddContract";
 
-export { AddContract };
+export { Contract, AddContract };

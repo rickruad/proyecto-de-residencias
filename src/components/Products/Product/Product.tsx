@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { MdDelete } from 'react-icons/md';
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { GetCurrentUserData } from 'root/src/hooks/GetDBData';
 
 import Image from 'next/image';
 import classNames from 'classnames';
@@ -8,6 +9,7 @@ import classNames from 'classnames';
 import styles from './styles/product.module.css';
 
 interface ProductProps {
+	id: number;
 	product: string;
 	image: string;
 	description: string;
@@ -18,10 +20,11 @@ interface ProductProps {
 }
 
 export default function Product(props: ProductProps) {
-	const { product, image, description, price, cashback, type, sessionAuth } = props;
+	const { id, product, image, description, price, cashback, type, sessionAuth } = props;
 	const router = useRouter();
+	const userData = GetCurrentUserData({ sessionAuth });
 
-	const [dateAdded, setDateAdded] = useState<string>('');
+	const dateAdded = Date.now();
 
 	const [selectedPrice, setSelectedPrice] = useState<string>('0');
 	const [selectQuantity, setSelectQuantity] = useState<number>(1);
@@ -29,12 +32,6 @@ export default function Product(props: ProductProps) {
 	const [selectedOne, setSelectedOne] = useState<boolean>(false);
 	const [selectedTwo, setSelectedTwo] = useState<boolean>(false);
 	const [selectedThree, setSelectedThree] = useState<boolean>(false);
-
-	useEffect(() => {
-		const date = new Date();
-		const dateToMili = date.getTime();
-		setDateAdded(dateToMili.toString());
-	}, []);
 
 	const setPriceOne = () => {
 		setSelectedOne(!selectedOne);
@@ -83,7 +80,7 @@ export default function Product(props: ProductProps) {
 		let priceSelected: number | string = 0;
 
 		formData.append('sessionAuth', sessionAuth);
-		formData.append('dateAdded', dateAdded);
+		formData.append('dateAdded', dateAdded.toString());
 		formData.append('product', product);
 		formData.append('quantity', selectQuantity.toString());
 
@@ -113,12 +110,31 @@ export default function Product(props: ProductProps) {
 		}
 	};
 
+	const handleDeleteProduct = async () => {
+		try {
+			const response = await fetch('/api/delete/product', {
+				method: 'POST',
+				body: JSON.stringify({ id, image }),
+				headers: { 'Content-Type': 'application/json' },
+			});
+
+			if (response.ok) {
+				router.reload();
+			}
+		} catch (err) {
+			throw err;
+		}
+	};
+
 	return (
 		<>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<div className={styles.card}>
 					<div className={styles.startSectionCard}>
-						<Image className={styles.image} src={image} alt={product} width={400} height={200} priority={true} />
+						<div className={styles.imageButton}>
+							<Image className={styles.image} src={image} alt={product} width={400} height={200} priority={true} />
+							{userData && userData.admin ? <MdDelete className={styles.button} onClick={handleDeleteProduct} /> : null}
+						</div>
 						<h2>{product}</h2>
 						<h4>{description}</h4>
 					</div>

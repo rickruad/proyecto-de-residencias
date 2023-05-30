@@ -40,14 +40,19 @@ function sessionAuthSecurity() {
 
 module.exports = { connectionDatabase, sessionAuthSecurity };
 ```
+4. Ahora, ejecute el siguiente comando que va a instalar todo los modulos necesarios para el funcionamiento de la web
 
-4. Luego, ejecute el script que va a crear todo lo necesario para funcionar con el siguiente comando
+```bash
+npm install
+```
+
+5. Luego, ejecute el script que va a crear todo lo necesario para funcionar con el siguiente comando
 
 ```bash
 npm run setup
 ```
 
-5. Ahora inicie la página con el siguiente comando
+6. Ahora inicie la página con el siguiente comando
 
 ```bash
 npm run dev

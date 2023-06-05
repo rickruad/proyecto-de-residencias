@@ -1,4 +1,4 @@
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { setCookie } from 'nookies';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -30,7 +30,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 				return;
 			}
 
-			if (await compare(password.toString(), result[0].password)) {
+			if (!(await compare(password.toString(), result[0].password))) {
 				res.status(401).json({ auth: false });
 				return;
 			}

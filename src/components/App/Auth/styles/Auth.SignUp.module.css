@@ -3,8 +3,8 @@
 	flex-direction: column;
 	width: 100%;
 	align-items: center;
-	gap: 2rem;
-	padding: 2.5rem 3rem;
+	gap: 1rem;
+	padding: 1.5rem 3rem;
 }
 
 .container > h2 {
@@ -17,7 +17,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	gap: 1rem;
+	gap: 0.5rem;
 }
 
 .container > .inputs > .labelInput {

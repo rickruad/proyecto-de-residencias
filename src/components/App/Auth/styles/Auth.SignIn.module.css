@@ -83,6 +83,12 @@
 @media (min-width: 45rem) {
 	.container {
 		width: calc(100% - 18rem);
+		gap: 2rem;
+		padding: 2.5rem 3rem;
+	}
+
+	.container > .inputs {
+		gap: 1rem;
 	}
 }
 

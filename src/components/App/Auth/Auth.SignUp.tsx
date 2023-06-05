@@ -107,7 +107,7 @@ export default function AuthSignUp({ closeSignUp }: AuthSignUpProps) {
 			}
 
 			setErrorMessageStatus((status) => !status);
-			setErrorMessage('Correo electrónico ya existente');
+			setErrorMessage('Correo electrónico/Nombre de usuario ya existente');
 		} catch (err) {
 			throw err;
 		}

@@ -61,7 +61,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			'INSERT INTO users (email, password, username, birthdate, profile_picture, total_cashback, admin, session_auth) VALUES (?,?,?,?,?,?,?,?)';
 		const values = [email, encodedPassword, username, birthdate, profilePicture, null, 0, encodedSessionAuth];
 
-		db.query(query, values, (err, result) => {
+		db.query(query, values, (err) => {
 			if (err) {
 				res.status(409).json({ error: `${err}` });
 				return;

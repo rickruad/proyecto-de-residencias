@@ -29,7 +29,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 				res.status(401).json({ auth: false });
 				return;
 			}
-
+			
 			if (!(await compare(password.toString(), result[0].password))) {
 				res.status(401).json({ auth: false });
 				return;

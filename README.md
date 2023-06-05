@@ -1,4 +1,4 @@
-# Proyecto de residencias
+# ProtoApp
 
 Este es un proyecto realizado en React con NextJS y TypeScript
 
@@ -52,10 +52,16 @@ npm install
 npm run setup
 ```
 
-6. Ahora inicie la página con el siguiente comando
+6. Ahora construya la página con
 
 ```bash
-npm run dev
+npm run build
 ```
 
-> La página se iniciará en el siguiente puerto http://localhost:3000/
+7. Y por último, ejecutela con
+
+```bash
+npm run setup
+```
+
+> La página se iniciará en el siguiente puerto: http://localhost:3000/

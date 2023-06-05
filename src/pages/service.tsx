@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import { useContracts } from 'src/hooks/GetDBData';
 import { MdWorkspacesFilled } from 'react-icons/md';
 import { getServerSideProps } from 'src/utils/SessionAuthenticator';
 
+import { GetCurrentUserData } from 'src/hooks/GetDBData';
 import * as StringUtilities from 'src/utils/StringUtilities';
 
 import classNames from 'classnames';
@@ -22,6 +23,7 @@ interface ServiceProps {
 export default function Service(props: ServiceProps) {
 	const { session, sessionAuth } = props;
 	const router = useRouter();
+	const userData = GetCurrentUserData({ sessionAuth });
 	const selectedService = router.query.service ? router.query.service.toString() : '';
 	const [addContractStatus, setAddConctractStatus] = useState<boolean>(false);
 
@@ -62,7 +64,9 @@ export default function Service(props: ServiceProps) {
 					<MdWorkspacesFilled className={styles.icon} />
 					<h2>{name}</h2>
 				</article>
-				{renderContracts.length > 0 && <Button icon={'add'} onClick={handleAddContractStatusChange} />}
+				{renderContracts.length > 0 && userData?.admin && (
+					<Button icon={'add'} onClick={handleAddContractStatusChange} />
+				)}
 			</section>
 
 			<section className={classNames(styles.renderContracts, renderContracts.length > 0 ? null : styles.noContracts)}>
@@ -71,7 +75,7 @@ export default function Service(props: ServiceProps) {
 				) : (
 					<>
 						<h2>{'No hay contratos disponibles'}</h2>
-						<Button label={'Agregar contrato'} onClick={handleAddContractStatusChange} />
+						{userData?.admin && <Button label={'Agregar contrato'} onClick={handleAddContractStatusChange} />}
 					</>
 				)}
 			</section>

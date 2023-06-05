@@ -8,7 +8,7 @@ const localConfig = require('../../local.config.js');
 const { DBPASSWORD, DBPORT } = localConfig.connectionDatabase();
 const { amountHashSalt, sessionAuthMultiplier } = localConfig.sessionAuthSecurity();
 
-const proyectoDeResidenciasDataBase = 'CREATE DATABASE IF NOT EXISTS proyecto_de_residencias';
+const proyectoDeResidenciasDataBase = 'CREATE DATABASE IF NOT EXISTS protoapp';
 
 const createUsersTable = `CREATE TABLE IF NOT EXISTS users (
 	id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
@@ -101,7 +101,7 @@ setTimeout(() => {
 		user: 'root',
 		host: 'localhost',
 		password: DBPASSWORD,
-		database: 'proyecto_de_residencias',
+		database: 'protoapp',
 		port: DBPORT,
 	});
 

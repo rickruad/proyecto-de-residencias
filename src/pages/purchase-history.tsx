@@ -4,7 +4,8 @@ import * as GetDBData from 'src/hooks/GetDBData';
 
 import classNames from 'classnames';
 
-import { Head, Header, Footer } from 'src/components/shared';
+import { Header } from 'src/components/App';
+import { Head, Footer } from 'src/components/shared';
 import { Purchase } from 'src/components/PurchaseHistory';
 
 import styles from 'src/styles/purchase-history.module.css';

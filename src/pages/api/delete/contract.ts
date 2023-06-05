@@ -12,7 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 		const query: string = 'DELETE FROM contracts WHERE id = ?';
 
-		const imagePath = path.join(process.cwd(), '/public', image);
+		const imagePath = path.join(process.cwd(), 'uploads', image);
 		fs.unlink(imagePath, (err) => {
 			if (err) throw err;
 		});

@@ -1,7 +1,9 @@
 import { parseCookies } from 'nookies';
 import { GetServerSideProps } from 'next';
 
-import { Head, Header, Footer } from 'src/components/shared';
+import { Header } from 'src/components/App';
+
+import { Head, Footer } from 'src/components/shared';
 import { Carousel, Categories, Services, VirtualCard } from 'src/components/Home';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -27,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Home({ session, sessionAuth }: { session: boolean; sessionAuth: string }) {
 	return (
 		<>
-			<Head title={'Proyecto de residencias'} />
+			<Head title={'ProtoApp'} />
 
 			<Header session={session} sessionAuth={sessionAuth} />
 

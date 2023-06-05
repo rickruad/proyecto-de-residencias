@@ -1,0 +1,155 @@
+.header {
+	background-color: rgba(255, 255, 255, 0.9);
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+	backdrop-filter: saturate(180%) blur(5px);
+	position: sticky;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 4rem;
+	z-index: 99;
+}
+
+.header > .container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 80rem;
+	margin: auto;
+	padding: 0rem 1rem;
+	height: 100%;
+}
+
+.header > .container > h2 {
+	font-family: Google Sans;
+	font-weight: 700;
+	font-size: 1.2rem;
+	color: #333333;
+	user-select: none;
+	white-space: nowrap;
+}
+
+.header > .container > .buttons {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.header > .container > .buttons > .mdDashBoard,
+.header > .container > .buttons > .mdOutlineMenu,
+.header > .container > .buttons > .mdShoppingCart {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem;
+	height: 100%;
+	min-width: 4rem;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.header > .container > .buttons > .mdDashBoard:hover,
+.header > .container > .buttons > .mdOutlineMenu:hover,
+.header > .container > .buttons > .mdShoppingCart:hover {
+	background-color: rgba(240, 245, 250, 0.6);
+}
+
+.header > .container > .buttons > .mdDashBoard > .icon,
+.header > .container > .buttons > .mdOutlineMenu > .icon,
+.header > .container > .buttons > .mdShoppingCart > .icon {
+	width: 1.4rem;
+	height: 1.4rem;
+	color: #333333;
+}
+
+.header > .container > .buttons > .mdDashBoard > h5,
+.header > .container > .buttons > .mdOutlineMenu > h5,
+.header > .container > .buttons > .mdShoppingCart > h5,
+.header > .container > .buttons > .mdOutlineMenu > .labelButton {
+	font-family: Google Sans;
+	font-weight: 400;
+	white-space: nowrap;
+	color: #333333;
+}
+
+.header > .container > .buttons > .mdShoppingCart > .quantity {
+	position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 0.3rem;
+  margin-right: 0.3rem;
+  font-family: Google Sans;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #e94242;
+  height: 1.2rem;
+  width: 1.2rem;
+  border-radius: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header > .container > .buttons > .mdOutlineMenu > h4 {
+	font-family: Google Sans;
+	font-weight: 700;
+}
+
+.header > .container > .buttons > .mdOutlineMenu > h5:not(.labelButton) {
+	color: #e94242;
+}
+
+.header > .container > .buttons > .session {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	border-width: 1px;
+	border: 1px solid #dddddd;
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+}
+
+.header > .container > .buttons > .session > .image {
+	width: 2.5rem;
+	height: 2.5rem;
+	object-fit: cover;
+	object-position: center;
+}
+
+.header > .container > .buttons > .session > .noImage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	background-color: #ff716c;
+	font-family: Google Sans;
+	font-weight: 500;
+	color: #ffffff;
+}
+
+.header > .container > .buttons > .session > .info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.header > .container > .buttons > .session > .info > h4 {
+	font-family: Google Sans;
+	font-weight: 400;
+	color: #e94242;
+	font-size: 0.9rem;
+}
+
+.header > .container > .buttons > .session > .info > h5 {
+	font-family: Google Sans;
+	font-weight: 400;
+	color: #333333;
+	font-size: 0.8rem;
+}

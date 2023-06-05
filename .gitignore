@@ -37,9 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 # User
-public/img/contracts-pictures/*
-public/img/products-pictures/*
-public/img/users-pictures/*
+/uploads/*
 
 # local config
 local.config.js

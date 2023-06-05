@@ -161,27 +161,22 @@ setTimeout(async () => {
 	createAdmin.end();
 }, 2000);
 
-const folderPathUploads = path.join(process.cwd(), 'public/uploads');
-fs.mkdir(folderPathUploads, { recursive: true }, (err) => {
+const uploadsFolder = path.join(process.cwd(), '/uploads');
+fs.mkdir(uploadsFolder, { recursive: true }, (err) => {
 	if (err) throw err;
 });
 
-const folderPathTempFiles = path.join(process.cwd(), '/public/temp');
-fs.mkdir(folderPathTempFiles, { recursive: true }, (err) => {
+const usersPicturesFolder = path.join(process.cwd(), '/uploads/users-pictures');
+fs.mkdir(usersPicturesFolder, { recursive: true }, (err) => {
 	if (err) throw err;
 });
 
-const folderPathUsersPictures = path.join(process.cwd(), '/public/img/users-pictures');
-fs.mkdir(folderPathUsersPictures, { recursive: true }, (err) => {
+const productsPicturesFolder = path.join(process.cwd(), '/uploads/products-pictures');
+fs.mkdir(productsPicturesFolder, { recursive: true }, (err) => {
 	if (err) throw err;
 });
 
-const folderPathProductsPictures = path.join(process.cwd(), '/public/img/products-pictures');
-fs.mkdir(folderPathProductsPictures, { recursive: true }, (err) => {
-	if (err) throw err;
-});
-
-const folderPathContractsPictures = path.join(process.cwd(), '/public/img/contracts-pictures');
-fs.mkdir(folderPathContractsPictures, { recursive: true }, (err) => {
+const contractsPictures = path.join(process.cwd(), '/uploads/contracts-pictures');
+fs.mkdir(contractsPictures, { recursive: true }, (err) => {
 	if (err) throw err;
 });

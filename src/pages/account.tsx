@@ -3,7 +3,8 @@ import { getServerSideProps } from 'src/utils/SessionAuthenticator';
 import * as GetDBData from 'src/hooks/GetDBData';
 import * as StringUtilities from 'src/utils/StringUtilities';
 
-import { Head, Header, Footer } from 'src/components/shared';
+import { Header } from 'src/components/App';
+import { Head, Footer } from 'src/components/shared';
 import { UserData, UsersData, PurchaseHistory } from 'src/components/Account';
 
 import styles from 'src/styles/account.module.css';

@@ -16,17 +16,15 @@ export const config = {
 export const saveFile = (file: formidable.File, folder: string) => {
 	const extension = path.extname(file.originalFilename ? file.originalFilename.toString() : '');
 	const filename = `${Date.now()}${extension}`;
-	const filepath = path.join(process.cwd(), '/public/img', folder, filename);
-	const filepathdb = `/img/${folder}/${filename}`;
-	const buffer = fs.readFileSync(file.filepath);
+	const filepath = path.join(process.cwd(), 'uploads', folder, filename);
 	const writeStream = fs.createWriteStream(filepath);
 
-	writeStream.write(buffer);
+	writeStream.write(fs.readFileSync(file.filepath));
 	writeStream.end();
 
 	return new Promise((resolve, reject) => {
 		writeStream.on('finish', () => {
-			resolve(filepathdb);
+			resolve(`/api/uploads/${folder}/${filename}`);
 		});
 		writeStream.on('error', (error) => {
 			reject(error);

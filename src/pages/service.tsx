@@ -8,7 +8,8 @@ import * as StringUtilities from 'src/utils/StringUtilities';
 
 import classNames from 'classnames';
 
-import { Head, Header, Footer, Button } from 'src/components/shared';
+import { Header } from 'src/components/App';
+import { Head, Footer, Button } from 'src/components/shared';
 import { Contract, AddContract } from 'src/components/Service';
 
 import styles from 'src/styles/service.module.css';

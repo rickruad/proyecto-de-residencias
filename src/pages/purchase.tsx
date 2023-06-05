@@ -1,6 +1,7 @@
 import { getServerSideProps } from 'src/utils/SessionAuthenticator';
 
-import { Head, Header, Footer } from 'src/components/shared';
+import { Header } from 'src/components/App';
+import { Head, Footer } from 'src/components/shared';
 import { Cards, Summary, Form } from 'src/components/Purchase';
 
 import styles from 'src/styles/purchase.module.css';

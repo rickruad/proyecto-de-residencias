@@ -1,0 +1,160 @@
+.background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 150;
+	backdrop-filter: saturate(180%) blur(3.5px);
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.menu {
+	position: fixed;
+	z-index: 150;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+}
+
+.menu > .cartel {
+	position: relative;
+	z-index: 151;
+	background-color: #ffffff;
+	border-radius: 0.3rem;
+	padding: 1rem 0rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.menu > .cartel > .mdClose {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	color: #333333;
+	cursor: pointer;
+}
+
+.menu > .cartel > .profile {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding-inline: 1rem;
+	color: #333333;
+	background-color: #ffffff;
+	border-width: 1px;
+	margin-bottom: 0.5rem;
+}
+
+.menu > .cartel > .profile > .image {
+	width: 4rem;
+	height: 4rem;
+	object-fit: cover;
+	object-position: center;
+}
+
+.menu > .cartel > .profile > .noImage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	background-color: #ff716c;
+	font-family: Google Sans;
+	font-weight: 500;
+	color: #ffffff;
+}
+
+.menu > .cartel > .profile > .info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.menu > .cartel > .profile > .info > h4 {
+	font-family: Google Sans;
+	font-weight: 400;
+	color: #e94242;
+	font-size: 1.3rem;
+}
+
+.menu > .cartel > .profile > .info > h5 {
+	font-family: Google Sans;
+	font-weight: 400;
+	color: #333333;
+	font-size: 1.1rem;
+}
+
+.menu > .cartel > .button {
+	display: flex;
+	gap: 0.2rem;
+	align-items: center;
+	padding: 0.75rem 1rem;
+	width: 100%;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.menu > .cartel > .button:hover {
+	background-color: #e94242;
+}
+
+.menu > .cartel > .button > .icon {
+	width: 1.3rem;
+	height: 1.3rem;
+	color: #333333;
+}
+
+.menu > .cartel > .button > .text {
+	font-family: Google Sans;
+	font-weight: 500;
+	font-size: 0.9rem;
+	color: #333333;
+}
+
+@media (min-width: 1367px) {
+	.background {
+		display: none;
+	}
+
+	.menu {
+		display: block;
+		max-width: 1366px;
+		height: auto;
+		left: 50%;
+		top: auto;
+		transform: translateX(-50%);
+	}
+
+	.menu > .cartel {
+		width: 160px;
+		padding: 0rem;
+		overflow: hidden;
+		position: absolute;
+		top: 0.2rem;
+		right: 3.6rem;
+		background-color: #333333;
+	}
+
+	.menu > .cartel > .mdClose {
+		display: none;
+	}
+
+	.menu > .cartel > .button > .icon {
+		color: #ffffff;
+	}
+
+	.menu > .cartel > .button > .text {
+		color: #ffffff;
+	}
+}

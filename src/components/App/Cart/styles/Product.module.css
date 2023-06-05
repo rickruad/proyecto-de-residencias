@@ -1,0 +1,51 @@
+.product {
+	display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.product > .data {
+	display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product > .data > .mdDelete {
+	width: 30px;
+  height: 30px;
+  color: #333333;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.product > .data > .mdDelete:hover {
+	color: #e94242;
+}
+
+.product > .data > .productData {
+	display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.product > .data > .productData > h3 {
+	font-family: Google Sans;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #333333;
+}
+
+.product > .data > .productData > h5 {
+	font-family: Google Sans;
+  font-weight: 400;
+  color: #333333;
+}
+
+.product > h4 {
+	font-family: Google Sans;
+  font-weight: 500;
+  color: #333333;
+}

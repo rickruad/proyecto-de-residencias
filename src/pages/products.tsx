@@ -7,7 +7,8 @@ import * as StringUtilities from 'src/utils/StringUtilities';
 
 import classNames from 'classnames';
 
-import { Head, Header, Footer } from 'src/components/shared';
+import { Header } from 'src/components/App';
+import { Head, Footer } from 'src/components/shared';
 import { Product, AddProducts } from 'src/components/Products';
 
 import styles from 'src/styles/products.module.css';

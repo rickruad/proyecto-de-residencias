@@ -1,5 +1,4 @@
 .cardsSection {
-  margin-top: 5rem;
   width: 100%;
   padding: 1rem;
   display: flex;
@@ -42,7 +41,6 @@
   .cardsSection {
     max-width: 80rem;
     margin: auto;
-    margin-top: 5rem;
   }
 
   .cardsSection > .cardsContainer {

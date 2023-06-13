@@ -61,7 +61,7 @@ npm run build
 7. Y por último, ejecutela con
 
 ```bash
-npm run setup
+npm run start
 ```
 
 > La página se iniciará en el siguiente puerto: http://localhost:3000/
